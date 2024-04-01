@@ -1,0 +1,6 @@
+.vscode
+.idea
+cmake-build-debug
+CMakeLists.txt
+software/random_res
+sims/verilator/run_prog/single.log
