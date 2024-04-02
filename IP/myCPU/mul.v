@@ -195,24 +195,3 @@ endgenerate
 assign result = SOut + {COut[62:0], SecStageCarry[14]} + SecStageCarry[15];
 
 endmodule
-
-//multiplier MULDIV_EXE_MulDivExecutePlugin_multiplier (
-//  .CLK (aclk                                             ), //i
-//  .A   (MULDIV_EXE_MulDivExecutePlugin_absRj[31:0]       ), //i
-//  .B   (MULDIV_EXE_MulDivExecutePlugin_absRk[31:0]       ), //i
-//  .P   (MULDIV_EXE_MulDivExecutePlugin_multiplier_P[63:0])  //o
-//);
-module multiplier(
-    input          CLK,
-    input  [31:0]    A,
-    input  [31:0]    B,
-    output [63:0]    P
-); 
-    mul mul0(
-        .mul_clk(CLK),
-        .mul_signed(1'b0),
-        .x(A),
-        .y(B),
-        .result(P)
-    );
-endmodule
