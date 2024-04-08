@@ -3,6 +3,11 @@
 <Project>
     <Template>FPGA</Template>
     <Version>5</Version>
-    <Device name="" pn="">gw5ast138b-006</Device>
-    <FileList/>
+    <Device name="GW5AST-138B" pn="GW5AST-LV138FPG676AC2/I1">gw5ast138b-006</Device>
+    <FileList>
+        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v" type="file.verilog" enable="1"/>
+    </FileList>
 </Project>

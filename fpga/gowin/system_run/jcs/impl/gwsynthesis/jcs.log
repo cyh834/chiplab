@@ -1,0 +1,5 @@
+GowinSynthesis start
+Running parser ...
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v'
+GowinSynthesis finish

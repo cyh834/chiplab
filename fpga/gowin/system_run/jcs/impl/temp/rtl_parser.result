@@ -1,0 +1,18 @@
+[
+ {
+  "InstFile" : "/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v",
+  "InstLine" : 10,
+  "InstName" : "data_bank_sram",
+  "ModuleFile" : "/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "data_bank_sram"
+ },
+ {
+  "InstFile" : "/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v",
+  "InstLine" : 10,
+  "InstName" : "Gowin_PLL",
+  "ModuleFile" : "/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "Gowin_PLL"
+ }
+]

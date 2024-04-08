@@ -1,0 +1,29 @@
+{
+ "Device" : "GW5AST-138B",
+ "Files" : [
+  {
+   "Path" : "/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/temp/rtl_parser.result",
+ "Top" : "",
+ "VerilogStd" : "verilog_2001",
+ "VhdlStd" : "vhdl_93"
+}
