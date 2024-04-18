@@ -25,8 +25,8 @@ module tb();
   initial
   begin
     gpio_in = 4'b0;
-    #100 gpio_in = 4'b1;
-    #100 gpio_in = 4'b0;
+    #500000 gpio_in = 4'b1;
+    #50000 gpio_in = 4'b0;
   end
 
   reg         uart_rx;

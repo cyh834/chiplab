@@ -44,7 +44,6 @@ VCS_OPTS = -notice -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L
 	+incdir+$(IP)/myCPU/ \
 	+define+CLOCK_PERIOD=2 $(sim_vsrcs) $(sim_csrcs) \
 	+define+RANDOMIZE_MEM_INIT \
-	+define+RANDOMIZE_REG_INIT \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \
 	+define+RANDOMIZE_DELAY=0.1 \
@@ -85,6 +84,6 @@ verdi:
 	verdi $(sim_vsrcs) -ssf $(simv).fsdb &
 
 clean:
-	rm -rf $(output_dir) simv* csrc *.key DVE* *.h *.a *.daidir verdiLog novas_dump.log
+	rm -rf $(output_dir) simv* csrc *.key DVE* *.h *.a *.daidir verdiLog *.conf *.rc *.log
 
 .PHONY: run debug clean verilog

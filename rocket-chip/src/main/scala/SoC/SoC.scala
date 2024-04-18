@@ -89,7 +89,6 @@ class soc_top(implicit p: Parameters) extends LazyModule {
 
     val reset_btn = gpio.in(0)
 
-    pll.module.reset := reset_btn 
     pll.module.clock := clock
 
     masic.clock := mpll.pll_bundle.clkout(0)

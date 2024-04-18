@@ -4634,7 +4634,7 @@ module soc_top(
   );
   Gowin_PLL pll_pll (	// @[src/main/scala/SoC/PLL.scala:30:21]
     .clkin   (clock),
-    .reset   (reset_btn),	// @[src/main/scala/SoC/SoC.scala:90:28]
+    .reset   (reset),
     .lock    (/* unused */),
     .clkout0 (_pll_pll_clkout0),
     .clkout1 (/* unused */)
