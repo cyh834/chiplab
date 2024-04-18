@@ -111,6 +111,14 @@ wire         btb_en_t;
 wire  [31:0] excp_entry;
 wire  [31:0] inst_flush_pc;
 
+/*
+* btb lock
+* btb ret only maintain one clock
+* when pfs not ready go, should buffer btb ret
+*/
+reg [37:0] btb_lock_buffer;
+reg        btb_lock_en;
+
 assign {btb_pre_error_flush,
         btb_pre_error_flush_target  } = br_bus;
 
@@ -226,13 +234,7 @@ always @(posedge clk) begin
     endcase
 end
 
-/*
-* btb lock
-* btb ret only maintain one clock
-* when pfs not ready go, should buffer btb ret
-*/
-reg [37:0] btb_lock_buffer;
-reg        btb_lock_en;
+
 always @(posedge clk) begin
 	if (reset || flush_sign || fetch_en)
 		btb_lock_en <= 1'b0;

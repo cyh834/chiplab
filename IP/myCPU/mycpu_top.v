@@ -267,6 +267,85 @@ wire         fs_icache_miss;
 wire         ms_dcache_miss;
 wire         disable_cache;
 
+// difftest
+// from wb_stage
+wire            ws_valid_diff       ;
+wire            cnt_inst_diff       ;
+wire    [63:0]  timer_64_diff       ;
+wire    [ 7:0]  inst_ld_en_diff     ;
+wire    [31:0]  ld_paddr_diff       ;
+wire    [31:0]  ld_vaddr_diff       ;
+wire    [ 7:0]  inst_st_en_diff     ;
+wire    [31:0]  st_paddr_diff       ;
+wire    [31:0]  st_vaddr_diff       ;
+wire    [31:0]  st_data_diff        ;
+wire            csr_rstat_en_diff   ;
+wire    [31:0]  csr_data_diff       ;
+
+wire inst_valid_diff = ws_valid_diff;
+reg             cmt_valid           ;
+reg             cmt_cnt_inst        ;
+reg     [63:0]  cmt_timer_64        ;
+reg     [ 7:0]  cmt_inst_ld_en      ;
+reg     [31:0]  cmt_ld_paddr        ;
+reg     [31:0]  cmt_ld_vaddr        ;
+reg     [ 7:0]  cmt_inst_st_en      ;
+reg     [31:0]  cmt_st_paddr        ;
+reg     [31:0]  cmt_st_vaddr        ;
+reg     [31:0]  cmt_st_data         ;
+reg             cmt_csr_rstat_en    ;
+reg     [31:0]  cmt_csr_data        ;
+
+reg             cmt_wen             ;
+reg     [ 7:0]  cmt_wdest           ;
+reg     [31:0]  cmt_wdata           ;
+reg     [31:0]  cmt_pc              ;
+reg     [31:0]  cmt_inst            ;
+
+reg             cmt_excp_flush      ;
+reg             cmt_ertn            ;
+reg     [5:0]   cmt_csr_ecode       ;
+reg             cmt_tlbfill_en      ;
+reg     [4:0]   cmt_rand_index      ;
+
+// to difftest debug
+reg             trap                ;
+reg     [ 7:0]  trap_code           ;
+reg     [63:0]  cycleCnt            ;
+reg     [63:0]  instrCnt            ;
+
+// from regfile
+wire    [31:0]  regs[31:0]          ;
+
+// from csr
+wire    [31:0]  csr_crmd_diff_0     ;
+wire    [31:0]  csr_prmd_diff_0     ;
+wire    [31:0]  csr_ectl_diff_0     ;
+wire    [31:0]  csr_estat_diff_0    ;
+wire    [31:0]  csr_era_diff_0      ;
+wire    [31:0]  csr_badv_diff_0     ;
+wire	[31:0]  csr_eentry_diff_0   ;
+wire 	[31:0]  csr_tlbidx_diff_0   ;
+wire 	[31:0]  csr_tlbehi_diff_0   ;
+wire 	[31:0]  csr_tlbelo0_diff_0  ;
+wire 	[31:0]  csr_tlbelo1_diff_0  ;
+wire 	[31:0]  csr_asid_diff_0     ;
+wire 	[31:0]  csr_save0_diff_0    ;
+wire 	[31:0]  csr_save1_diff_0    ;
+wire 	[31:0]  csr_save2_diff_0    ;
+wire 	[31:0]  csr_save3_diff_0    ;
+wire 	[31:0]  csr_tid_diff_0      ;
+wire 	[31:0]  csr_tcfg_diff_0     ;
+wire 	[31:0]  csr_tval_diff_0     ;
+wire 	[31:0]  csr_ticlr_diff_0    ;
+wire 	[31:0]  csr_llbctl_diff_0   ;
+wire 	[31:0]  csr_tlbrentry_diff_0;
+wire 	[31:0]  csr_dmw0_diff_0     ;
+wire 	[31:0]  csr_dmw1_diff_0     ;
+wire 	[31:0]  csr_pgdl_diff_0     ;
+wire 	[31:0]  csr_pgdh_diff_0     ;
+
+
 // IF stage
 if_stage if_stage(
     .clk             (aclk           ),
@@ -967,84 +1046,8 @@ perf_counter perf_counter(
     .br_pre_error   (br_pre_error   )
 );
 
+
 `ifdef DIFFTEST_EN
-// difftest
-// from wb_stage
-wire            ws_valid_diff       ;
-wire            cnt_inst_diff       ;
-wire    [63:0]  timer_64_diff       ;
-wire    [ 7:0]  inst_ld_en_diff     ;
-wire    [31:0]  ld_paddr_diff       ;
-wire    [31:0]  ld_vaddr_diff       ;
-wire    [ 7:0]  inst_st_en_diff     ;
-wire    [31:0]  st_paddr_diff       ;
-wire    [31:0]  st_vaddr_diff       ;
-wire    [31:0]  st_data_diff        ;
-wire            csr_rstat_en_diff   ;
-wire    [31:0]  csr_data_diff       ;
-
-wire inst_valid_diff = ws_valid_diff;
-reg             cmt_valid           ;
-reg             cmt_cnt_inst        ;
-reg     [63:0]  cmt_timer_64        ;
-reg     [ 7:0]  cmt_inst_ld_en      ;
-reg     [31:0]  cmt_ld_paddr        ;
-reg     [31:0]  cmt_ld_vaddr        ;
-reg     [ 7:0]  cmt_inst_st_en      ;
-reg     [31:0]  cmt_st_paddr        ;
-reg     [31:0]  cmt_st_vaddr        ;
-reg     [31:0]  cmt_st_data         ;
-reg             cmt_csr_rstat_en    ;
-reg     [31:0]  cmt_csr_data        ;
-
-reg             cmt_wen             ;
-reg     [ 7:0]  cmt_wdest           ;
-reg     [31:0]  cmt_wdata           ;
-reg     [31:0]  cmt_pc              ;
-reg     [31:0]  cmt_inst            ;
-
-reg             cmt_excp_flush      ;
-reg             cmt_ertn            ;
-reg     [5:0]   cmt_csr_ecode       ;
-reg             cmt_tlbfill_en      ;
-reg     [4:0]   cmt_rand_index      ;
-
-// to difftest debug
-reg             trap                ;
-reg     [ 7:0]  trap_code           ;
-reg     [63:0]  cycleCnt            ;
-reg     [63:0]  instrCnt            ;
-
-// from regfile
-wire    [31:0]  regs[31:0]          ;
-
-// from csr
-wire    [31:0]  csr_crmd_diff_0     ;
-wire    [31:0]  csr_prmd_diff_0     ;
-wire    [31:0]  csr_ectl_diff_0     ;
-wire    [31:0]  csr_estat_diff_0    ;
-wire    [31:0]  csr_era_diff_0      ;
-wire    [31:0]  csr_badv_diff_0     ;
-wire	[31:0]  csr_eentry_diff_0   ;
-wire 	[31:0]  csr_tlbidx_diff_0   ;
-wire 	[31:0]  csr_tlbehi_diff_0   ;
-wire 	[31:0]  csr_tlbelo0_diff_0  ;
-wire 	[31:0]  csr_tlbelo1_diff_0  ;
-wire 	[31:0]  csr_asid_diff_0     ;
-wire 	[31:0]  csr_save0_diff_0    ;
-wire 	[31:0]  csr_save1_diff_0    ;
-wire 	[31:0]  csr_save2_diff_0    ;
-wire 	[31:0]  csr_save3_diff_0    ;
-wire 	[31:0]  csr_tid_diff_0      ;
-wire 	[31:0]  csr_tcfg_diff_0     ;
-wire 	[31:0]  csr_tval_diff_0     ;
-wire 	[31:0]  csr_ticlr_diff_0    ;
-wire 	[31:0]  csr_llbctl_diff_0   ;
-wire 	[31:0]  csr_tlbrentry_diff_0;
-wire 	[31:0]  csr_dmw0_diff_0     ;
-wire 	[31:0]  csr_dmw1_diff_0     ;
-wire 	[31:0]  csr_pgdl_diff_0     ;
-wire 	[31:0]  csr_pgdh_diff_0     ;
 
 always @(posedge aclk) begin
     if (reset) begin

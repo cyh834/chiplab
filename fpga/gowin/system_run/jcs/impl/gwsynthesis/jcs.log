@@ -1,5 +1,108 @@
 GowinSynthesis start
 Running parser ...
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/IP/gowin_ip/data_bank_sram/data_bank_sram.v'
-Analyzing Verilog file '/home/cyh/chiplab/IP/gowin_ip/gowin_pll/gowin_pll.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/gowin_ip/xilinx2gowin.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/addr_trans.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/addr_trans.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/addr_trans.v'("/home/cyh/chiplab/IP/myCPU/addr_trans.v":1)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/alu.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/axi_bridge.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/btb.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/csr.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/csr.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/csr.v'("/home/cyh/chiplab/IP/myCPU/csr.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/csr.v":2)
+Back to file '/home/cyh/chiplab/IP/myCPU/csr.v'("/home/cyh/chiplab/IP/myCPU/csr.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/dcache.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/div.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/exe_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/exe_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/exe_stage.v'("/home/cyh/chiplab/IP/myCPU/exe_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/exe_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/myCPU/exe_stage.v'("/home/cyh/chiplab/IP/myCPU/exe_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/icache.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/id_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/id_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/id_stage.v'("/home/cyh/chiplab/IP/myCPU/id_stage.v":1)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/if_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/if_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/if_stage.v'("/home/cyh/chiplab/IP/myCPU/if_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/if_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/myCPU/if_stage.v'("/home/cyh/chiplab/IP/myCPU/if_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/mem_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/mem_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/mem_stage.v'("/home/cyh/chiplab/IP/myCPU/mem_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/mem_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/myCPU/mem_stage.v'("/home/cyh/chiplab/IP/myCPU/mem_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/mul.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/mycpu_top.v'
+Undeclared symbol 'ws_valid_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":611)
+Undeclared symbol 'cnt_inst_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":612)
+Undeclared symbol 'timer_64_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":613)
+Undeclared symbol 'inst_ld_en_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":614)
+Undeclared symbol 'ld_paddr_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":615)
+Undeclared symbol 'ld_vaddr_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":616)
+Undeclared symbol 'inst_st_en_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":617)
+Undeclared symbol 'st_paddr_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":618)
+Undeclared symbol 'st_vaddr_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":619)
+Undeclared symbol 'st_data_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":620)
+Undeclared symbol 'csr_rstat_en_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":621)
+Undeclared symbol 'csr_data_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":622)
+Undeclared symbol 'csr_crmd_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":690)
+Undeclared symbol 'csr_prmd_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":691)
+Undeclared symbol 'csr_ectl_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":692)
+Undeclared symbol 'csr_estat_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":693)
+Undeclared symbol 'csr_era_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":694)
+Undeclared symbol 'csr_badv_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":695)
+Undeclared symbol 'csr_eentry_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":696)
+Undeclared symbol 'csr_tlbidx_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":697)
+Undeclared symbol 'csr_tlbehi_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":698)
+Undeclared symbol 'csr_tlbelo0_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":699)
+Undeclared symbol 'csr_tlbelo1_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":700)
+Undeclared symbol 'csr_asid_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":701)
+Undeclared symbol 'csr_save0_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":702)
+Undeclared symbol 'csr_save1_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":703)
+Undeclared symbol 'csr_save2_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":704)
+Undeclared symbol 'csr_save3_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":705)
+Undeclared symbol 'csr_tid_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":706)
+Undeclared symbol 'csr_tcfg_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":707)
+Undeclared symbol 'csr_tval_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":708)
+Undeclared symbol 'csr_ticlr_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":709)
+Undeclared symbol 'csr_llbctl_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":710)
+Undeclared symbol 'csr_tlbrentry_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":711)
+Undeclared symbol 'csr_dmw0_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":712)
+Undeclared symbol 'csr_dmw1_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":713)
+Undeclared symbol 'csr_pgdl_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":714)
+Undeclared symbol 'csr_pgdh_diff_0', assumed default net type 'wire'("/home/cyh/chiplab/IP/myCPU/mycpu_top.v":715)
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/perf_counter.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/regfile.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/tlb_entry.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/tools.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/myCPU/wb_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/mycpu.h'("/home/cyh/chiplab/IP/myCPU/wb_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/myCPU/wb_stage.v'("/home/cyh/chiplab/IP/myCPU/wb_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/myCPU/csr.h'("/home/cyh/chiplab/IP/myCPU/wb_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/myCPU/wb_stage.v'("/home/cyh/chiplab/IP/myCPU/wb_stage.v":2)
+Compiling module 'data_bank_sram'("/home/cyh/chiplab/IP/gowin_ip/xilinx2gowin.v":26)
+Compiling module 'SP_256x32'("/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v":10)
+NOTE  (EX0101) : Current top module is "data_bank_sram"
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg" completed
+[100%] Generate report file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs_syn.rpt.html" completed
 GowinSynthesis finish

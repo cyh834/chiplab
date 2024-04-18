@@ -1,6 +1,10 @@
 .vscode
+.conda
 .idea
+.bloop
+.metals
 cmake-build-debug
 CMakeLists.txt
 software/random_res
 sims/verilator/run_prog/single.log
+rocket-tools

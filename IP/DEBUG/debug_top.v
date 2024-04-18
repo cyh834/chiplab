@@ -17,7 +17,7 @@ module debug_top(
      output          uart_txd          
      );
  
-  //parameter define
+//parameter define
 parameter  CLK_FREQ = 50000000;         
 parameter  UART_BPS = 9600;          
     

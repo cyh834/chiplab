@@ -90,6 +90,11 @@ wire        ds_btb_en;
 wire [ 4:0] ds_btb_index;
 wire [31:0] ds_btb_target;
 
+// difftest
+wire [7:0]  inst_ld_en;
+wire [7:0]  inst_st_en;
+wire        inst_csr_rstat_en;
+
 assign {ds_btb_target,  //108:77
         ds_btb_index,   //76:72
         ds_btb_taken,   //71:71
@@ -947,10 +952,7 @@ assign pipeline_no_empty = es_to_ds_valid || ms_to_ds_valid || ws_to_ds_valid ||
 assign dbar_stall = inst_dbar && pipeline_no_empty;
 assign ibar_stall = inst_ibar && pipeline_no_empty;
 
-// difftest
-wire [7:0]  inst_ld_en;
-wire [7:0]  inst_st_en;
-wire        inst_csr_rstat_en;
+
 
 // ll ldw ldhu ldh ldbu ldb
 assign inst_ld_en = {2'b0, inst_ll_w, inst_ld_w, inst_ld_hu, inst_ld_h, inst_ld_bu, inst_ld_b};
