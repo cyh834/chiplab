@@ -16,7 +16,6 @@ ${GCC_BIN}/loongarch32r-linux-gnusf-objcopy -O binary -j .rodata -j .data -j .sd
 mkdir -p obj 
 mv main.elf ./obj/
 mv test.s    ./obj/
-mv main.bin  ./obj/
 mv main.data ./obj/
 gcc ./convert.c -o convert
 mv ./convert ./obj/ 

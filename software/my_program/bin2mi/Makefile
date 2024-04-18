@@ -1,8 +1,4 @@
-script:
-	./script.sh hello.c
-
-mi:
-	./script.sh hello.c 
+all:
 	gcc bin2coe.c -o bin2coe -std=c99 -Wall -Wextra
 	./bin2coe
 	gcc coe2newcoe.c -o coe2newcoe -std=c99 -Wall -Wextra
@@ -14,7 +10,8 @@ mi:
 	rm bin2coe
 	rm coe2newcoe
 	rm coe2mi
-	rm main.bin
-	rm -r obj
 clean:
-	rm main.mi
+	rm start.mi
+	
+
+
