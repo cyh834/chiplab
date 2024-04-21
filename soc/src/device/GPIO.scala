@@ -57,6 +57,8 @@ class APBGPIO(address: Seq[AddressSet])(implicit p: Parameters) extends LazyModu
     val gpio_bundle = IO(new GPIOIO)
 
     val mgpio = Module(new gpio_top_apb)
+    mgpio.io.clock := clock
+    mgpio.io.reset := reset.asBool
     mgpio.io.in <> in
     gpio_bundle <> mgpio.io.gpio
   }

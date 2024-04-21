@@ -20,5 +20,5 @@ class SoCTop extends Module {
 
 object Elaborate extends App {
   val firtoolOptions = Array("--disable-annotation-unknown")
-  circt.stage.ChiselStage.emitSystemVerilogFile(new ysyxSoCTop, args, firtoolOptions)
+  circt.stage.ChiselStage.emitSystemVerilogFile(new SoCTop, args, firtoolOptions)
 }

@@ -25,75 +25,104 @@ object MySDPBBundleParameters {
   def apply():SDPBBundleParameters = SDPBBundleParameters(a_depth = 65536, a_dataBits = 32, b_depth = 65536, b_dataBits = 32)
 }
 
-class SDPBIO(params: SDPBBundleParameters = MySDPBBundleParameters) extends Bundle{
-    val reset = Input(Bool())
-    val oce = Input(Bool())
+class SDPBIO(params: SDPBBundleParameters = MySDPBBundleParameters()) extends Bundle{
+    val reset     = Output(Bool())
+    val oce       = Output(Bool())
     //写端口
-    val clka = Input(Clock())
-    val cea = Input(Bool())
-    val ada = Input(UInt(params.a_addrBits.W))
-    val din = Input(UInt(params.a_dataBits.W))
-    val byte_ena = Input(UInt(params.a_strbBits.W))
+    val clka      = Output(Bool())
+    val cea       = Output(Bool())
+    val ada       = Output(UInt(params.a_addrBits.W))
+    val din       = Output(UInt(params.a_dataBits.W))
+    val byte_ena  = Output(UInt(params.a_strbBits.W))
     //读端口
-    val clkb = Input(Clock())
-    val ceb = Input(Bool())
-    val adb = Input(UInt(params.b_addrBits.W))
-    val dout = Output(UInt(params.b_dataBits.W))
+    val clkb      = Output(Bool())
+    val ceb       = Output(Bool())
+    val adb       = Output(UInt(params.b_addrBits.W))
+    val dout      = Input(UInt(params.b_dataBits.W))
 }
 
-class sram(params: SDPBBundleParameters = MySDPBBundleParameters) extends BlackBox {
-  val io = IO(new SDPBIO(params))
+class sdpb_top extends Module {
+  val io = IO(new Bundle {
+    val clock = Input(Clock())
+    val reset = Input(Bool())
+    val in = Flipped(new AXI4Bundle(AXI4BundleParameters(addrBits = 32, dataBits = 32, idBits = 4)))
+    val sdpb = new SDPBIO
+  })
+    io.sdpb.reset := io.reset
+    io.sdpb.oce := 1.U
+
+    // burst is not supported
+    assert(!(io.in.ar.valid && io.in.ar.bits.len =/= 0.U))
+    assert(!(io.in.aw.valid && io.in.aw.bits.len =/= 0.U))
+    // size > 4 is not supported
+    assert(!(io.in.ar.valid && io.in.ar.bits.size > "b10".U))
+    assert(!(io.in.aw.valid && io.in.aw.bits.size > "b10".U))
+
+
+    val s_idle :: s_wait :: Nil = Enum(2)
+
+    //read channel
+    val rstate = RegInit(s_idle)
+    rstate := MuxLookup(rstate, s_idle)(Seq(
+      s_idle -> Mux(io.in.ar.fire , s_wait, s_idle),
+      s_wait -> Mux(io.in.r.fire || io.in.ar.fire, s_idle, s_wait)
+    ))
+
+    io.in. r.valid := rstate === s_wait
+    io.in.ar.ready := true.B
+    io.in. r.bits.resp := AXI4Parameters.RESP_OKAY
+    io.in. r.bits.data := RegEnable(io.sdpb.dout, io.in.ar.fire)
+    io.in. r.bits.last := true.B
+    io.in. r.bits.id := RegEnable(io.in.ar.bits.id, io.in.ar.fire)
+
+    io.sdpb.clkb := clock.asBool
+    io.sdpb.ceb := io.in.ar.fire
+    io.sdpb.adb := io.in.ar.bits.addr
+
+    //write channel
+    val wstate = RegInit(s_idle)
+    wstate := MuxLookup(wstate, s_idle)(Seq(
+      s_idle -> Mux(io.in.aw.fire && io.in.w.fire, s_wait, s_idle),
+      s_wait -> Mux(io.in.b.fire || (io.in.aw.fire && io.in.w.fire), s_idle, s_wait)
+    ))
+    io.in.aw.ready := true.B
+    io.in. w.ready := true.B
+    io.in.b.valid := wstate === s_wait
+    io.in.b.bits.resp := AXI4Parameters.RESP_OKAY
+    io.in.b.bits.id := RegEnable(io.in.aw.bits.id, io.in.aw.fire)
+
+    io.sdpb.clka := clock.asBool
+    io.sdpb.cea := io.in.aw.fire
+    io.sdpb.ada := io.in.aw.bits.addr
+    io.sdpb.din := io.in.w.bits.data
+    io.sdpb.byte_ena := io.in.w.bits.strb
 }
 
-class AXI4SRAM extends Module {
-  val io=IO(Flipped(new AXI4Bundle(CPUAXI4BundleParameters())))
+class sram(params: SDPBBundleParameters = MySDPBBundleParameters()) extends BlackBox {
+  val io = IO(Flipped(new SDPBIO(params)))
+}
 
-  val bsram = IO(new SDPBIO(params))
-  bsram.io.reset := reset.asBool
-  bsram.io.oce := 1.U
+class AXI4SRAM(address: Seq[AddressSet])(implicit p: Parameters) extends LazyModule {
+  val beatBytes = 4
 
-  // burst is not supported
-  assert(!(io.ar.valid && io.ar.bits.len =/= 0.U))
-  assert(!(io.aw.valid && io.aw.bits.len =/= 0.U))
-  // size > 4 is not supported
-  assert(!(io.ar.valid && io.ar.bits.size > "b10".U))
-  assert(!(io.aw.valid && io.aw.bits.size > "b10".U))
+  val node = AXI4SlaveNode(Seq(AXI4SlavePortParameters(
+    Seq(AXI4SlaveParameters(
+        address       = address,
+        executable    = true,
+        supportsWrite = TransferSizes(1, beatBytes), //范围：[1,beatBytes]
+        supportsRead  = TransferSizes(1, beatBytes), //范围：[1,beatBytes]
+        interleavedId = Some(0))),
+    beatBytes  = beatBytes)))
 
+  lazy val module = new Impl
+  class Impl extends LazyModuleImp(this) {
+    val (in, _) = node.in(0)
 
-  val s_idle :: s_wait :: Nil = Enum(2)
-
-  //read channel
-  val rstate = RegInit(s_idle)
-  rstate := MuxLookup(rstate, s_idle, Seq(
-    s_idle -> Mux(io.ar.fire , s_wait, s_idle),
-    s_wait -> Mux(io.r.fire || io.ar.fire, s_idle, s_wait)
-  ))
-  io. r.valid := rstate === s_wait
-  io.ar.ready := true.B
-  io. r.bits.resp := AXI4Parameters.RESP_OKAY
-  io. r.bits.data := RegEnable(bsram.io.dout, io.ar.fire)
-  io. r.bits.last := true.B
-  io .r.bits.id := RegEnable(io.ar.bits.id, io.ar.fire)
-
-  bsram.io.clkb := clock
-  bsram.io.ceb := io.ar.fire
-  bsram.io.adb := io.ar.bits.addr
-
-  //write channel
-  val wstate = RegInit(s_idle)
-  wstate := MuxLookup(wstate, s_idle, Seq(
-    s_idle -> Mux(io.aw.fire && io.w.fire, s_wait, s_idle),
-    s_wait -> Mux(io.b.fire || (io.aw.fire && io.w.fire), s_idle, s_wait)
-  ))
-  io.aw.ready := true.B
-  io. w.ready := true.B
-  io.b.valid := wstate === s_wait
-  io.b.bits.resp := AXI4Parameters.RESP_OKAY
-  io.b.bits.id := RegEnable(io.aw.bits.id, io.aw.fire)
-
-  bsram.io.clka := clock
-  bsram.io.cea := io.aw.fire
-  bsram.io.ada := io.aw.bits.addr
-  bsram.io.din := io.w.bits.data
-  bsram.io.byte_ena := io.w.bits.strb
+    val sram_bundle = IO(new SDPBIO)
+    val msram = Module(new sdpb_top)
+    msram.io.clock := clock
+    msram.io.reset := reset.asBool
+    msram.io.in <> in
+    sram_bundle <> msram.io.sdpb
+  }
 }

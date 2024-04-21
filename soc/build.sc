@@ -49,15 +49,15 @@ trait RocketChip extends millbuild.`rocket-chip`.common.RocketChipModule with Ha
   }
 }
 
-trait ysyxSoCModule extends ScalaModule {
+trait SoCModule extends ScalaModule {
   def rocketModule: ScalaModule
   override def moduleDeps = super.moduleDeps ++ Seq(
     rocketModule,
   )
 }
 
-object ysyxsoc extends ysyxSoC
-trait ysyxSoC extends ysyxSoCModule with HasChisel {
+object soc extends SoC
+trait SoC extends SoCModule with HasChisel {
   override def millSourcePath = os.pwd
   def rocketModule = rocketchip
   override def sources = T.sources {

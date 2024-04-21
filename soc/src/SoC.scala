@@ -33,7 +33,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   
   val luart = LazyModule(new APBUart(AddressSet.misaligned(0x1FE00000, 0x10000)))
   val lgpio = LazyModule(new APBGPIO(AddressSet.misaligned(0x1FD10000, 0x10)))
-  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x1C000000, 0x40000)))
+  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x2C000000, 0x40000)))
   //val lvga = LazyModule(new APBVGA(AddressSet.misaligned(0x21000000, 0x200000)))
   val lspi  = LazyModule(new APBSPI(
     AddressSet.misaligned(0x00000000, 0x100000) ++  // XIP flash 
@@ -43,11 +43,10 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val ltimer = LazyModule(new APBTimer(AddressSet.misaligned(0x1FD20000, 0x10)))
   val lint = LazyModule(new APBInt(AddressSet.misaligned(0x10005000, 0x10)))
   val lsram = LazyModule(new AXI4SRAM(AddressSet.misaligned(0x1C000000, 0x40000)))
-  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x2C000000, 0x40000)))
 
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lconf.node, lint.node).map(_ := apbxbar)
-  List(apbxbar := AXI4ToAPB(), sramNode).map(_ := xbar2)
-  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.get.node ):= xbar
+  List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
+  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.node ).map( _ := xbar)
 
   xbar := cpu.masterNode
 
@@ -56,22 +55,20 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     // 为 CPU 生成延迟的复位信号
     cpu.module.reset := SynchronizerShiftReg(reset.asBool, 10) || reset.asBool
 
-    // 连接中断信号到 CPU
-    val intr_from_chipSlave = IO(Input(UInt(8.W)))
     //TODO:连接到lint
     cpu.module.interrupt := 0.U(8.W)
 
     // 暴露外设的接口作为端口
     val spi = IO(chiselTypeOf(lspi.module.spi_bundle))
     val uart = IO(chiselTypeOf(luart.module.uart_bundle))
-    val sdram = IO(chiselTypeOf(sdram.get.module.sdram_bundle))
+    val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
     val gpio = IO(chiselTypeOf(lgpio.module.gpio_bundle))
     //val vga = IO(chiselTypeOf(lvga.module.vga_bundle))
     val sram = IO(chiselTypeOf(lsram.module.sram_bundle))
 
     uart <> luart.module.uart_bundle
     spi <> lspi.module.spi_bundle
-    sdram <> lsdram.get.module.sdram_bundle
+    sdram <> lsdram.module.sdram_bundle
     gpio <> lgpio.module.gpio_bundle
     //vga <> lvga.module.vga_bundle
     sram <> lsram.module.sram_bundle
@@ -88,10 +85,6 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
   class Impl extends LazyModuleImp(this) with DontTouch {
     val masic = asic.module
     val mpll = pll.module
-
-    //val vga = IO(chiselTypeOf(masic.vga))
-    val uart = IO(chiselTypeOf(masic.uart))
-    val gpio = IO(chiselTypeOf(masic.gpio))
 
     val flash = Module(new flash)
     flash.io <> masic.spi
@@ -117,7 +110,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.clock := mpll.pll_bundle.clkout(0)
 
     //处理复位信号
-    val reset_btn = gpio.in(0)
-    List(masic, sram).map(_.reset := reset_btn)
+    val reset_btn = externalPins.gpio.in(0)
+    List(masic).map(_.reset := reset_btn)
   }
 }
