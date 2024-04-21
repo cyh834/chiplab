@@ -4,28 +4,7 @@
     <Version>beta</Version>
     <Device id="GW5AST-138B" package="FCPBGA676A" speed="2" partNumber="GW5AST-LV138FPG676AC2/I1"/>
     <FileList>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/xilinx2gowin.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/addr_trans.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/alu.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/axi_bridge.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/btb.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/csr.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/dcache.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/div.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/exe_stage.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/icache.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/id_stage.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/if_stage.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mem_stage.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mul.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mycpu_top.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/perf_counter.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/regfile.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/tlb_entry.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/tools.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/wb_stage.v" type="verilog"/>
+        <File path="/home/cyh/Chisel-FFT-generator/Verilog/Sender.v" type="verilog"/>
     </FileList>
     <OptionList>
         <Option type="disable_insert_pad" value="0"/>
@@ -35,8 +14,8 @@
         <Option type="output_file" value="/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg"/>
         <Option type="print_all_synthesis_warning" value="0"/>
         <Option type="ram_rw_check" value="0"/>
-        <Option type="top_module" value="data_bank_sram"/>
-        <Option type="verilog_language" value="sysv-2017"/>
+        <Option type="top_module" value="Sender"/>
+        <Option type="verilog_language" value="verilog-2001"/>
         <Option type="vhdl_language" value="vhdl-1993"/>
     </OptionList>
 </Project>

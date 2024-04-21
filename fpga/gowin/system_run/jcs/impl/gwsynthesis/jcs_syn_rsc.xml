@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="data_bank_sram" Lut="1" T_Lut="1(1)" T_Bsram="1(0)">
- <SubModule name="sp0" Bsram="1" T_Bsram="1(1)"/>
+<Module name="Sender" Register="40" Alu="31" Lut="48" T_Register="81(40)" T_Alu="31(31)" T_Lut="97(48)">
+ <SubModule name="tx" T_Register="41(0)" T_Lut="49(0)">
+  <SubModule name="tx" Register="33" Lut="47" T_Register="33(33)" T_Lut="47(47)"/>
+  <SubModule name="buf_" Register="8" Lut="2" T_Register="8(8)" T_Lut="2(2)"/>
+ </SubModule>
 </Module>

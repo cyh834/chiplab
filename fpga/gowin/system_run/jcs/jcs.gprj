@@ -5,30 +5,7 @@
     <Version>5</Version>
     <Device name="GW5AST-138B" pn="GW5AST-LV138FPG676AC2/I1">gw5ast138b-006</Device>
     <FileList>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/gowin_ip/xilinx2gowin.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/addr_trans.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/alu.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/axi_bridge.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/btb.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/csr.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/dcache.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/div.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/exe_stage.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/icache.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/id_stage.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/if_stage.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mem_stage.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mul.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mycpu_top.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/perf_counter.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/regfile.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/tlb_entry.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/tools.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/wb_stage.v" type="file.verilog" enable="1"/>
-        <File path="src/gowin_sdpb/SRAM_SDPB.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/csr.h" type="file.other" enable="1"/>
-        <File path="/home/cyh/chiplab/IP/myCPU/mycpu.h" type="file.other" enable="1"/>
+        <File path="/home/cyh/Chisel-FFT-generator/Verilog/Sender.v" type="file.verilog" enable="1"/>
+        <File path="src/jcs.cst" type="file.cst" enable="1"/>
     </FileList>
 </Project>

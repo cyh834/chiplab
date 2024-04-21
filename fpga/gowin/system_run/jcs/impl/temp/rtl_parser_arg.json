@@ -2,95 +2,7 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/gowin_sdpb/SRAM_SDPB.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/gowin_ip/SP_256x21/SP_256x21.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/gowin_ip/SP_256x32/SP_256x32.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/gowin_ip/xilinx2gowin.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/addr_trans.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/alu.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/axi_bridge.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/btb.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/csr.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/dcache.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/div.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/exe_stage.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/icache.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/id_stage.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/if_stage.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/mem_stage.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/mul.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/mycpu_top.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/perf_counter.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/regfile.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/tlb_entry.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/tools.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/IP/myCPU/wb_stage.v",
+   "Path" : "/home/cyh/Chisel-FFT-generator/Verilog/Sender.v",
    "Type" : "verilog"
   }
  ],
@@ -99,7 +11,7 @@
  ],
  "LoopLimit" : 2000,
  "ResultFile" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/temp/rtl_parser.result",
- "Top" : "data_bank_sram",
- "VerilogStd" : "sysv",
+ "Top" : "Sender",
+ "VerilogStd" : "verilog_2001",
  "VhdlStd" : "vhdl_93"
 }

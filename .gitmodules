@@ -1,0 +1,6 @@
+[submodule "toolchains/openFPGALoader"]
+	path = toolchains/openFPGALoader
+	url = https://github.com/trabucayre/openFPGALoader.git
+[submodule "soc/rocket-chip"]
+	path = soc/rocket-chip
+	url = git@github.com:chipsalliance/rocket-chip.git

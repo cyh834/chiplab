@@ -1,0 +1,17 @@
+-d /home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg
+-p GW5AST-138B-FCPBGA676A-2
+-pn GW5AST-LV138FPG676AC2/I1
+-cst /home/cyh/chiplab/fpga/gowin/system_run/jcs/src/jcs.cst
+-cfg /home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/device.cfg
+-bit
+-tr
+-ph
+-timing
+-ireg_not_in_iob
+-oreg_not_in_iob
+-ioreg_not_in_iob
+-cst_error
+-correct_hold 1
+-route_maxfan 23
+-global_freq 100.000
+-enable_dsrm 0
