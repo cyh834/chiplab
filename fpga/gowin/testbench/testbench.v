@@ -37,27 +37,13 @@ module tb();
     uart_rx = 1'b0;
   end
 
-  reg         flash_miso;
-  wire        flash_sck;
-  wire [7:0]  flash_ss;
-  wire        flash_mosi;
-
-  initial
-  begin
-    flash_miso = 1'b0;
-  end
-
-  soc_top ldut (
+  SoCFull ldut (
     .clock      (clk),
     .reset      (1'h0),
-    .gpio_in    (gpio_in),	
-    .uart_rx    (uart_rx),
-    .flash_miso (flash_miso),
-    .gpio_out   (gpio_out),
-    .uart_tx    (uart_tx),
-    .flash_sck  (flash_sck),
-    .flash_ss   (flash_ss),
-    .flash_mosi (flash_mosi)
+    .externalPins_gpio_in    (gpio_in),	
+    .externalPins_uart_rx    (uart_rx),
+    .externalPins_gpio_out   (gpio_out),
+    .externalPins_uart_tx    (uart_tx)
   );
 
   initial begin

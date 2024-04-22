@@ -17,13 +17,13 @@ class SDRAMIO extends Bundle {
   val ras = Output(Bool())
   val cas = Output(Bool())
   val we  = Output(Bool())
-  val a   = Output(UInt(13.W))
+  val a   = Output(UInt(14.W))
   val ba  = Output(UInt(2.W))
-  val dqm = Output(UInt(2.W))
-  val dq  = Analog(16.W)
+  val dqm = Output(UInt(4.W))
+  val dq  = Analog(32.W)
 }
 
-class sdram_top extends BlackBox {
+class sdram_top_axi extends BlackBox {
   val io = IO(new Bundle {
     val clock = Input(Clock())
     val reset = Input(Bool())
@@ -54,7 +54,7 @@ class AXI4SDRAM(address: Seq[AddressSet])(implicit p: Parameters) extends LazyMo
     val (in, _) = node.in(0)
 
     val sdram_bundle = IO(new SDRAMIO)
-    val msdram = Module(new sdram_top)
+    val msdram = Module(new sdram_top_axi)
 
     msdram.io.clock := clock
     msdram.io.reset := reset.asBool

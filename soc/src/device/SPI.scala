@@ -15,22 +15,22 @@ class SPIIO(val ssWidth: Int = 8) extends Bundle {
   val miso = Input(Bool())
 }
 
-class spi_top_apb extends Module{
+class spi_top_apb extends BlackBox{
   val io = IO(new Bundle {
     val in = Flipped(new APBBundle(APBBundleParameters(addrBits = 32, dataBits = 32)))
     val spi = new SPIIO
     val spi_irq_out = Output(Bool())
   })
 
-  io.in.pready := true.B
-  io.in.prdata := 0.U
-  io.in.pslverr := false.B
+  //io.in.pready := true.B
+  //io.in.prdata := 0.U
+  //io.in.pslverr := false.B
 
-  io.spi.sck := io.in.paddr(0)
-  io.spi.ss := io.in.paddr(1, 0)
-  io.spi.mosi := io.in.paddr(2)
+  //io.spi.sck := io.in.paddr(0)
+  //io.spi.ss := io.in.paddr(1, 0)
+  //io.spi.mosi := io.in.paddr(2)
 
-  io.spi_irq_out := false.B
+  //io.spi_irq_out := false.B
 }
 
 class flash extends BlackBox {

@@ -90,7 +90,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     flash.io <> masic.spi
     flash.io.ss := masic.spi.ss(0)
 
-    val sram = Module(new sram)
+    val sram = Module(new SRAM_SDPB)
     sram.io <> masic.sram
 
     val sdram = Module(new sdram)

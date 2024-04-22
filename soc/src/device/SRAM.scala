@@ -98,7 +98,7 @@ class sdpb_top extends Module {
     io.sdpb.byte_ena := io.in.w.bits.strb
 }
 
-class sram(params: SDPBBundleParameters = MySDPBBundleParameters()) extends BlackBox {
+class SRAM_SDPB(params: SDPBBundleParameters = MySDPBBundleParameters()) extends BlackBox {
   val io = IO(Flipped(new SDPBIO(params)))
 }
 

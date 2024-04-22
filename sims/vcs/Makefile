@@ -3,7 +3,7 @@
 #--------------------------------------------------------------------
 
 base_dir = $(abspath ../..)
-generated_dir = $(base_dir)/generated
+soc = $(base_dir)/soc
 sim_dir = .
 gowin = $(base_dir)/fpga/gowin
 IP = $(base_dir)/IP
@@ -12,13 +12,14 @@ TB = $(gowin)/testbench/testbench.v
 # Verilog sources
 
 bb_vsrcs = \
-  $(shell find $(generated_dir) -name "*.v") \
+  $(shell find $(soc)/build -name "*.v") \
   $(shell find $(IP)/myCPU -name "*.v") \
 	$(shell find $(gowin)/gowin_ip/ -name "*.v") \
 
 sim_vsrcs = \
 	$(TB) \
 	$(shell find $(gowin)/gowin_sim_ip/ -name "*.v") \
+  $(shell find $(soc)/perip -name "*.v" -or -name "*.sv") \
 	$(bb_vsrcs)
 
 sim_csrcs ?=
@@ -36,11 +37,12 @@ verilog:
 
 VCS = vcs -full64 -LDFLAGS -Wl,--no-as-needed
 
-VCS_OPTS = -notice -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/10ps -quiet \
+VCS_OPTS = -notice -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/1ns -quiet \
 	+rad +v2k +vcs+lic+wait \
 	+vc+list -CC "-I$(VCS_HOME)/include" \
 	-sverilog +v2k \
-	+incdir+$(generated_dir) \
+	+incdir+$(soc)/perip/spi/rtl \
+	+incdir+$(soc)/perip/uart16550/rtl \
 	+incdir+$(IP)/myCPU/ \
 	+define+CLOCK_PERIOD=2 $(sim_vsrcs) $(sim_csrcs) \
 	+define+RANDOMIZE_MEM_INIT \
@@ -77,7 +79,7 @@ exec_simv = $(simv) +permissive -q +ntb_random_seed_automatic +permissive-off
 exec_simv_debug = $(simv_debug) +permissive -q +ntb_random_seed_automatic +permissive-off
 
 
-run: $(simv)
+run: verilog $(simv)
 debug: $(simv_debug)
 
 verdi:
