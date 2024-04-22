@@ -2,6 +2,10 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/Chisel-FFT-generator/Verilog/Sender.v",
    "Type" : "verilog"
   }

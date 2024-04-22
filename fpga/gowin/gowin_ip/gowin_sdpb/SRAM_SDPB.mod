@@ -7,7 +7,7 @@
 
 -mod_name SRAM_SDPB
 -file_name SRAM_SDPB
--path /home/cyh/chiplab/fpga/gowin/system_run/jcs/src/gowin_sdpb/
+-path /home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/
 -type RAM_SDP
 -file_type vlg
 -bram_b true
@@ -18,3 +18,5 @@
 -read_mode bypass
 -byteEnable 1
 -reset_mode sync
+-init_file /home/cyh/chiplab/software/build/led.mi
+-init_match port_A

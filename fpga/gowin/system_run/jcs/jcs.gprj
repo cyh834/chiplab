@@ -6,6 +6,7 @@
     <Device name="GW5AST-138B" pn="GW5AST-LV138FPG676AC2/I1">gw5ast138b-006</Device>
     <FileList>
         <File path="/home/cyh/Chisel-FFT-generator/Verilog/Sender.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v" type="file.verilog" enable="1"/>
         <File path="src/jcs.cst" type="file.cst" enable="1"/>
     </FileList>
 </Project>

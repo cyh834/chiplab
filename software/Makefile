@@ -1,5 +1,5 @@
 ## 1. Basic Setup and Checks
-NAME = led
+NAME ?= led
 
 ### Check: environment variable `$NAME` must be in the supported list
 NAMES = $(basename $(notdir $(shell ls ./src)))
@@ -113,13 +113,16 @@ clean:
 # **********************************************
 image: $(IMAGE).elf
 	@$(OBJDUMP) -alD $(IMAGE).elf > $(IMAGE).txt
-	@echo + OBJCOPY "->" $(IMAGE_REL).bin
+	@echo + OBJCOPY "->" $(IMAGE).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 	@$(SIZE) $(IMAGE).elf
 
 mi: image
-	gcc ./util/bin2mi.c -o $(DST_DIR)/bin2mi
-	./$(DST_DIR)/bin2mi $(IMAGE_REL).bin $(IMAGE_REL).mi
+	bin2coe -i $(IMAGE).bin -w 32 -o $(IMAGE).coe
+	gcc utils/coe2mi.c -o $(WORK_DIR)/build/coe2mi
+## sram : 65536x32
+	$(WORK_DIR)/build/coe2mi -i $(IMAGE).coe -o $(IMAGE).mi -w 32 -d 65536   
+
 
 test:
 	echo $(INCFLAGS)
