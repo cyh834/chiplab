@@ -1,80 +1,125 @@
-# **********************************************
-# Tools
-# **********************************************
-CROSS_COMPILE= ../toolchains/loongarch32r-linux-gnusf*/bin/loongarch32r-linux-gnusf-
+## 1. Basic Setup and Checks
+NAME = led
 
+### Check: environment variable `$NAME` must be in the supported list
+NAMES = $(basename $(notdir $(shell ls ./src)))
+ifeq ($(filter $(NAMES), $(NAME)), )
+  $(error Expected $$NAME in {$(NAMES)}, Got "$(NAME)")
+endif
+
+## 2. General Compilation Targets:
+
+### Create the destination directory (`build/$NAME`)
+WORK_DIR  = $(shell pwd)
+DST_DIR   = $(WORK_DIR)/build/$(NAME)
+$(shell mkdir -p $(DST_DIR))
+
+### Compilation targets (a binary image or archive)
+IMAGE_REL = $(WORK_DIR)/build/$(NAME)
+IMAGE     = $(abspath $(IMAGE_REL))
+IMAGE_MAP = $(WORK_DIR)/build/$(NAME).map
+
+
+### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
+SRCS = $(shell find src/$(NAME) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.S")
+OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
+LIBS = ../toolchains/system_newlib/
+LINKAGE   = $(OBJS)
+
+LD_SCRIPT = ./src/$(NAME)/ld.script
+
+## 3. General Compilation Flags
+
+CROSS_COMPILE_DIR = ../toolchains/loongarch32r-linux-gnusf-v2.0
+CROSS_COMPILE=  $(CROSS_COMPILE_DIR)/bin/loongarch32r-linux-gnusf-
+
+AS        = $(CROSS_COMPILE)gcc
 CC        = $(CROSS_COMPILE)gcc
+CXX       = $(CROSS_COMPILE)g++
 LD        = $(CROSS_COMPILE)ld
+AR        = $(CROSS_COMPILE)ar
 OBJCOPY   = $(CROSS_COMPILE)objcopy
 OBJDUMP   = $(CROSS_COMPILE)objdump
+READELF   = $(CROSS_COMPILE)readelf
 STRIP     = $(CROSS_COMPILE)strip
 SIZE	  = $(CROSS_COMPILE)size
 
-# **********************************************
-# Directories
-# **********************************************
-ifeq ($(PROG),)
-    $(error program variable is not set)
+
+### Compilation flags
+
+INC_PATH += $(CROSS_COMPILE_DIR)/lib/gcc/loongarch32r-linux-gnusf/8.3.0/include \
+						../toolchains/system_newlib/loongarch32-unknown-elf/include
+INCFLAGS += $(addprefix -I, $(INC_PATH))
+
+COMMON_FLAGS  := -fno-pic
+CFLAGS        += $(COMMON_FLAGS) 
+ASFLAGS       += $(COMMON_FLAGS)
+
+CFLAGS 	+= -std=gnu99 -O2 -ffunction-sections -fdata-sections -msoft-float -fsched-pressure -fno-builtin \
+					  -MMD -Wall -Werror $(INCFLAGS) \
+            -fno-asynchronous-unwind-tables  -fno-stack-protector \
+            -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -static -nostdlib -nostdinc 
+CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
+ASFLAGS  += -MMD -O0 $(INCFLAGS)
+LDFLAGS  += -static -T $(LD_SCRIPT) -Map $(IMAGE_MAP) -L $(LIBS) ## --gc-sections
+
+### Fall back to native gcc/binutils if there is no cross compiler
+ifeq ($(wildcard $(shell which $(CC))),)
+  $(error #  $(CC) not found)
 endif
 
-ABS_PROG =$(abspath $(PROG))
-BUILD_DIR = $(ABS_PROG)/build
-IMAGENAME = $(notdir $(PROG))
+## 5. Compilation Rules
 
+### Rule (compile): a single `.c` -> `.o` (gcc)
+$(DST_DIR)/%.o: %.c
+	@mkdir -p $(dir $@) && echo + CC $<
+	@$(CC) -std=gnu11 $(CFLAGS) -c -o $@ $(realpath $<)
+
+### Rule (compile): a single `.cc` -> `.o` (g++)
+$(DST_DIR)/%.o: %.cc
+	@mkdir -p $(dir $@) && echo + CXX $<
+	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
+
+### Rule (compile): a single `.cpp` -> `.o` (g++)
+$(DST_DIR)/%.o: %.cpp
+	@mkdir -p $(dir $@) && echo + CXX $<
+	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
+
+### Rule (compile): a single `.S` -> `.o` (gcc, which preprocesses and calls as)
+$(DST_DIR)/%.o: %.S
+	@mkdir -p $(dir $@) && echo + AS $<
+	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
+
+### Rule (link): objects (`*.o`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
+$(IMAGE).elf: $(OBJS) $(LIBS)
+	@echo + LD "->" $(IMAGE_REL).elf
+	$(LD) $(LDFLAGS) -o $(IMAGE).elf --start-group $(LINKAGE) --end-group
+
+
+## 6. Miscellaneous
+### Build order control
+image: image-dep
+image-dep: $(OBJS) $(LIBS)
+	@echo \# Creating image [$(NAME)]
+.PHONY: image image-dep run $(LIBS)
+
+### Clean a single project (remove `build/`)
+clean:
+	rm -rf $(WORK_DIR)/build/
+.PHONY: clean
 
 # **********************************************
 # Image file names and map file
 # **********************************************
-IMAGE_ELF = $(BUILD_DIR)/$(IMAGENAME).elf
-IMAGE_BIN = $(BUILD_DIR)/$(IMAGENAME).bin
-IMAGE_MAP = $(BUILD_DIR)/$(IMAGENAME).map
-IMAGE_S   = $(BUILD_DIR)/$(IMAGENAME).s
+image: $(IMAGE).elf
+	@$(OBJDUMP) -alD $(IMAGE).elf > $(IMAGE).txt
+	@echo + OBJCOPY "->" $(IMAGE_REL).bin
+	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
+	@$(SIZE) $(IMAGE).elf
 
-# **********************************************
-# Compiler and linker options
-# **********************************************
-INCLUDE	+= 
+mi: image
+	gcc ./util/bin2mi.c -o $(DST_DIR)/bin2mi
+	./$(DST_DIR)/bin2mi $(IMAGE_REL).bin $(IMAGE_REL).mi
 
-
-FLAGS   = -std=gnu99 -O0 -ffunction-sections -fdata-sections -msoft-float -fsched-pressure -fno-builtin
-
-CC_OPTS	 = $(DEBUG) $(FLAGS) $(INCLUDE) 
-CC_COPTS = $(DEBUG) $(FLAGS) $(INCLUDE) 
-
-LD_SCRIPT = $(ABS_PROG)/ld.script
-LD_OPTS   = -G 0 -static -T $(LD_SCRIPT) -Map $(IMAGE_MAP) --gc-sections
-
-# **********************************************
-# Files to be compiled
-# **********************************************
-SRC_C  = $(foreach dir, $(ABS_PROG), $(wildcard $(dir)/*.c))
-SRC_S  = $(foreach dir, $(ABS_PROG), $(wildcard $(dir)/*.S))
-SRC    = $(SRC_C) $(SRC_S)
-OBJ_C  = $(addprefix build/, $(notdir $(patsubst %.c, %.o, $(SRC_C))))
-OBJ_S  = $(addprefix build/, $(filter-out start.o, $(notdir $(patsubst %.S, %.o, $(SRC_S)))))
-LS1C1X_OBJ = $(OBJ_S) $(OBJ_C)
-
-
-# **********************************************
-# Rules
-# **********************************************
-
-
-.PHONY : all
-all : $(IMAGE_BIN) 
-$(IMAGE_BIN):$(LS1C1X_OBJ) 
-	$(LD) $(LD_OPTS) -o $(IMAGE_ELF) $^ -Map $(IMAGE_MAP)
-	$(OBJCOPY) -O binary $(IMAGE_ELF) $(IMAGE_BIN)
-	$(SIZE) $(IMAGE_ELF)
-	$(OBJDUMP) -alD $(IMAGE_ELF) > $(IMAGE_S)
-
-$(OBJ_C) :%.o : %.c 
-	$(CC) $(CC_COPTS) -c -o $@ $^
-
-$(OBJ_S) : %.o : %.S
-	$(CC) $(CC_OPTS) -c -o $@ $^
-
-
-.PHONY : clean 
-clean :
-	rm -rf $(BUILD_DIR)/*
+test:
+	echo $(INCFLAGS)

@@ -3,7 +3,7 @@ OUTPUT_ARCH(loongarch)
 
 MEMORY
 {
-    flash(R) : ORIGIN = 0x1c000000, LENGTH = 64K
+    flash(RW) : ORIGIN = 0x1c000000, LENGTH = 64K
 }
 
 SECTIONS
@@ -11,7 +11,8 @@ SECTIONS
 	.text	: 
     { 
         . = ALIGN(4);
-        *(.text .text.*) 
+        *(.text)
+        *(.text.*) 
         . = ALIGN(4);
         _etext = .;
     } > flash

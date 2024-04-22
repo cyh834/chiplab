@@ -11,3 +11,5 @@ detect:
 install:
 	sudo $(openFPGALoader) -b tangmega138k -f $(FS)
 
+all:
+	$(MAKE) -C ../../software all
