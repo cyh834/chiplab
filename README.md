@@ -1,8 +1,6 @@
 # 集创赛龙芯杯工程项目
 
-`sudo make mill_install` 下载mill
-
-`make dev-init`初始化
+`make init` 初始化
 
 `make verilog` 生成verilog
 

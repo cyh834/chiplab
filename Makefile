@@ -1,5 +1,4 @@
 
-
 verilog:
 	$(MAKE) -C soc verilog
 
@@ -14,4 +13,6 @@ tool_install:
 dev-init:
 	$(MAKE) -C soc dev-init
 
-.PHONY: verilog clean
+init: tool_install dev-init
+
+.PHONY: verilog clean tool_install dev-init init
