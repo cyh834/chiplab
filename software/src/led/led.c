@@ -7,12 +7,7 @@
 #define LED1 (*(volatile uint32_t *)0x1c00ffff)
 
 int main() {
-
-    int k=0;
-    for(int i=0; i<1000000; i++){
-        k+=i;
-    }
-    LED1 = LED1&k;
+    LED1 = LED1&0;
     while(1);
     return 0;
 }

@@ -15,6 +15,7 @@ module tb();
   begin
     $fsdbDumpfile("simv_soc.fsdb");
     $fsdbDumpvars(0, tb) ; 
+    $fsdbDumpMDA(0);
   end
   `endif
   

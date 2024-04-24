@@ -59,7 +59,7 @@ class sdpb_top extends Module {
     assert(!(io.in.aw.valid && io.in.aw.bits.size > "b10".U))
 
 
-    val s_idle :: s_wait :: Nil = Enum(2)
+    val s_idle :: s_wait :: s_wait_w :: Nil = Enum(3)
 
     //read channel
     val rstate = RegInit(s_idle)
@@ -82,8 +82,10 @@ class sdpb_top extends Module {
     //write channel
     val wstate = RegInit(s_idle)
     wstate := MuxLookup(wstate, s_idle)(Seq(
-      s_idle -> Mux(io.in.aw.fire && io.in.w.fire, s_wait, s_idle),
-      s_wait -> Mux(io.in.b.fire || (io.in.aw.fire && io.in.w.fire), s_idle, s_wait)
+      s_idle    ->  Mux(io.in.aw.fire && io.in.w.fire, s_wait,
+                    Mux(io.in.aw.fire, s_wait_w, s_idle)),
+      s_wait_w  ->  Mux(io.in.w.fire, s_wait, s_wait_w),
+      s_wait    ->  Mux(io.in.b.fire || (io.in.aw.fire && io.in.w.fire), s_idle, s_wait)
     ))
     io.in.aw.ready := true.B
     io.in. w.ready := true.B
@@ -96,6 +98,19 @@ class sdpb_top extends Module {
     io.sdpb.ada := io.in.aw.bits.addr >> 2.U
     io.sdpb.din := io.in.w.bits.data
     io.sdpb.byte_ena := io.in.w.bits.strb
+
+    when(io.in.aw.fire){
+      printf("write address: %x\n", io.in.aw.bits.addr)
+    }
+    when(io.in.w.fire){
+      printf("write data: %x\n", io.in.w.bits.data)
+    }
+    when(io.in.ar.fire){
+      printf("read address: %x\n", io.in.ar.bits.addr)
+    }
+    when(io.in.r.fire){
+      printf("read data: %x\n", io.in.r.bits.data)
+    }
 }
 
 class SRAM_SDPB(params: SDPBBundleParameters = MySDPBBundleParameters()) extends BlackBox {
