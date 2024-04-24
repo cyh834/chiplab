@@ -1,5 +1,5 @@
 ## 1. Basic Setup and Checks
-NAME ?= led
+NAME ?= 
 
 ### Check: environment variable `$NAME` must be in the supported list
 NAMES = $(basename $(notdir $(shell ls ./src)))
@@ -16,17 +16,18 @@ $(shell mkdir -p $(DST_DIR))
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = $(WORK_DIR)/build/$(NAME)
-IMAGE     = $(abspath $(IMAGE_REL))
-IMAGE_MAP = $(WORK_DIR)/build/$(NAME).map
+IMAGE     = $(abspath $(IMAGE_REL))/$(NAME)
+IMAGE_MAP = $(IMAGE).map
 
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
 SRCS = $(shell find src/$(NAME) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.S")
+SRCS += src/start.S
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
-LIBS = ../toolchains/system_newlib/
+LIBS = $(WORK_DIR)/toolchains/system_newlib/
 LINKAGE   = $(OBJS)
 
-LD_SCRIPT = ./src/$(NAME)/ld.script
+LD_SCRIPT = src/ld.script
 
 ## 3. General Compilation Flags
 
@@ -92,7 +93,7 @@ $(DST_DIR)/%.o: %.S
 
 ### Rule (link): objects (`*.o`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
 $(IMAGE).elf: $(OBJS) $(LIBS)
-	@echo + LD "->" $(IMAGE_REL).elf
+	@echo + LD "->" $(IMAGE).elf
 	$(LD) $(LDFLAGS) -o $(IMAGE).elf --start-group $(LINKAGE) --end-group
 
 

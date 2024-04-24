@@ -18,5 +18,5 @@
 -read_mode bypass
 -byteEnable 1
 -reset_mode sync
--init_file /home/cyh/chiplab/software/build/led.mi
+-init_file /home/cyh/chiplab/software/build/dummy/dummy.mi
 -init_match port_A

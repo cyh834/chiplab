@@ -6,6 +6,7 @@ import freechips.rocketchip.system.DefaultConfig
 import freechips.rocketchip.diplomacy.LazyModule
 
 object Config {
+  val debug = false
 }
 
 class SoCTop extends Module {

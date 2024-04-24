@@ -4,9 +4,8 @@
 #pragma GCC push_options
 #pragma GCC optimize ("O0")
 
-int main() {
 
-    while(1);
+int main() {
     return 0;
 }
 

@@ -2,6 +2,7 @@
 .globl _start
 .type _start, @function
 
+
 _start:
 _cpu_init:
   addi.w $ra, $r0, 0
@@ -44,3 +45,4 @@ __main:
   move $fp, $zero
   la.local $sp, _stack_pointer
   bl main
+  syscall 0x11

@@ -99,17 +99,19 @@ class sdpb_top extends Module {
     io.sdpb.din := io.in.w.bits.data
     io.sdpb.byte_ena := io.in.w.bits.strb
 
-    when(io.in.aw.fire){
-      printf("write address: %x\n", io.in.aw.bits.addr)
-    }
-    when(io.in.w.fire){
-      printf("write data: %x\n", io.in.w.bits.data)
-    }
-    when(io.in.ar.fire){
-      printf("read address: %x\n", io.in.ar.bits.addr)
-    }
-    when(io.in.r.fire){
-      printf("read data: %x\n", io.in.r.bits.data)
+    if(Config.debug){
+      when(io.in.aw.fire){
+        printf("write address: %x\n", io.in.aw.bits.addr)
+      }
+      when(io.in.w.fire){
+        printf("write data: %x\n", io.in.w.bits.data)
+      }
+      when(io.in.ar.fire){
+        printf("read address: %x\n", io.in.ar.bits.addr)
+      }
+      when(io.in.r.fire){
+        printf("read data: %x\n", io.in.r.bits.data)
+      }
     }
 }
 

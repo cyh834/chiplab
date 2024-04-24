@@ -67,7 +67,7 @@ $(simv) : $(sim_vsrcs) $(sim_csrcs)
 	rm -rf csrc && \
 	$(VCS) $(VCS_OPTS) -o $(simv) \
 	-debug_acc+pp+f+fn+dmptf -debug_region+cell+encrypt > build.log
-	./simv_soc > sim.log
+	./simv_soc
 
 #--------------------------------------------------------------------
 # Run

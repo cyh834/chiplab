@@ -28,7 +28,7 @@ module tb();
     gpio_in = 4'b0;
     #60000 gpio_in = 4'b1;
     #5000 gpio_in = 4'b0;
-    #60000 $display("************ Test TIMEOUT ***************");
+    #600000000 $display("************ Test TIMEOUT ***************");
     $finish;
   end
 
