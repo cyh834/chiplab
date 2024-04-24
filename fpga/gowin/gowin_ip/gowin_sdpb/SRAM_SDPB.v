@@ -5,7 +5,7 @@
 //Part Number: GW5AST-LV138FPG676AC2/I1
 //Device: GW5AST-138B
 //Device Version: B
-//Created Time: Tue Apr 23 02:13:45 2024
+//Created Time: Wed Apr 24 19:31:34 2024
 
 module SRAM_SDPB (dout, clka, cea, clkb, ceb, oce, reset, ada, din, adb, byte_ena);
 

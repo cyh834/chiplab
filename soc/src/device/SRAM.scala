@@ -71,13 +71,13 @@ class sdpb_top extends Module {
     io.in. r.valid := rstate === s_wait
     io.in.ar.ready := true.B
     io.in. r.bits.resp := AXI4Parameters.RESP_OKAY
-    io.in. r.bits.data := RegEnable(io.sdpb.dout, io.in.ar.fire)
+    io.in. r.bits.data := Mux(io.in.r.fire, io.sdpb.dout, x"deadbeef".U)
     io.in. r.bits.last := true.B
     io.in. r.bits.id := RegEnable(io.in.ar.bits.id, io.in.ar.fire)
 
     io.sdpb.clkb := clock.asBool
     io.sdpb.ceb := io.in.ar.fire
-    io.sdpb.adb := io.in.ar.bits.addr
+    io.sdpb.adb := io.in.ar.bits.addr >> 2.U
 
     //write channel
     val wstate = RegInit(s_idle)
@@ -93,7 +93,7 @@ class sdpb_top extends Module {
 
     io.sdpb.clka := clock.asBool
     io.sdpb.cea := io.in.aw.fire
-    io.sdpb.ada := io.in.aw.bits.addr
+    io.sdpb.ada := io.in.aw.bits.addr >> 2.U
     io.sdpb.din := io.in.w.bits.data
     io.sdpb.byte_ena := io.in.w.bits.strb
 }
