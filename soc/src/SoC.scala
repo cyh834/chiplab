@@ -40,11 +40,10 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     AddressSet.misaligned(0x1FE80000, 0x100000)     // SPI 控制器
   ))
   val lconf = LazyModule(new APBConfig(AddressSet.misaligned(0x1FD00000, 0x10000)))
-  val ltimer = LazyModule(new APBTimer(AddressSet.misaligned(0x1FD20000, 0x10)))
-  val lint = LazyModule(new APBInt(AddressSet.misaligned(0x10005000, 0x10)))
+  val ltimer = LazyModule(new APBTimer(AddressSet.misaligned(0xBFED0000, 0x10)))
   val lsram = LazyModule(new AXI4SRAM(AddressSet.misaligned(0x1C000000, 0x40000)))  //65536 * 32
 
-  List(lspi.node, luart.node, ltimer.node,  lgpio.node, lconf.node, lint.node).map(_ := apbxbar)
+  List(lspi.node, luart.node, ltimer.node,  lgpio.node, lconf.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
   List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.node ).map( _ := xbar)
 

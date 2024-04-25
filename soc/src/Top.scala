@@ -5,8 +5,10 @@ import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.system.DefaultConfig
 import freechips.rocketchip.diplomacy.LazyModule
 
-object Config {
+object SoCConfig {
   val debug = false
+
+  val hpet = new HPETConfig
 }
 
 class SoCTop extends Module {
