@@ -4,7 +4,7 @@ ENTRY(_start)
 
 MEMORY
 {
-    flash(RW) : ORIGIN = 0x1c000000, LENGTH = 64K
+    flash(RW) : ORIGIN = 0x1c000000, LENGTH = 256K
 }
 
 SECTIONS

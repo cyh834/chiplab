@@ -1,7 +1,13 @@
 `define CPU ldut.asic.cpu.cpu
 
 module tb();
+  reg         clock;
+  reg         reset;
+  reg         reset;
   reg clk;
+
+  //global set/reset control for prim_sim.v
+  GSR GSR (1'b1);
 
   initial begin
     clk = 1'b0;
@@ -53,6 +59,7 @@ module tb();
     $display("************ Test Start ***************");
     forever begin
       #(`CLOCK_PERIOD * 10000)
+        $display("running at pc %x",`CPU.debug0_wb_pc);
       if(`CPU.wb_stage.ws_excp && `CPU.wb_stage.ws_excp_num[5]) begin
       	$display("************ Test Success ***************");
 	   $finish;

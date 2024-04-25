@@ -45,4 +45,10 @@ __main:
   move $fp, $zero
   la.local $sp, _stack_pointer
   bl main
+  bne $v0, $zero, __fail
   syscall 0x11
+
+
+__fail:
+  b __fail
+  

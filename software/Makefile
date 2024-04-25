@@ -24,7 +24,7 @@ IMAGE_MAP = $(IMAGE).map
 SRCS = $(shell find src/$(NAME) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.S")
 SRCS += src/start.S
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
-LIBS = $(WORK_DIR)/toolchains/system_newlib/
+LIBS = $(WORK_DIR)/../toolchains/system_newlib/ 
 LINKAGE   = $(OBJS)
 
 LD_SCRIPT = src/ld.script
@@ -49,7 +49,9 @@ SIZE	  = $(CROSS_COMPILE)size
 ### Compilation flags
 
 INC_PATH += $(CROSS_COMPILE_DIR)/lib/gcc/loongarch32r-linux-gnusf/8.3.0/include \
-						../toolchains/system_newlib/loongarch32-unknown-elf/include
+						../toolchains/system_newlib/loongarch32-unknown-elf/include \
+						./include 
+
 INCFLAGS += $(addprefix -I, $(INC_PATH))
 
 COMMON_FLAGS  := -fno-pic
@@ -118,7 +120,7 @@ image: $(IMAGE).elf
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 	@$(SIZE) $(IMAGE).elf
 
-mi: image
+mi: clean image
 	bin2coe -i $(IMAGE).bin -w 32 -o $(IMAGE).coe
 	gcc utils/coe2mi.c -o $(WORK_DIR)/build/coe2mi
 ## sram : 65536x32

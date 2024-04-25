@@ -16,4 +16,4 @@ RESET_MODE=true
 WIDTH_A=32
 WIDTH_B=32
 DIMENSION_MATCH=65
-MEM_FILE=/home/cyh/chiplab/software/build/dummy/dummy.mi
+MEM_FILE=/home/cyh/chiplab/software/build/mem-test/mem-test.mi

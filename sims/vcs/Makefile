@@ -37,13 +37,20 @@ verilog:
 #生成mi文件，需要用高云eda初始化sram
 mi:
 	$(MAKE) -C $(base_dir)/software mi
+
+clean_mi:
+	$(MAKE) -C $(base_dir)/software clean
+
+#自动删除生成IP的示例文件
+deltmp:
+	-rm -f $(base_dir)/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB_tmp.v
 #--------------------------------------------------------------------
 # Build rules
 #--------------------------------------------------------------------
 
 VCS = vcs -full64 -LDFLAGS -Wl,--no-as-needed
 
-VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/1ns -quiet \
+VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/100ps -quiet \
 	+rad +v2k +vcs+lic+wait \
 	+vc+list -CC "-I$(VCS_HOME)/include" \
 	-sverilog +v2k \

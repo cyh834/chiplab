@@ -49,7 +49,7 @@ class sdpb_top extends Module {
     val sdpb = new SDPBIO
   })
     io.sdpb.reset := io.reset
-    io.sdpb.oce := 1.U
+    io.sdpb.oce := true.B
 
     // burst is not supported
     assert(!(io.in.ar.valid && io.in.ar.bits.len =/= 0.U))
@@ -76,7 +76,7 @@ class sdpb_top extends Module {
     io.in. r.bits.id := RegEnable(io.in.ar.bits.id, io.in.ar.fire)
 
     io.sdpb.clkb := clock.asBool
-    io.sdpb.ceb := io.in.ar.fire
+    io.sdpb.ceb := true.B
     io.sdpb.adb := io.in.ar.bits.addr >> 2.U
 
     //write channel
@@ -94,10 +94,10 @@ class sdpb_top extends Module {
     io.in.b.bits.id := RegEnable(io.in.aw.bits.id, io.in.aw.fire)
 
     io.sdpb.clka := clock.asBool
-    io.sdpb.cea := io.in.aw.fire
+    io.sdpb.cea := true.B
     io.sdpb.ada := io.in.aw.bits.addr >> 2.U
     io.sdpb.din := io.in.w.bits.data
-    io.sdpb.byte_ena := io.in.w.bits.strb
+    io.sdpb.byte_ena := io.in.w.bits.strb//Mux(io.in.w.fire,io.in.w.bits.strb,0.U)
 
     if(Config.debug){
       when(io.in.aw.fire){

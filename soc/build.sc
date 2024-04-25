@@ -64,3 +64,4 @@ trait SoC extends SoCModule with HasChisel {
     super.sources() ++ Seq(PathRef(millSourcePath / "src"))
   }
 }
+
