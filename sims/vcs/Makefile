@@ -14,7 +14,7 @@ TB = $(gowin)/testbench/testbench.v
 bb_vsrcs = \
   $(shell find $(soc)/build -name "*.v") \
   $(shell find $(IP)/open-la500 -name "*.v") \
-	$(shell find $(gowin)/gowin_ip/ -name "*.v") \
+	$(shell find $(gowin)/gowin_ip/ -name "*.v" -not -name "SRAM_SDPB_tmp.v") \
 
 sim_vsrcs = \
 	$(TB) \
