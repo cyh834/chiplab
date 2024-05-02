@@ -1,27 +1,79 @@
 GowinSynthesis start
 Running parser ...
-Analyzing Verilog file '/home/cyh/Chisel-FFT-generator/Verilog/Sender.v'
-Compiling module 'Sender'("/home/cyh/Chisel-FFT-generator/Verilog/Sender.v":230)
-Compiling module 'BufferTx'("/home/cyh/Chisel-FFT-generator/Verilog/Sender.v":178)
-Compiling module 'Tx'("/home/cyh/Chisel-FFT-generator/Verilog/Sender.v":1)
-Compiling module 'Buffer'("/home/cyh/Chisel-FFT-generator/Verilog/Sender.v":100)
-NOTE  (EX0101) : Current top module is "Sender"
-[5%] Running netlist conversion ...
-Running device independent optimization ...
-[10%] Optimizing Phase 0 completed
-[15%] Optimizing Phase 1 completed
-[25%] Optimizing Phase 2 completed
-Running inference ...
-[30%] Inferring Phase 0 completed
-[40%] Inferring Phase 1 completed
-[50%] Inferring Phase 2 completed
-[55%] Inferring Phase 3 completed
-Running technical mapping ...
-[60%] Tech-Mapping Phase 0 completed
-[65%] Tech-Mapping Phase 1 completed
-[75%] Tech-Mapping Phase 2 completed
-[80%] Tech-Mapping Phase 3 completed
-[90%] Tech-Mapping Phase 4 completed
-[95%] Generate netlist file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg" completed
-[100%] Generate report file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs_syn.rpt.html" completed
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_sync_flops.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v'
+ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v'
+Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v'
+Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v'
+Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x21/SP_256x21.v'
+Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x32/SP_256x32.v'
+Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/addr_trans.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/addr_trans.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/addr_trans.v'("/home/cyh/chiplab/IP/open-la500/addr_trans.v":1)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/alu.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/axi_bridge.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/btb.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/csr.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/csr.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/csr.v'("/home/cyh/chiplab/IP/open-la500/csr.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/csr.v":2)
+Back to file '/home/cyh/chiplab/IP/open-la500/csr.v'("/home/cyh/chiplab/IP/open-la500/csr.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/dcache.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/div.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/exe_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/exe_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/exe_stage.v'("/home/cyh/chiplab/IP/open-la500/exe_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/exe_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/open-la500/exe_stage.v'("/home/cyh/chiplab/IP/open-la500/exe_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/icache.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/id_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/id_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/id_stage.v'("/home/cyh/chiplab/IP/open-la500/id_stage.v":1)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/if_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/if_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/if_stage.v'("/home/cyh/chiplab/IP/open-la500/if_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/if_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/open-la500/if_stage.v'("/home/cyh/chiplab/IP/open-la500/if_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/mem_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/mem_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/mem_stage.v'("/home/cyh/chiplab/IP/open-la500/mem_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/mem_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/open-la500/mem_stage.v'("/home/cyh/chiplab/IP/open-la500/mem_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/mul.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/mycpu_top.v'
+Undeclared symbol 'ws_valid_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/open-la500/mycpu_top.v":614)
+Undeclared symbol 'cnt_inst_diff', assumed default net type 'wire'("/home/cyh/chiplab/IP/open-la500/mycpu_top.v":615)
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/perf_counter.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/regfile.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/tlb_entry.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/tools.v'
+Analyzing Verilog file '/home/cyh/chiplab/IP/open-la500/wb_stage.v'
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/mycpu.h'("/home/cyh/chiplab/IP/open-la500/wb_stage.v":1)
+Back to file '/home/cyh/chiplab/IP/open-la500/wb_stage.v'("/home/cyh/chiplab/IP/open-la500/wb_stage.v":1)
+Analyzing included file '/home/cyh/chiplab/IP/open-la500/csr.h'("/home/cyh/chiplab/IP/open-la500/wb_stage.v":2)
+Back to file '/home/cyh/chiplab/IP/open-la500/wb_stage.v'("/home/cyh/chiplab/IP/open-la500/wb_stage.v":2)
+Analyzing Verilog file '/home/cyh/chiplab/soc/build/SoCFull.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi_core.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi_pmem.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/sdram/sdram_top_axi.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v":41)
+Back to file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v":41)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v":41)
+Back to file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v":41)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v":42)
+Back to file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v":42)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v'
 GowinSynthesis finish

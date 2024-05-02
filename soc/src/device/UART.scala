@@ -11,18 +11,22 @@ import freechips.rocketchip.util._
 class UARTIO extends Bundle {
   val rx = Input(Bool())
   val tx = Output(Bool())
+  val irq = Output(Bool())
 }
 
-class uart_top_apb extends Module{
+class UARTIO_noirq extends Bundle {
+  val rx = Input(Bool())
+  val tx = Output(Bool())
+}
+
+class uart_top_apb extends BlackBox{
   val io = IO(new Bundle {
+    val clock = Input(Clock())
+    val reset = Input(Reset())
     val in = Flipped(new APBBundle(APBBundleParameters(addrBits = 32, dataBits = 32)))
     val uart = new UARTIO
   })
 
-  io.in.pready := true.B
-  io.in.prdata := 0.U
-  io.in.pslverr := false.B
-  io.uart.tx := false.B
 }
 
 class APBUart(address: Seq[AddressSet])(implicit p: Parameters) extends LazyModule {
@@ -43,6 +47,9 @@ class APBUart(address: Seq[AddressSet])(implicit p: Parameters) extends LazyModu
 
     val muart = Module(new uart_top_apb)
     muart.io.in <> in
+    muart.io.clock := clock
+    muart.io.reset := reset
     uart_bundle <> muart.io.uart
+
   }
 }

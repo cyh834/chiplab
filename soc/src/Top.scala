@@ -5,20 +5,29 @@ import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.system.DefaultConfig
 import freechips.rocketchip.diplomacy.LazyModule
 
-object SoCConfig {
-  val debug = false
-
-  val hpet = new HPETConfig
+trait SoCConfig {
+  def debug: Boolean = false
+  def sim: Boolean = false
 }
+
+object Config extends SoCConfig
 
 class SoCTop extends Module {
   implicit val config: Parameters = new DefaultConfig
 
-  val io = IO(new Bundle { })
   val dut = LazyModule(new SoCFull)
   val mdut = Module(dut.module)
+  val externalPins = IO(chiselTypeOf(mdut.externalPins))
+
   mdut.dontTouchPorts()
-  mdut.externalPins := DontCare
+  mdut.externalPins <> externalPins
+
+  val flash = Module(new flash)
+  flash.io <> mdut.spi
+  flash.io.ss := mdut.spi.ss(0)
+
+  val sdram = Module(new sdram)
+  sdram.io <> mdut.sdram
 }
 
 object Elaborate extends App {

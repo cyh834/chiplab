@@ -5,16 +5,15 @@
 //Part Number: GW5AST-LV138FPG676AC2/I1
 //Device: GW5AST-138B
 //Device Version: B
-//Created Time: Thu Apr  4 19:55:24 2024
+//Created Time: Wed May  1 23:19:19 2024
 
-module Gowin_PLL (lock, clkout0, clkout1, clkin, reset);
+module Gowin_PLL (clkout0, clkout1, clkin);
 
-output lock;
 output clkout0;
 output clkout1;
 input clkin;
-input reset;
 
+wire lock;
 wire clkout2;
 wire clkout3;
 wire clkout4;
@@ -39,7 +38,7 @@ PLL PLL_inst (
     .CLKFBOUT(clkfbout),
     .CLKIN(clkin),
     .CLKFB(gw_gnd),
-    .RESET(reset),
+    .RESET(gw_gnd),
     .PLLPWD(gw_gnd),
     .RESET_I(gw_gnd),
     .RESET_O(gw_gnd),
@@ -81,8 +80,8 @@ PLL PLL_inst (
 defparam PLL_inst.FCLKIN = "50";
 defparam PLL_inst.IDIV_SEL = 1;
 defparam PLL_inst.FBDIV_SEL = 1;
-defparam PLL_inst.ODIV0_SEL = 8;
-defparam PLL_inst.ODIV1_SEL = 16;
+defparam PLL_inst.ODIV0_SEL = 100;
+defparam PLL_inst.ODIV1_SEL = 4;
 defparam PLL_inst.ODIV2_SEL = 8;
 defparam PLL_inst.ODIV3_SEL = 8;
 defparam PLL_inst.ODIV4_SEL = 8;

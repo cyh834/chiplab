@@ -31,9 +31,9 @@ class timer_top_apb extends Module{
   val enw = en && io.in.pwrite
   val enr = en && !io.in.pwrite
 
-  val start     = RegEnable(apb_pwdata(0), 0.U(1.W), enw && (apb_paddr === TimerConfig.cfg))
-  val int_en    = RegEnable(apb_pwdata(1), 0.U(1.W), enw && (apb_paddr === TimerConfig.cfg))
-  val periodic  = RegEnable(apb_pwdata(2), 0.U(1.W), enw && (apb_paddr === TimerConfig.cfg))
+  val start     = RegEnable(io.in.pwdata(0), false.B , enw && (io.in.paddr(3,0) === TimerConfig.cfg))
+  val int_en    = RegEnable(io.in.pwdata(1), false.B , enw && (io.in.paddr(3,0) === TimerConfig.cfg))
+  val periodic  = RegEnable(io.in.pwdata(2), false.B , enw && (io.in.paddr(3,0) === TimerConfig.cfg))
 
   val count     = RegInit(0.U(32.W))
   val compare   = RegInit(x"ffffffff".U(32.W))
@@ -41,39 +41,48 @@ class timer_top_apb extends Module{
   
   val int_trigger = (count === compare) && start;
 
-  count := MuxCase(count, Array(
-    enw && (apb_paddr === TimerConfig.cnt)&& ~start  -> apb_pwdata,
-    start                                           -> count + 1.U,
-    ~start                                          -> 0.U
-  ))
+  when(enw && (io.in.paddr(3,0) === TimerConfig.cnt) && ~start){
+    count := io.in.pwdata
+  }.elsewhen(start){
+    count := count + 1.U
+  }.otherwise{
+    count := 0.U
+  }
 
-  compare := MuxCase(compare, Array(
-    enw && (apb_paddr === TimerConfig.cmp) && ~start -> apb_pwdata
-    periodic & int_trigger                          -> count + step
-  ))
+  when(enw && (io.in.paddr(3,0) === TimerConfig.cmp) && ~start) {
+    compare := io.in.pwdata
+  }.elsewhen (periodic && int_trigger) {
+    compare := count + step
+  }
 
-  step := MuxCase(step, Array(
-    enw && (apb_paddr === TimerConfig.step) && ~start-> apb_pwdata
-  ))
+  when (enw && (io.in.paddr(3,0) === TimerConfig.step) && ~start) {
+    step := io.in.pwdata
+  }
 
   val int_r = RegInit(0.U(1.W))
-  int_r := MuxCase(int_r, Array(
-    enw && (apb_paddr === TimerConfig.cfg) && apb_pwdata(8) -> 0.U,// write 1 to clear the interrupt flag bit
-    int_trigger -> 1.U
-  ))  
+  when (enw && (io.in.paddr(3,0) === TimerConfig.cfg) && io.in.pwdata(8)) {
+    int_r := 0.U // write 1 to clear the interrupt flag bit
+  }.elsewhen (int_trigger) {
+    int_r := 1.U
+  }
 
   io.timer.int := int_r & int_en
 
   val rdata = RegInit(0.U(32.W))
-  rdata := MuxCase(rdata, Array(
-    ~io.in.psel | io.in.pwrite -> 0.U,
-    enr && (apb_paddr(3,0) === TimerConfig.cfg) -> Cat(0.U(23.W), int_r, 0.U(5.W), periodic, int_en, start),
-    enr && (apb_paddr(3,0) === TimerConfig.cnt) -> count,
-    enr && (apb_paddr(3,0) === TimerConfig.cmp) -> compare,
-    enr && (apb_paddr(3,0) === TimerConfig.step)-> step
-  ))
+  when(~io.in.psel | io.in.pwrite){
+    rdata := 0.U
+  }.otherwise{
+    when(enr){
+      rdata := MuxLookup(io.in.paddr(3,0), rdata)(Seq(
+        TimerConfig.cfg -> Cat(0.U(23.W), int_r, 0.U(5.W), periodic, int_en, start),
+        TimerConfig.cnt -> count,
+        TimerConfig.cmp -> compare,
+        TimerConfig.step-> step
+      ))
+    }
+  }
 
-  io.in.pready := true.B
+  io.in.pready := RegNext(io.in.psel && io.in.penable);
   io.in.prdata := rdata
   io.in.pslverr := false.B
 }

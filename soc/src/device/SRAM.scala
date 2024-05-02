@@ -9,6 +9,8 @@ import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
 
+object SRAMConfig extends SoCConfig
+
 // a是写端口，b是读端口
 case class SDPBBundleParameters(a_depth: Int, a_dataBits: Int, b_depth: Int, b_dataBits: Int){
 
@@ -43,13 +45,10 @@ class SDPBIO(params: SDPBBundleParameters = MySDPBBundleParameters()) extends Bu
 
 class sdpb_top extends Module {
   val io = IO(new Bundle {
-    val clock = Input(Clock())
-    val reset = Input(Bool())
     val in = Flipped(new AXI4Bundle(AXI4BundleParameters(addrBits = 32, dataBits = 32, idBits = 4)))
     val sdpb = new SDPBIO
   })
-    io.sdpb.reset := io.reset
-    io.sdpb.oce := true.B
+    dontTouch(io)
 
     // burst is not supported
     assert(!(io.in.ar.valid && io.in.ar.bits.len =/= 0.U))
@@ -81,12 +80,38 @@ class sdpb_top extends Module {
 
     //write channel
     val wstate = RegInit(s_idle)
-    wstate := MuxLookup(wstate, s_idle)(Seq(
-      s_idle    ->  Mux(io.in.aw.fire && io.in.w.fire, s_wait,
-                    Mux(io.in.aw.fire, s_wait_w, s_idle)),
-      s_wait_w  ->  Mux(io.in.w.fire, s_wait, s_wait_w),
-      s_wait    ->  Mux(io.in.b.fire || (io.in.aw.fire && io.in.w.fire), s_idle, s_wait)
-    ))
+
+    switch(wstate){
+      is(s_idle){
+        when(io.in.aw.fire && io.in.w.fire){
+          wstate := s_wait
+        }.elsewhen(io.in.aw.fire){
+          wstate := s_wait_w
+        }
+      }
+      is(s_wait_w){
+        when(io.in.w.fire){
+          wstate := s_wait
+        }
+      }
+      is(s_wait){
+        when(io.in.b.fire){
+          wstate := s_idle
+        }
+      }
+    }
+
+    //val negClock = (~ clock.asUInt).asBool.asClock
+    //val wstate = withClock(negClock){RegInit(s_idle)}
+    //io.in.b.valid := RegNext(wstate === s_wait)
+
+    //wstate := MuxLookup(wstate, s_idle)(Seq(
+    //  s_idle    ->  Mux(io.in.aw.fire && io.in.w.fire, s_wait,
+    //                Mux(io.in.aw.fire, s_wait_w, s_idle)),
+    //  s_wait_w  ->  Mux(io.in.w.fire, s_wait, s_wait_w),
+    //  s_wait    ->  Mux(io.in.b.fire || (io.in.aw.fire && io.in.w.fire), s_idle, s_wait)
+    //))
+
     io.in.aw.ready := true.B
     io.in. w.ready := true.B
     io.in.b.valid := wstate === s_wait
@@ -97,9 +122,12 @@ class sdpb_top extends Module {
     io.sdpb.cea := true.B
     io.sdpb.ada := io.in.aw.bits.addr >> 2.U
     io.sdpb.din := io.in.w.bits.data
-    io.sdpb.byte_ena := io.in.w.bits.strb//Mux(io.in.w.fire,io.in.w.bits.strb,0.U)
+    io.sdpb.byte_ena := Mux(io.in.w.fire,io.in.w.bits.strb,0.U)
 
-    if(Config.debug){
+    io.sdpb.reset := reset
+    io.sdpb.oce := true.B
+
+    if(SRAMConfig.debug){
       when(io.in.aw.fire){
         printf("write address: %x\n", io.in.aw.bits.addr)
       }
@@ -137,8 +165,6 @@ class AXI4SRAM(address: Seq[AddressSet])(implicit p: Parameters) extends LazyMod
 
     val sram_bundle = IO(new SDPBIO)
     val msram = Module(new sdpb_top)
-    msram.io.clock := clock
-    msram.io.reset := reset.asBool
     msram.io.in <> in
     sram_bundle <> msram.io.sdpb
   }

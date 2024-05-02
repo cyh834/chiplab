@@ -1,13 +1,5 @@
 [
  {
-  "InstFile" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
-  "InstLine" : 10,
-  "InstName" : "SRAM_SDPB",
-  "ModuleFile" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
-  "ModuleLine" : 10,
-  "ModuleName" : "SRAM_SDPB"
- },
- {
   "InstFile" : "/home/cyh/Chisel-FFT-generator/Verilog/Sender.v",
   "InstLine" : 230,
   "InstName" : "Sender",

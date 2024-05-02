@@ -2,11 +2,179 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
    "Type" : "verilog"
   },
   {
-   "Path" : "/home/cyh/Chisel-FFT-generator/Verilog/Sender.v",
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x21/SP_256x21.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x32/SP_256x32.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/addr_trans.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/alu.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/axi_bridge.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/btb.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/csr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/dcache.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/div.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/exe_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/icache.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/id_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/if_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/mem_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/mul.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/mycpu_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/perf_counter.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/regfile.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/tlb_entry.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/tools.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/IP/open-la500/wb_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/build/SoCFull.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi_core.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi_pmem.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/sdram/sdram_top_axi.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_sync_flops.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v",
    "Type" : "verilog"
   }
  ],
@@ -15,7 +183,7 @@
  ],
  "LoopLimit" : 2000,
  "ResultFile" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/temp/rtl_parser.result",
- "Top" : "Sender",
- "VerilogStd" : "verilog_2001",
+ "Top" : "SoCFull",
+ "VerilogStd" : "sysv",
  "VhdlStd" : "vhdl_93"
 }

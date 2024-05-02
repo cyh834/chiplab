@@ -1,9 +1,6 @@
-`define CPU ldut.asic.cpu.cpu
+`define CPU ldut.dut.asic.cpu.cpu
 
 module tb();
-  reg         clock;
-  reg         reset;
-  reg         reset;
   reg clk;
 
   //global set/reset control for prim_sim.v
@@ -31,9 +28,11 @@ module tb();
   //gpio_in[0] 是重置按钮
   initial
   begin
-    gpio_in = 4'b0;
-    #60000 gpio_in = 4'b1;
-    #5000 gpio_in = 4'b0;
+    gpio_in = 4'b1;
+    #10 gpio_in = 4'b0;
+    #10 gpio_in = 4'b1;
+    #100000 gpio_in = 4'b0;
+    #10 gpio_in = 4'b1;
     #600000000 $display("************ Test TIMEOUT ***************");
     $finish;
   end
@@ -46,7 +45,7 @@ module tb();
     uart_rx = 1'b0;
   end
 
-  SoCFull ldut (
+  SoCTop ldut (
     .clock      (clk),
     .reset      (1'h0),
     .externalPins_gpio_in    (gpio_in),	
@@ -61,10 +60,10 @@ module tb();
       #(`CLOCK_PERIOD * 10000)
         $display("running at pc %x",`CPU.debug0_wb_pc);
         $display("LED = 0x %x",gpio_out);
-      if(`CPU.wb_stage.ws_excp && `CPU.wb_stage.ws_excp_num[5]) begin
-      	$display("************ Test Success ***************");
-	   $finish;
-      end
+      //if(`CPU.wb_stage.ws_excp && `CPU.wb_stage.ws_excp_num[6]) begin
+      	//$display("************ Test Success ***************");
+	   //$finish;
+      //end
     end
   end
 

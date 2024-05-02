@@ -8,7 +8,6 @@ import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
 
-
 class GPIOIO extends Bundle {
   val out = Output(UInt(6.W)) //led addr:0x0
   val in = Input(UInt(4.W))   //btn addr:0x4
@@ -31,11 +30,21 @@ class gpio_top_apb extends Module{
   val enw = en && io.in.pwrite && (io.in.paddr(3,0) === 0.U)
   val enr = en && !io.in.pwrite && (io.in.paddr(3,0) === 4.U)
 
-  val gpio = RegEnable((io.in.pwdata & mask)(5,0), 0.U(6.W), enw)
+  val gpio = RegEnable((io.in.pwdata & mask)(5,0), "b000000".U(6.W), enw)
+  //val gpio = RegInit("b000000".U(6.W))
+
+  //val counter = RegInit(0.U(32.W))
+  //counter := counter + 1.U
+
+  //when(counter(31,0) === 8000000.U){
+  //  counter := 0.U
+  //  gpio := ~gpio
+  //}
+
   io.gpio.out := gpio(5,0)
 
-  io.in.pready := true.B
-  io.in.prdata := Mux(enr,Cat(0.U(28.W),io.gpio.in),x"deadbeef".U(32.W))
+  io.in.pready := io.in.psel && io.in.penable;
+  io.in.prdata := Mux(enr,Cat(0.U(28.W),io.gpio.in),"hdeadbeef".U(32.W))
   io.in.pslverr := false.B
 }
 

@@ -17,6 +17,8 @@ class SPIIO(val ssWidth: Int = 8) extends Bundle {
 
 class spi_top_apb extends BlackBox{
   val io = IO(new Bundle {
+    val clock = Input(Clock())
+    val reset = Input(Reset())
     val in = Flipped(new APBBundle(APBBundleParameters(addrBits = 32, dataBits = 32)))
     val spi = new SPIIO
     val spi_irq_out = Output(Bool())
@@ -54,6 +56,8 @@ class APBSPI(address: Seq[AddressSet])(implicit p: Parameters) extends LazyModul
     val spi_bundle = IO(new SPIIO)
 
     val mspi = Module(new spi_top_apb)
+    mspi.io.clock := clock
+    mspi.io.reset := reset
     mspi.io.in <> in
     spi_bundle <> mspi.io.spi
   }

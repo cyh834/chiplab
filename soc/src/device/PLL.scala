@@ -10,8 +10,6 @@ import freechips.rocketchip.prci._
 class Gowin_PLL extends BlackBox {
   val io = IO(new Bundle {
     val clkin = Input(Clock())
-    val reset = Input(Bool())
-    val lock = Output(Bool())
     val clkout0 = Output(Clock())
     val clkout1 = Output(Clock())
   })
@@ -29,8 +27,6 @@ class PLL(implicit p: Parameters) extends LazyModule{
     //val (out, _) = node.out(0)
     val pll = Module(new Gowin_PLL)
     pll.io.clkin := clock
-    pll.io.reset := reset
-    //out.clock := pll.io.clkout0
 
     val pll_bundle = IO(new PLLIO(2))
     pll_bundle.clkout(0) := pll.io.clkout0

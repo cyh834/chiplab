@@ -50,7 +50,7 @@ deltmp:
 
 VCS = vcs -full64 -LDFLAGS -Wl,--no-as-needed
 
-VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/100ps -quiet \
+VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/1ns -quiet \
 	+rad +v2k +vcs+lic+wait \
 	+vc+list -CC "-I$(VCS_HOME)/include" \
 	-sverilog +v2k \
