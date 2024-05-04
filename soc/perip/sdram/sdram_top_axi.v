@@ -37,63 +37,10 @@ module sdram_top_axi(
   output        sdram_ras,
   output        sdram_cas,
   output        sdram_we,
-  output [13:0] sdram_a,
+  output [28:0] sdram_a,
   output [ 1:0] sdram_ba,
   output [ 3:0] sdram_dqm,
   inout  [31:0] sdram_dq
 );
-
-  wire sdram_dout_en;
-  wire [31:0] sdram_dout;
-  assign sdram_dq = sdram_dout_en ? sdram_dout : 32'bz;
-  sdram_axi #(
-    .SDRAM_MHZ(100),
-    .SDRAM_ADDR_W(25),
-    .SDRAM_COL_W(9),
-    .SDRAM_READ_LATENCY(2)
-  ) u_sdram_axi(
-    .clk_i(clock),
-    .rst_i(reset),
-    .inport_awvalid_i(in_awvalid),
-    .inport_awaddr_i(in_awaddr),
-    .inport_awid_i(in_awid),
-    .inport_awlen_i(in_awlen),
-    .inport_awburst_i(in_awburst),
-    .inport_wvalid_i(in_wvalid),
-    .inport_wdata_i(in_wdata),
-    .inport_wstrb_i(in_wstrb),
-    .inport_wlast_i(in_wlast),
-    .inport_bready_i(in_bready),
-    .inport_arvalid_i(in_arvalid),
-    .inport_araddr_i(in_araddr),
-    .inport_arid_i(in_arid),
-    .inport_arlen_i(in_arlen),
-    .inport_arburst_i(in_arburst),
-    .inport_rready_i(in_rready),
-
-    .inport_awready_o(in_awready),
-    .inport_wready_o(in_wready),
-    .inport_bvalid_o(in_bvalid),
-    .inport_bresp_o(in_bresp),
-    .inport_bid_o(in_bid),
-    .inport_arready_o(in_arready),
-    .inport_rvalid_o(in_rvalid),
-    .inport_rdata_o(in_rdata),
-    .inport_rresp_o(in_rresp),
-    .inport_rid_o(in_rid),
-    .inport_rlast_o(in_rlast),
-    .sdram_clk_o(sdram_clk),
-    .sdram_cke_o(sdram_cke),
-    .sdram_cs_o(sdram_cs),
-    .sdram_ras_o(sdram_ras),
-    .sdram_cas_o(sdram_cas),
-    .sdram_we_o(sdram_we),
-    .sdram_dqm_o(sdram_dqm),
-    .sdram_addr_o(sdram_a),
-    .sdram_ba_o(sdram_ba),
-    .sdram_data_input_i(sdram_dq),
-    .sdram_data_output_o(sdram_dout),
-    .sdram_data_out_en_o(sdram_dout_en)
-  );
 
 endmodule

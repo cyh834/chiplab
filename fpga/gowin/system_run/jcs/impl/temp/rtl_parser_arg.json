@@ -22,6 +22,10 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/ddr3_memory_interface/ddr3_memory_interface.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v",
    "Type" : "verilog"
   },

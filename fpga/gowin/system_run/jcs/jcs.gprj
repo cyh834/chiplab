@@ -30,6 +30,7 @@
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v" type="file.verilog" enable="1"/>
         <File path="src/SRAM_SDPB.v" type="file.verilog" enable="1"/>
+        <File path="src/ddr3_memory_interface/ddr3_memory_interface.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/build/SoCFull.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/sdram/core_sdram_axi4/sdram_axi_core.v" type="file.verilog" enable="1"/>
