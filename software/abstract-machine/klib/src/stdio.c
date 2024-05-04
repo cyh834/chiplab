@@ -172,13 +172,19 @@ int printf(const char *fmt, ...)
 	n = vsprintf(sprint_buf, fmt, ap);
 	if (n > SPRINT_BUF_SIZE)
 	{
-		printf("****printf_buffer_overflow****\n");
+		//printf("****printf_buffer_overflow****\n");
 		assert(0);
 	}
 	for (int i = 0; i < n; i++)
 	{
+		//if((i&0xf) == 0){
+		//	putch('\r\n');
+  //		delay_ms(25);
+		//}
 		putch(sprint_buf[i]);
 	}
+	//putch('\r\n');
+	//delay_ms(25);
 	va_end(ap);
 	return n;
 }

@@ -78,7 +78,7 @@ void ssbl() {
 #pragma GCC pop_options
 
 void _trm_init() {
-  //ioe_init();
+  ioe_init();
   //fsbl();
   //ssbl();
   //printf("heap: [%p, %p]\n", heap.start, heap.end);

@@ -37,8 +37,8 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val ltimer  = LazyModule(new APBTimer (AddressSet.misaligned(0xa0010000L, 0x10)))
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
   val luart   = LazyModule(new APBUart  (AddressSet.misaligned(0xa0030000L, 0x10)))
+  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x00000000 , 0x20000000))) // 512MB
 
-  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x2c000000, 0x40000)))
   //val lvga = LazyModule(new APBVGA(AddressSet.misaligned(0x21000000, 0x200000)))
   val lspi  = LazyModule(new APBSPI(
     AddressSet.misaligned(0x00000000, 0x100000) ++  // XIP flash 
@@ -96,14 +96,15 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     sram.io <> masic.sram
 
     val spi = IO(chiselTypeOf(masic.spi))
-    val sdram = IO(chiselTypeOf(masic.sdram))
     spi <> masic.spi
+
+    val sdram = IO(chiselTypeOf(masic.sdram))
     sdram <> masic.sdram
 
     val externalPins = IO(new Bundle{
       val gpio = chiselTypeOf(masic.gpio)
       //val vga = chiselTypeOf(masic.vga)
-      val uart = (new UARTIO_noirq)
+      val uart = (chiselTypeOf(masic.uart))
     })
     externalPins.gpio <> masic.gpio
     //externalPins.vga <> masic.vga
@@ -117,7 +118,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
 
     //处理复位信号
     
-    val reset_time = if(Config.sim){40000}else{40000000}
+    val reset_time = 40000
     val cnt = withReset(~externalPins.gpio.in(0)){Counter(reset_time)}
     when(cnt.value < (reset_time - 1).U ) {
       cnt.inc()
@@ -131,7 +132,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.intc.timer_int := masic.timer.int
     masic.intc.i2c_int := 0.U
     masic.intc.uart1_int := 0.U
-    masic.intc.uart0_int := masic.uart.irq
+    masic.intc.uart0_int := 0.U//masic.uart.irq
     masic.intc.flash_int := 0.U
     masic.intc.spi_int := 0.U
     masic.intc.vpwm_int := 0.U

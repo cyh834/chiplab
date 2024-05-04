@@ -11,13 +11,12 @@ import freechips.rocketchip.util._
 class UARTIO extends Bundle {
   val rx = Input(Bool())
   val tx = Output(Bool())
-  val irq = Output(Bool())
 }
 
-class UARTIO_noirq extends Bundle {
-  val rx = Input(Bool())
-  val tx = Output(Bool())
-}
+//class UARTIO_noirq extends Bundle {
+//  val rx = Input(Bool())
+//  val tx = Output(Bool())
+//}
 
 class uart_top_apb extends BlackBox{
   val io = IO(new Bundle {

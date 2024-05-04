@@ -7,7 +7,7 @@ import freechips.rocketchip.diplomacy.LazyModule
 
 trait SoCConfig {
   def debug: Boolean = false
-  def sim: Boolean = false
+  def sim: Boolean = true
 }
 
 object Config extends SoCConfig

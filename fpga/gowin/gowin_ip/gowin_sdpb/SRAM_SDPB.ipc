@@ -16,4 +16,4 @@ RESET_MODE=true
 WIDTH_A=32
 WIDTH_B=32
 DIMENSION_MATCH=65
-MEM_FILE=/home/cyh/chiplab/software/am-kernels/tests/soc-tests/build/timer-loongarch32r-soc.mi
+MEM_FILE=/home/cyh/chiplab/software/am-kernels/tests/soc-tests/build/hello-loongarch32r-soc.mi

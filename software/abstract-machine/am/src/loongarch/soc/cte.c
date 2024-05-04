@@ -11,6 +11,9 @@ Context* __am_irq_handle(Context *c) {
     if(c->estat & 0x4){
       ev.event = EVENT_IRQ_TIMER;
     }
+    else if(c->estat & 0x7){
+      ev.event = EVENT_IRQ_UART0;
+    }
     else{
       ev.event = EVENT_ERROR;
     }
