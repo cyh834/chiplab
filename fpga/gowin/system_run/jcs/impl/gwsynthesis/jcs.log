@@ -1,15 +1,6 @@
 GowinSynthesis start
 Running parser ...
 ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_sync_flops.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v'
-ERROR (EX5998) : Cannot open Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v'
 Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v'
 Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v'
 Analyzing Verilog file '/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x21/SP_256x21.v'
@@ -76,4 +67,23 @@ Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v'
 Analyzing included file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v":42)
 Back to file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v'("/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v":42)
 Analyzing Verilog file '/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v":199)
+Back to file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v":199)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v":230)
+Back to file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_regs.v":230)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v":151)
+Back to file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_rfifo.v":151)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_sync_flops.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v":145)
+Back to file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v":145)
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v'
+Analyzing Verilog file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v'
+Analyzing included file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v":155)
+Back to file '/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v'("/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v":155)
 GowinSynthesis finish

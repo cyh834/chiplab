@@ -1,9 +1,8 @@
 ENTRY(_start)
 
 MEMORY {
-  STACK : ORIGIN = 0x0f000000, LENGTH = 8K 
-  ROM   : ORIGIN = 0x30000000, LENGTH = 256M
-  RAM   : ORIGIN = 0xa0000000, LENGTH = 64M
+  ROM (rxa) : ORIGIN = 0x1c000000, LENGTH = 512K
+  RAM (rwxa) : ORIGIN = 0x20000000, LENGTH = 512M
 }
 
 SECTIONS {
@@ -12,7 +11,6 @@ SECTIONS {
     *(entry)
     *(.text._trm_init)
     *(.text.fsbl)
-    *(.text.putch_num)
     . = ALIGN(0x10);
   } > ROM
 
@@ -20,19 +18,11 @@ SECTIONS {
   .ssbl : {
     _ssbl_load_start = .;
     *(.text.ssbl)
+    *(.text._init_bss)
     . = ALIGN(0x10);
     _ssbl_load_end = .;
   } > RAM AT> ROM
 
-  /*
-  .bootloader : {
-    *(entry)
-    *(.text._trm_init)
-    *(.text.putch_num)
-    *(.text.bootloader)
-    . = ALIGN(0x10);
-  }> ROM
-  */
   p_start = LOADADDR(.text);
   .text : {
     p_load_start = .;
@@ -43,21 +33,23 @@ SECTIONS {
   _etext = .;
   .rodata : {
     *(.rodata*)
+    . = ALIGN(0x10);
     *(.srodata*)
     . = ALIGN(0x10);
   }> RAM AT> ROM
 
   .data :{
     /*VMA*/
-    /*data_start = .;*/
     *(.data*)
+    . = ALIGN(0x10);
     *(.sdata*)
-    /*data_end = .;*/
+    . = ALIGN(0x10);
+    *(.got.plt) 
+    . = ALIGN(0x10);
+    *(.got) 
     . = ALIGN(0x10);
     p_load_end = .;
   }> RAM AT> ROM
-  /*LMA*/
-  /*data_load_start = LOADADDR(.data);*/
 
   edata = .;
   _data = .;
@@ -69,13 +61,15 @@ SECTIONS {
     . = ALIGN(0x10);
     _bss_end = .;
   }> RAM
-  /*_stack_top = ORIGIN(STACK) + LENGTH(STACK)- 0x1000;
-  . = _stack_top + 0x1000;
-  _stack_pointer = . ;  ORIGIN(STACK) + LENGTH(STACK) ;*/
-  _heap_start = _bss_end;
-  _ram_start = ORIGIN(RAM);
-  _ram_size = LENGTH(RAM);
 
+  _ram_start = .;
+
+  _stack_top = ALIGN(0x1000);
+  . = _stack_top + 0x8000;
+  _stack_pointer = .;
   end = .;
   _end = .;
+
+  _heap_start = ALIGN(0x1000);
+
 }

@@ -48,6 +48,6 @@ void __am_uart_init(){
   outb(UART_ADDR + 0x3, 0x83); // LCR <= 8N1, DLA
   //outb(UART_ADDR + 0x1, 0);  // DLA.MSB
   // DL = clk / (16 * baud rate) = 25MHz / (16 * 115200) = 13.56 = 14
-  outb(UART_ADDR + 0x0, 4); // DLA.LSB
+  outb(UART_ADDR + 0x0, 14); // DLA.LSB
   outb(UART_ADDR + 0x3, 0x3);  // LCR <= 8N1
 }

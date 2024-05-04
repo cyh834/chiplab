@@ -12,8 +12,9 @@ AM_SRCS := platform/soc/trm.c \
 
 CFLAGS    += -fdata-sections -ffunction-sections 
 LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
-             --defsym=_pmem_start=0x1c000000 --defsym=_entry_offset=0x0
-LDFLAGS   += --gc-sections -e _start ## --print-map
+	             --defsym=_pmem_start=0x1c000000 --defsym=_entry_offset=0x0
+##LDFLAGS		+= -T $(AM_HOME)/scripts/linker_sd.ld
+LDFLAGS   += --gc-sections -e _start -Map $(IMAGE).map
 ##$(eval NAVY := $(shell find -L $(NAVY_HOME)/fsimg/bin -type f))
 
 CFLAGS += -DMAINARGS=\"$(mainargs)\"

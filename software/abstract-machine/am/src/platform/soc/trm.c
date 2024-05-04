@@ -5,19 +5,13 @@
 
 extern char _heap_start;
 
-extern char p_start;
-extern char p_load_start;
-extern char p_load_end;
-
-extern char _ram_start;
-extern char _ram_size;
-
-extern char _ssbl_start;
-extern char _ssbl_load_start;
-extern char _ssbl_load_end;
-
-extern char _bss_start[];
-extern char _bss_end[];
+//extern char p_start, p_load_start, p_load_end;
+//
+//extern char _ram_start;
+//
+//extern char _ssbl_start, _ssbl_load_start, _ssbl_load_end;
+//
+//extern char _bss_start,  _bss_end;
 
 
 int main(const char *args);
@@ -59,29 +53,42 @@ void halt(int code) {
 
 #pragma GCC push_options
 #pragma GCC optimize("O0")
-void fsbl(){
-  volatile uint32_t *prog = (volatile uint32_t *)&_ssbl_start;
-  volatile uint32_t *pmem = (volatile uint32_t *)&_ssbl_load_start;
-  while((size_t)pmem < (size_t)&_ssbl_load_end){
-    *pmem++ = *prog++;
-  }
-}
+//void fsbl(){
+//  volatile uint32_t *prog = (volatile uint32_t *)&_ssbl_start;
+//  volatile uint32_t *pmem = (volatile uint32_t *)&_ssbl_load_start;
+//  while((uint32_t)pmem < (uint32_t)&_ssbl_load_end){
+//    *pmem++ = *prog++;
+//  }
+//}
+//
+//void ssbl() {
+//
+//  volatile uint32_t *prog = (volatile uint32_t *)&p_start;
+//  volatile uint32_t *pmem = (volatile uint32_t *)&p_load_start;
+//  while((uint32_t)pmem < (uint32_t)&p_load_end){
+//    *pmem++ = *prog++;
+//  }
+//}
+//
+//void _init_bss(){
+//  char* iteration = &_bss_start;
+//  
+//  while (iteration != &_bss_end)
+//  {
+//    *iteration = 0;
+//    iteration++;
+//  }
+//  
+//}
 
-void ssbl() {
-
-  volatile uint32_t *prog = (volatile uint32_t *)&p_start;
-  volatile uint32_t *pmem = (volatile uint32_t *)&p_load_start;
-  while((size_t)pmem < (size_t)&p_load_end){
-    *pmem++ = *prog++;
-  }
-}
 #pragma GCC pop_options
 
 void _trm_init() {
-  ioe_init();
   //fsbl();
   //ssbl();
+  //_init_bss();
   //printf("heap: [%p, %p]\n", heap.start, heap.end);
+  ioe_init();
   int ret = main(mainargs);
   halt(ret);
 }

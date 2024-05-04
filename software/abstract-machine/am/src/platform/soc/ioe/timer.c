@@ -37,7 +37,7 @@ static uint64_t read_time() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = (read_time() - boot_time) >> 3;  //8MHz
+  uptime->us = (read_time() - boot_time) / 25;  //25MHz
   //uptime->us = 0;
 }
 
