@@ -4413,7 +4413,7 @@ endmodule
 
 // external module SRAM_SDPB
 
-// external module cmos_hdmi
+// external module camera_hdmi
 
 module SoCFull(	// src/SoC.scala:92:9
   input         clock,	// src/SoC.scala:92:9
@@ -4460,7 +4460,7 @@ module SoCFull(	// src/SoC.scala:92:9
   output        ch_cmos_rst_n	// src/SoC.scala:144:16
 );
 
-  wire [3:0]  _cmos_hdmi_led;	// src/SoC.scala:143:27
+  wire [3:0]  _camera_hdmi_led;	// src/SoC.scala:143:29
   wire [31:0] _sram_dout;	// src/SoC.scala:96:22
   wire        _pll_pll_clkout0;	// src/device/PLL.scala:35:21
   wire        _asic_intc_int_o;	// src/SoC.scala:86:24
@@ -4551,7 +4551,7 @@ module SoCFull(	// src/SoC.scala:92:9
     .adb      (_asic_sram_adb),	// src/SoC.scala:86:24
     .dout     (_sram_dout)
   );	// src/SoC.scala:96:22
-  cmos_hdmi cmos_hdmi (	// src/SoC.scala:143:27
+  camera_hdmi camera_hdmi (	// src/SoC.scala:143:29
     .clk          (clock),
     .rst_n        (reset),
     .ddr3_dq      (ch_ddr3_dq),
@@ -4569,7 +4569,7 @@ module SoCFull(	// src/SoC.scala:92:9
     .ddr3_cs_n    (ch_ddr3_cs_n),
     .ddr3_dm      (ch_ddr3_dm),
     .ddr3_odt     (ch_ddr3_odt),
-    .led          (_cmos_hdmi_led),
+    .led          (_camera_hdmi_led),
     .tmds_clk_n_0 (ch_tmds_clk_n_0),
     .tmds_clk_p_0 (ch_tmds_clk_p_0),
     .tmds_d_n_0   (ch_tmds_d_n_0),
@@ -4584,9 +4584,9 @@ module SoCFull(	// src/SoC.scala:92:9
     .cmos_pclk    (ch_cmos_pclk),
     .cmos_db      (ch_cmos_db),
     .cmos_rst_n   (ch_cmos_rst_n)
-  );	// src/SoC.scala:143:27
-  assign externalPins_gpio_out = {2'h0, _cmos_hdmi_led};	// src/SoC.scala:92:9, :143:27, :149:22
-  assign ch_led = _cmos_hdmi_led;	// src/SoC.scala:92:9, :143:27
+  );	// src/SoC.scala:143:29
+  assign externalPins_gpio_out = {2'h0, _camera_hdmi_led};	// src/SoC.scala:92:9, :143:29, :149:24
+  assign ch_led = _camera_hdmi_led;	// src/SoC.scala:92:9, :143:29
 endmodule
 
 // external module flash

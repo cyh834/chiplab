@@ -9,7 +9,7 @@ import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.util._
 import chisel3.experimental.Analog
 
-class cmos_hdmi extends BlackBox {
+class camera_hdmi extends BlackBox {
   val io = IO(new Bundle {
     val clk = Input(Clock())
     val rst_n = Input(Bool())

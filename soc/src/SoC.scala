@@ -139,13 +139,13 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.intc.vpwm_int := 0.U
     masic.intc.dma_int := 0.U
 
-    //cmos_hdmi
-    val cmos_hdmi = Module(new cmos_hdmi)
-    val ch = IO(chiselTypeOf(cmos_hdmi.io))
+    //camera_hdmi
+    val camera_hdmi = Module(new camera_hdmi)
+    val ch = IO(chiselTypeOf(camera_hdmi.io))
 
-    ch <> cmos_hdmi.io
-    cmos_hdmi.io.clk := clock
-    cmos_hdmi.io.rst_n := reset.asBool
-    cmos_hdmi.io.led <> externalPins.gpio.out
+    ch <> camera_hdmi.io
+    camera_hdmi.io.clk := clock
+    camera_hdmi.io.rst_n := reset.asBool
+    camera_hdmi.io.led <> externalPins.gpio.out
   }
 }
