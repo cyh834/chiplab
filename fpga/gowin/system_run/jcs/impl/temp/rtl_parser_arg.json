@@ -142,6 +142,10 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/raminfr.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/reg_config.v",
    "Type" : "verilog"
   },
@@ -166,6 +170,26 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_clgen.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_shift.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_top_apb.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v",
    "Type" : "verilog"
   },
@@ -183,6 +207,38 @@
   },
   {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/tools.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_receiver.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_regs.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_rfifo.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_sync_flops.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_tfifo.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_top_apb.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/uart_transmitter.v",
    "Type" : "verilog"
   },
   {
