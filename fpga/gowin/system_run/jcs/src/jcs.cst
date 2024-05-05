@@ -238,6 +238,6 @@ IO_PORT "ch_iic_mux[1]" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_LOC "ch_iic_mux[0]" N19;
 IO_PORT "ch_iic_mux[0]" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 
-INS_LOC "cmos_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/u_dll" DDRDLLM_BL;
-INS_LOC "cmos_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_pll_inst0/PLL_inst" PLL_L[0];
-INS_LOC "cmos_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/fclkdiv" LEFTSIDE[4];
+INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/u_dll" DDRDLLM_BL;
+INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_pll_inst0/PLL_inst" PLL_L[0];
+INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/fclkdiv" LEFTSIDE[4];
