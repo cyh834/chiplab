@@ -145,7 +145,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
 
     ch <> camera_hdmi.io
     camera_hdmi.io.clk := clock
-    camera_hdmi.io.rst_n := reset.asBool
+    camera_hdmi.io.rst_n := externalPins.gpio.in(0)
     camera_hdmi.io.led <> externalPins.gpio.out
   }
 }

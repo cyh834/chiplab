@@ -4553,7 +4553,7 @@ module SoCFull(	// src/SoC.scala:92:9
   );	// src/SoC.scala:96:22
   camera_hdmi camera_hdmi (	// src/SoC.scala:143:29
     .clk          (clock),
-    .rst_n        (reset),
+    .rst_n        (externalPins_gpio_in[0]),	// src/SoC.scala:123:46
     .ddr3_dq      (ch_ddr3_dq),
     .ddr3_dqs_n   (ch_ddr3_dqs_n),
     .ddr3_dqs_p   (ch_ddr3_dqs_p),
