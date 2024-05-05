@@ -1,4 +1,4 @@
-module top(
+module camera_hdmi(
 	
 	// ===================================================
 	input                       clk,
