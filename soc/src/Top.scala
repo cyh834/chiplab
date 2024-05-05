@@ -26,8 +26,11 @@ class SoCTop extends Module {
   flash.io <> mdut.spi
   flash.io.ss := mdut.spi.ss(0)
 
-  val sdram = Module(new sdram)
-  sdram.io <> mdut.sdram
+  //val sdram = Module(new sdram)
+  //sdram.io <> mdut.sdram
+  val cmos_hdmi = IO(chiselTypeOf(mdut.ch))
+  cmos_hdmi <> mdut.ch
+
 }
 
 object Elaborate extends App {

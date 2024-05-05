@@ -15,6 +15,13 @@ class Gowin_PLL extends BlackBox {
   })
 }
 
+class Gowin_PLL_DDR3 extends BlackBox {
+  val io = IO(new Bundle {
+    val clkin = Input(Clock())
+    val clkout0 = Output(Clock())
+  })
+}
+
 class PLLIO(n: Int = 2) extends Bundle {
   val clkout = Vec(n, Output(Clock()))
 }

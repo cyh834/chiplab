@@ -12,6 +12,7 @@ import freechips.rocketchip.amba.apb._
 import freechips.rocketchip.system.SimAXIMem
 import freechips.rocketchip.jtag.JTAGIO
 import scala.runtime.LazyInt
+import freechips.rocketchip.tilelink.TLMessages.c
 
 object AXI4SlaveNodeGenerator {
   def apply(params: Option[MasterPortParams], address: Seq[AddressSet])(implicit valName: ValName) =
@@ -33,7 +34,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val cpu = LazyModule(new CPU(idBits = 4))
   
   val lsram   = LazyModule(new AXI4SRAM (AddressSet.misaligned(0x1c000000 , 0x40000)))  //65536 * 32
-  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
+  //val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
   val lgpio   = LazyModule(new APBGPIO  (AddressSet.misaligned(0xa0000000L, 0x10)))
   val ltimer  = LazyModule(new APBTimer (AddressSet.misaligned(0xa0010000L, 0x10)))
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
@@ -47,7 +48,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
 
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lintc.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
-  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.node ).map( _ := xbar)
+  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter()).map( _ := xbar)
 
   xbar := cpu.masterNode
 
@@ -64,7 +65,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     val timer = IO(chiselTypeOf(ltimer.module.timer_bundle))
     val spi = IO(chiselTypeOf(lspi.module.spi_bundle))
     val uart = IO(chiselTypeOf(luart.module.uart_bundle))
-    val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
+    //val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
     val gpio = IO(chiselTypeOf(lgpio.module.gpio_bundle))
     //val vga = IO(chiselTypeOf(lvga.module.vga_bundle))
     val sram = IO(chiselTypeOf(lsram.module.sram_bundle))
@@ -73,7 +74,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     intc <> lintc.module.intc_bundle
     uart <> luart.module.uart_bundle
     spi <> lspi.module.spi_bundle
-    sdram <> lsdram.module.sdram_bundle
+    //sdram <> lsdram.module.sdram_bundle
     gpio <> lgpio.module.gpio_bundle
     //vga <> lvga.module.vga_bundle
     sram <> lsram.module.sram_bundle
@@ -98,8 +99,8 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     val spi = IO(chiselTypeOf(masic.spi))
     spi <> masic.spi
 
-    val sdram = IO(chiselTypeOf(masic.sdram))
-    sdram <> masic.sdram
+    //val sdram = IO(chiselTypeOf(masic.sdram))
+    //sdram <> masic.sdram
 
     val externalPins = IO(new Bundle{
       val gpio = chiselTypeOf(masic.gpio)
@@ -138,5 +139,13 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.intc.vpwm_int := 0.U
     masic.intc.dma_int := 0.U
 
+    //cmos_hdmi
+    val cmos_hdmi = Module(new cmos_hdmi)
+    val ch = IO(chiselTypeOf(cmos_hdmi.io))
+
+    ch <> cmos_hdmi.io
+    cmos_hdmi.io.clk := clock
+    cmos_hdmi.io.rst_n := reset.asBool
+    cmos_hdmi.io.led <> externalPins.gpio.out
   }
 }

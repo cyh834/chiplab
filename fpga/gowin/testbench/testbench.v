@@ -4,7 +4,7 @@ module tb();
   reg clk;
 
   //global set/reset control for prim_sim.v
-  GSR GSR (1'b1);
+  GSR GSR (.GSRI(1'b1));
 
   initial begin
     clk = 1'b0;

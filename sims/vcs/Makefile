@@ -14,7 +14,7 @@ TB = $(gowin)/testbench/testbench.v
 bb_vsrcs = \
   $(shell find $(soc)/build -name "*.v") \
   $(shell find $(IP)/open-la500 -name "*.v") \
-	$(shell find $(gowin)/gowin_ip/ -name "*.v" -not -name "SRAM_SDPB_tmp.v") \
+	$(shell find $(gowin)/gowin_ip/ -name "*.v" -or -name "*.vo" -not -name "SRAM_SDPB_tmp.v") \
 
 sim_vsrcs = \
 	$(TB) \
@@ -63,6 +63,7 @@ VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timesc
 	+define+RANDOMIZE_INVALID_ASSIGN \
 	+define+RANDOMIZE_DELAY=0.1 \
 	+libext+.v \
+	-top tb
 
 #--------------------------------------------------------------------
 # Build the simulator
