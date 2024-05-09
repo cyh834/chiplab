@@ -12,24 +12,24 @@ module ddr_ctrl #(
 	
 	output                   ddr_pll_lk,
 
-/*ddr读写用户接口信号*/	
+/*ddr??д?????????*/	
     output                   init_calib_complete,     //ddr initial done
 
-	input                    wr_burst_req,            //DDR Burst写请求         	
-	input  [9:0]             wr_burst_len,	          //DDR Burst写长度
-	input [ADDR_WIDTH - 3 - 1:0] wr_burst_addr,           //DDR Burst写地址
-    output                   wr_burst_data_req,	      //写入数据请求	
-	input [DATA_WIDTH - 1:0] wr_burst_data,           //DDR Burst写数据
-    output                   wr_burst_finish,         //DDR Burst写完成信号
+	input                    wr_burst_req,            //DDR Burstд????         	
+	input  [9:0]             wr_burst_len,	          //DDR Burstд????
+	input [ADDR_WIDTH - 3 - 1:0] wr_burst_addr,           //DDR Burstд???
+    output                   wr_burst_data_req,	      //д??????????	
+	input [DATA_WIDTH - 1:0] wr_burst_data,           //DDR Burstд????
+    output                   wr_burst_finish,         //DDR Burstд??????
 	
-	input                    rd_burst_req,            //DDR Burst读请求 
-	input  [9:0]             rd_burst_len,	          //DDR Burst读长度
-	input [ADDR_WIDTH - 3 - 1:0] rd_burst_addr,           //DDR Burst读地址		
-    output                   rd_burst_data_valid,     //DDR Burst读数据有效		
-	output[DATA_WIDTH - 1:0] rd_burst_data,           //DDR Burst读数据
-    output                   rd_burst_finish,         //DDR Burst读完成信号
+	input                    rd_burst_req,            //DDR Burst?????? 
+	input  [9:0]             rd_burst_len,	          //DDR Burst??????
+	input [ADDR_WIDTH - 3 - 1:0] rd_burst_addr,           //DDR Burst?????		
+    output                   rd_burst_data_valid,     //DDR Burst????????Ч		
+	output[DATA_WIDTH - 1:0] rd_burst_data,           //DDR Burst??????
+    output                   rd_burst_finish,         //DDR Burst????????
 	
-/*ddr3接口信号*/	
+/*ddr3??????*/	
     inout [31:0]             ddr3_dq,
     inout [3:0]              ddr3_dqs_n,
     inout [3:0]              ddr3_dqs_p,
@@ -68,20 +68,20 @@ module ddr_ctrl #(
 		.MEM_DATA_BITS(DATA_WIDTH),
 		.ADDR_BITS(ADDR_WIDTH)
 	)mem_burst_m0(
-		.rst(rst),                                  /*复位*/
-		.mem_clk(ddr_clk_1x),                              /*接口时钟*/
-		.rd_burst_req(rd_burst_req),                /*DDR Burst读请求*/
-		.wr_burst_req(wr_burst_req),                /*DDR Burst写请求*/
-		.rd_burst_len(rd_burst_len),                /*DDR Burst读数据长度*/
-		.wr_burst_len(wr_burst_len),                 /*DDR Burst写数据长度*/
-		.rd_burst_addr(rd_burst_addr),               /*DDR Burst读首地址*/
-		.wr_burst_addr(wr_burst_addr),               /*DDR Burst写首地址*/
-		.rd_burst_data_valid(rd_burst_data_valid),   /*DDR Burst读出数据有效*/
-		.wr_burst_data_req(wr_burst_data_req),       /*DDR Burst写数据信号*/
-		.rd_burst_data(rd_burst_data),               /*DDR Burst读出的数据*/
-		.wr_burst_data(wr_burst_data),               /*DDR Burst写入的数据*/
-		.rd_burst_finish(rd_burst_finish),           /*DDR Burst读完成*/
-		.wr_burst_finish(wr_burst_finish),           /*DDR Burst写完成*/
+		.rst(rst),                                  /*??λ*/
+		.mem_clk(ddr_clk_1x),                              /*??????*/
+		.rd_burst_req(rd_burst_req),                /*DDR Burst??????*/
+		.wr_burst_req(wr_burst_req),                /*DDR Burstд????*/
+		.rd_burst_len(rd_burst_len),                /*DDR Burst?????????*/
+		.wr_burst_len(wr_burst_len),                 /*DDR Burstд???????*/
+		.rd_burst_addr(rd_burst_addr),               /*DDR Burst??????*/
+		.wr_burst_addr(wr_burst_addr),               /*DDR Burstд????*/
+		.rd_burst_data_valid(rd_burst_data_valid),   /*DDR Burst??????????Ч*/
+		.wr_burst_data_req(wr_burst_data_req),       /*DDR Burstд???????*/
+		.rd_burst_data(rd_burst_data),               /*DDR Burst??????????*/
+		.wr_burst_data(wr_burst_data),               /*DDR Burstд???????*/
+		.rd_burst_finish(rd_burst_finish),           /*DDR Burst?????*/
+		.wr_burst_finish(wr_burst_finish),           /*DDR Burstд???*/
 
 		.app_addr(app_addr),
 		.app_cmd(app_cmd),

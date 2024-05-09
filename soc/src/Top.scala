@@ -28,8 +28,11 @@ class SoCTop extends Module {
 
   //val sdram = Module(new sdram)
   //sdram.io <> mdut.sdram
-  val cmos_hdmi = IO(chiselTypeOf(mdut.ch))
-  cmos_hdmi <> mdut.ch
+  val sdram = IO(chiselTypeOf(mdut.sdram))
+  sdram <> mdut.sdram
+
+  //val cmos_hdmi = IO(chiselTypeOf(mdut.ch))
+  //cmos_hdmi <> mdut.ch
 
 }
 

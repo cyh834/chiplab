@@ -5,6 +5,7 @@
     <Version>5</Version>
     <Device name="GW5AST-138B" pn="GW5AST-LV138FPG676AC2/I1">gw5ast138b-006</Device>
     <FileList>
+        <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v" type="file.verilog" enable="1"/>
         <File path="src/SP_256x21.v" type="file.verilog" enable="1"/>
         <File path="src/SP_256x32.v" type="file.verilog" enable="1"/>
         <File path="src/SRAM_SDPB.v" type="file.verilog" enable="1"/>

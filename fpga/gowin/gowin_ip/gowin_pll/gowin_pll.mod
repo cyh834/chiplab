@@ -11,7 +11,7 @@
 -type PLL_ADV
 -file_type vlg
 -ssc false
--clock_en false
+-clock_en true
 -rst false
 -rst_pwd false
 -rst_i false
@@ -22,7 +22,7 @@
 -clkfb_sel 0
 -dyn_fbdiv_sel false
 -fbdiv_sel 1
--en_lock false
+-en_lock true
 -dyn_dpa_en false
 -clkout0_bypass false
 -dyn_odiv0_sel false
@@ -49,7 +49,17 @@
 -clkout1_pe_coarse 0
 -clkout1_pe_fine 0
 -de1_en false
--en_clkout2 false
+-en_clkout2 true
+-clkout2_bypass false
+-dyn_odiv2_sel false
+-odiv2_sel 2
+-dyn_dt2_sel false
+-clkout2_dt_dir 1
+-clkout2_dt_step 0
+-dyn_pe2_sel false
+-clkout2_pe_coarse 0
+-clkout2_pe_fine 0
+-de2_en false
 -en_clkout3 false
 -en_clkout4 false
 -en_clkout5 false

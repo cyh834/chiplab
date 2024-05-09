@@ -34,7 +34,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val cpu = LazyModule(new CPU(idBits = 4))
   
   val lsram   = LazyModule(new AXI4SRAM (AddressSet.misaligned(0x1c000000 , 0x40000)))  //65536 * 32
-  //val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
+  val lsdram  = LazyModule(new AXI4SDRAM (AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
   val lgpio   = LazyModule(new APBGPIO  (AddressSet.misaligned(0xa0000000L, 0x10)))
   val ltimer  = LazyModule(new APBTimer (AddressSet.misaligned(0xa0010000L, 0x10)))
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
@@ -48,7 +48,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
 
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lintc.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
-  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter()).map( _ := xbar)
+  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.node).map( _ := xbar)
 
   xbar := cpu.masterNode
 
@@ -65,7 +65,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     val timer = IO(chiselTypeOf(ltimer.module.timer_bundle))
     val spi = IO(chiselTypeOf(lspi.module.spi_bundle))
     val uart = IO(chiselTypeOf(luart.module.uart_bundle))
-    //val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
+    val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
     val gpio = IO(chiselTypeOf(lgpio.module.gpio_bundle))
     //val vga = IO(chiselTypeOf(lvga.module.vga_bundle))
     val sram = IO(chiselTypeOf(lsram.module.sram_bundle))
@@ -74,7 +74,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     intc <> lintc.module.intc_bundle
     uart <> luart.module.uart_bundle
     spi <> lspi.module.spi_bundle
-    //sdram <> lsdram.module.sdram_bundle
+    sdram <> lsdram.module.sdram_bundle
     gpio <> lgpio.module.gpio_bundle
     //vga <> lvga.module.vga_bundle
     sram <> lsram.module.sram_bundle
@@ -99,9 +99,6 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     val spi = IO(chiselTypeOf(masic.spi))
     spi <> masic.spi
 
-    //val sdram = IO(chiselTypeOf(masic.sdram))
-    //sdram <> masic.sdram
-
     val externalPins = IO(new Bundle{
       val gpio = chiselTypeOf(masic.gpio)
       //val vga = chiselTypeOf(masic.vga)
@@ -114,8 +111,10 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
 
     //处理时钟信号
     pll.module.clock := clock
+    pll.module.pll_bundle.enclk(0) := true.B
+    pll.module.pll_bundle.enclk(1) := true.B
+    
     masic.clock := mpll.pll_bundle.clkout(0)
-    val test = withClock(mpll.pll_bundle.clkout(1))(RegInit(0.U(32.W)))
 
     //处理复位信号
     
@@ -139,13 +138,51 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.intc.vpwm_int := 0.U
     masic.intc.dma_int := 0.U
 
-    //camera_hdmi
-    val camera_hdmi = Module(new camera_hdmi)
-    val ch = IO(chiselTypeOf(camera_hdmi.io))
+    //ddr
+    val dmi = Module(new DDR3_Memory_Interface_Top)
+    val sdram = IO(new DDR3IO)
 
-    ch <> camera_hdmi.io
-    camera_hdmi.io.clk := clock
-    camera_hdmi.io.rst_n := externalPins.gpio.in(0)
-    camera_hdmi.io.led <> externalPins.gpio.out
+    dmi.io.clk <> clock   //50MHz
+    dmi.io.memory_clk <> mpll.pll_bundle.clkout(2) //400MHz
+    dmi.io.pll_lock <> mpll.pll_bundle.lock
+    dmi.io.rst_n <> externalPins.gpio.in(0) //按钮
+    dmi.io.cmd <> masic.sdram.cmd
+    dmi.io.cmd_en <> masic.sdram.cmd_en
+    dmi.io.addr <> masic.sdram.addr
+    dmi.io.wr_data <> masic.sdram.wr_data
+    dmi.io.wr_data_en <> masic.sdram.wr_data_en
+    dmi.io.wr_data_end <> masic.sdram.wr_data_end
+    dmi.io.wr_data_mask <> masic.sdram.wr_data_mask
+    dmi.io.sr_req <> masic.sdram.sr_req
+    dmi.io.ref_req <> masic.sdram.ref_req
+    dmi.io.burst <> masic.sdram.burst
+
+    pll.module.pll_bundle.enclk(2) <> dmi.io.pll_stop
+    dmi.io.clk_out <> masic.sdram.clk_out //200MHz
+    dmi.io.ddr_rst <> masic.sdram.ddr_rst
+    dmi.io.init_calib_complete <> masic.sdram.init_calib_complete
+    dmi.io.cmd_ready <> masic.sdram.cmd_ready
+    dmi.io.wr_data_rdy <> masic.sdram.wr_data_rdy
+    dmi.io.rd_data <> masic.sdram.rd_data
+    dmi.io.rd_data_valid <> masic.sdram.rd_data_valid
+    dmi.io.rd_data_end <> masic.sdram.rd_data_end
+    dmi.io.sr_ack <> masic.sdram.sr_ack
+    dmi.io.ref_ack <> masic.sdram.ref_ack
+
+    dmi.io.pll_stop <> masic.sdram.pll_stop
+    
+    sdram.O_ddr <> dmi.io.O_ddr
+    sdram.dq <> dmi.io.IO_ddr_dq
+    sdram.dqs <> dmi.io.IO_ddr_dqs
+    sdram.dqs_n <> dmi.io.IO_ddr_dqs_n
+
+    //camera_hdmi
+    //val camera_hdmi = Module(new camera_hdmi)
+    //val ch = IO(chiselTypeOf(camera_hdmi.io))
+
+    //ch <> camera_hdmi.io
+    //camera_hdmi.io.clk := clock
+    //camera_hdmi.io.rst_n := externalPins.gpio.in(0)
+    //camera_hdmi.io.led <> externalPins.gpio.out
   }
 }

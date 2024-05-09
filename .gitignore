@@ -3,6 +3,7 @@
 .idea
 .bloop
 .metals
+build
 cmake-build-debug
 CMakeLists.txt
 software/random_res

@@ -18,7 +18,7 @@ bb_vsrcs = \
 
 sim_vsrcs = \
 	$(TB) \
-	$(shell find $(gowin)/gowin_sim_ip/ -name "*.v") \
+	$(shell find $(gowin)/gowin_sim_ip/ -name "*.v" -or -name "*.vo") \
   $(shell find $(soc)/perip -name "*.v" -or -name "*.sv") \
 	$(bb_vsrcs)
 
