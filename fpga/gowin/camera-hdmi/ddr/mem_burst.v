@@ -4,20 +4,20 @@ module mem_burst #(
 	parameter ADDR_BITS = 28
 )
 (
-	input rst,                                   /*¸´Î»*/
-	input mem_clk,                               /*½Ó¿ÚÊ±ÖÓ*/
-	input rd_burst_req,                          /*¶ÁÇëÇó*/
-	input wr_burst_req,                          /*Ð´ÇëÇó*/
-	input[9:0] rd_burst_len,                     /*¶ÁÊý¾Ý³¤¶È*/
-	input[9:0] wr_burst_len,                     /*Ð´Êý¾Ý³¤¶È*/
-	input[ADDR_BITS - 3 - 1:0] rd_burst_addr,        /*¶ÁÊ×µØÖ·*/
-	input[ADDR_BITS - 3 - 1:0] wr_burst_addr,        /*Ð´Ê×µØÖ·*/
-	output rd_burst_data_valid,                  /*¶Á³öÊý¾ÝÓÐÐ§*/
-	output wr_burst_data_req,                    /*Ð´Êý¾ÝÐÅºÅ*/
-	output[MEM_DATA_BITS - 1:0] rd_burst_data,   /*¶Á³öµÄÊý¾Ý*/
-	input[MEM_DATA_BITS - 1:0] wr_burst_data,    /*Ð´ÈëµÄÊý¾Ý*/
-	output rd_burst_finish,                      /*¶ÁÍê³É*/
-	output wr_burst_finish,                      /*Ð´Íê³É*/
+	input rst,                                   /*ï¿½ï¿½Î»*/
+	input mem_clk,                               /*ï¿½Ó¿ï¿½Ê±ï¿½ï¿½*/
+	input rd_burst_req,                          /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	input wr_burst_req,                          /*Ð´ï¿½ï¿½ï¿½ï¿½*/
+	input[9:0] rd_burst_len,                     /*ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½*/
+	input[9:0] wr_burst_len,                     /*Ð´ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½*/
+	input[ADDR_BITS - 3 - 1:0] rd_burst_addr,        /*ï¿½ï¿½ï¿½×µï¿½Ö·*/
+	input[ADDR_BITS - 3 - 1:0] wr_burst_addr,        /*Ð´ï¿½×µï¿½Ö·*/
+	output rd_burst_data_valid,                  /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§*/
+	output wr_burst_data_req,                    /*Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½*/
+	output[MEM_DATA_BITS - 1:0] rd_burst_data,   /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	input[MEM_DATA_BITS - 1:0] wr_burst_data,    /*Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	output rd_burst_finish,                      /*ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	output wr_burst_finish,                      /*Ð´ï¿½ï¿½ï¿½*/
 	
 	///////////////////
    output[ADDR_BITS-1:0]                       app_addr,
@@ -34,6 +34,7 @@ module mem_burst #(
    input                                       app_wdf_rdy,
    input                                       init_calib_complete
 );
+
 
 assign app_wdf_mask = {MEM_DATA_BITS/8{1'b0}};
 

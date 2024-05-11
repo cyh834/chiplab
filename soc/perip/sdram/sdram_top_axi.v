@@ -86,4 +86,6 @@ module sdram_top_axi(
     assign dmi_sr_req = 0;
     assign dmi_ref_req = 0;
     assign dmi_burst = 0;
+
+    
 endmodule

@@ -2,14 +2,6 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
-   "Type" : "verilog"
-  },
-  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/addr_trans.v",
    "Type" : "verilog"
   },

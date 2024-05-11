@@ -12,20 +12,20 @@ module ddr_ctrl #(
 	
 	output                   ddr_pll_lk,
 
-/*ddr??§Õ?????????*/	
+/*ddr??ï¿½ï¿½?????????*/	
     output                   init_calib_complete,     //ddr initial done
 
-	input                    wr_burst_req,            //DDR Burst§Õ????         	
-	input  [9:0]             wr_burst_len,	          //DDR Burst§Õ????
-	input [ADDR_WIDTH - 3 - 1:0] wr_burst_addr,           //DDR Burst§Õ???
-    output                   wr_burst_data_req,	      //§Õ??????????	
-	input [DATA_WIDTH - 1:0] wr_burst_data,           //DDR Burst§Õ????
-    output                   wr_burst_finish,         //DDR Burst§Õ??????
+	input                    wr_burst_req,            //DDR Burstï¿½ï¿½????         	
+	input  [9:0]             wr_burst_len,	          //DDR Burstï¿½ï¿½????
+	input [ADDR_WIDTH - 3 - 1:0] wr_burst_addr,           //DDR Burstï¿½ï¿½???
+    output                   wr_burst_data_req,	      //ï¿½ï¿½??????????	
+	input [DATA_WIDTH - 1:0] wr_burst_data,           //DDR Burstï¿½ï¿½????
+    output                   wr_burst_finish,         //DDR Burstï¿½ï¿½??????
 	
 	input                    rd_burst_req,            //DDR Burst?????? 
 	input  [9:0]             rd_burst_len,	          //DDR Burst??????
 	input [ADDR_WIDTH - 3 - 1:0] rd_burst_addr,           //DDR Burst?????		
-    output                   rd_burst_data_valid,     //DDR Burst????????§¹		
+    output                   rd_burst_data_valid,     //DDR Burst????????ï¿½ï¿½		
 	output[DATA_WIDTH - 1:0] rd_burst_data,           //DDR Burst??????
     output                   rd_burst_finish,         //DDR Burst????????
 	
@@ -68,20 +68,20 @@ module ddr_ctrl #(
 		.MEM_DATA_BITS(DATA_WIDTH),
 		.ADDR_BITS(ADDR_WIDTH)
 	)mem_burst_m0(
-		.rst(rst),                                  /*??¦Ë*/
+		.rst(rst),                                  /*??ï¿½ï¿½*/
 		.mem_clk(ddr_clk_1x),                              /*??????*/
 		.rd_burst_req(rd_burst_req),                /*DDR Burst??????*/
-		.wr_burst_req(wr_burst_req),                /*DDR Burst§Õ????*/
+		.wr_burst_req(wr_burst_req),                /*DDR Burstï¿½ï¿½????*/
 		.rd_burst_len(rd_burst_len),                /*DDR Burst?????????*/
-		.wr_burst_len(wr_burst_len),                 /*DDR Burst§Õ???????*/
+		.wr_burst_len(wr_burst_len),                 /*DDR Burstï¿½ï¿½???????*/
 		.rd_burst_addr(rd_burst_addr),               /*DDR Burst??????*/
-		.wr_burst_addr(wr_burst_addr),               /*DDR Burst§Õ????*/
-		.rd_burst_data_valid(rd_burst_data_valid),   /*DDR Burst??????????§¹*/
-		.wr_burst_data_req(wr_burst_data_req),       /*DDR Burst§Õ???????*/
+		.wr_burst_addr(wr_burst_addr),               /*DDR Burstï¿½ï¿½????*/
+		.rd_burst_data_valid(rd_burst_data_valid),   /*DDR Burst??????????ï¿½ï¿½*/
+		.wr_burst_data_req(wr_burst_data_req),       /*DDR Burstï¿½ï¿½???????*/
 		.rd_burst_data(rd_burst_data),               /*DDR Burst??????????*/
-		.wr_burst_data(wr_burst_data),               /*DDR Burst§Õ???????*/
+		.wr_burst_data(wr_burst_data),               /*DDR Burstï¿½ï¿½???????*/
 		.rd_burst_finish(rd_burst_finish),           /*DDR Burst?????*/
-		.wr_burst_finish(wr_burst_finish),           /*DDR Burst§Õ???*/
+		.wr_burst_finish(wr_burst_finish),           /*DDR Burstï¿½ï¿½???*/
 
 		.app_addr(app_addr),
 		.app_cmd(app_cmd),

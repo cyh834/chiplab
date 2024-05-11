@@ -34,7 +34,6 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val cpu = LazyModule(new CPU(idBits = 4))
   
   val lsram   = LazyModule(new AXI4SRAM (AddressSet.misaligned(0x1c000000 , 0x40000)))  //65536 * 32
-  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
   val lgpio   = LazyModule(new APBGPIO  (AddressSet.misaligned(0xa0000000L, 0x10)))
   val ltimer  = LazyModule(new APBTimer (AddressSet.misaligned(0xa0010000L, 0x10)))
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
@@ -46,9 +45,11 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     AddressSet.misaligned(0x1fe80000, 0x100000)     // SPI 控制器
   ))
 
+  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
+
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lintc.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
-  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.node).map( _ := xbar)
+  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.crossAXI4In(lsdram.node) := AXI4UserYanker(Some(1))).map( _ := xbar)
 
   xbar := cpu.masterNode
 
@@ -74,11 +75,13 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
     intc <> lintc.module.intc_bundle
     uart <> luart.module.uart_bundle
     spi <> lspi.module.spi_bundle
-    sdram <> lsdram.module.sdram_bundle
+    sdram <>lsdram.module.sdram_bundle
     gpio <> lgpio.module.gpio_bundle
     //vga <> lvga.module.vga_bundle
     sram <> lsram.module.sram_bundle
 
+    lsdram.module.clock := lsdram.module.clk_out
+    lsdram.module.reset := reset
   }
 }
 
@@ -186,3 +189,23 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     //camera_hdmi.io.led <> externalPins.gpio.out
   }
 }
+
+
+//class temp(implicit p: Parameters) extends LazyModule {
+//
+//  val xbar = AXI4Xbar()
+//  val xbar2 = AXI4Xbar()
+//
+//  val island = LazyModule(new CrossingWrapper(AsynchronousCrossing()))
+//  val lsdram = island {LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000)))}
+//  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), island.crossAXI4In(lsdram.node)).map( _ := xbar)
+//  override lazy val module = new Impl
+//  class Impl extends LazyModuleImp(this) with DontTouch {
+//
+//    val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
+//    sdram <> lsdram.module.sdram_bundle
+//
+//    val clocks = Module(new Pow2ClockDivider(2))
+//    island.module.clock := clocks.io.clock_out
+//  }
+//}

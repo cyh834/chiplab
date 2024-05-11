@@ -49,8 +49,9 @@ f(30) f(31)
 _start:
   #init csr
   li.w $t0, 0x0
-  li.w $t1, 0xa8        # DA = 1, enable icache & dcache
-  li.w $t2, 0xa0000  #ASIDBITS = 10
+##li.w $t1, 0xa8        # DA = 1, enable icache & dcache
+  li.w $t1, 0x8         # DA = 1,
+  li.w $t2, 0xa0000     #ASIDBITS = 10
   csrwr $t1, CRMD  
   csrwr $t0, PRMD  
   csrwr $t0, ECTL  
