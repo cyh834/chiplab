@@ -1457,28 +1457,6 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   wire       _awIn_0_io_enq_ready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
   wire       _awIn_0_io_deq_valid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
   wire [1:0] _awIn_0_io_deq_bits;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
-  wire [3:0] _GEN = auto_in_araddr[28:25] ^ 4'h9;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
-  wire       requestARIO_0_0 =
-    {auto_in_araddr[31:28], auto_in_araddr[25]} == 5'h0
-    | {auto_in_araddr[31:29], _GEN[3], _GEN[0]} == 5'h0
-    | {auto_in_araddr[31:28] ^ 4'hA,
-       auto_in_araddr[25],
-       auto_in_araddr[15:4]} == 17'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
-  wire       requestARIO_0_1 =
-    {auto_in_araddr[31:29],
-     ~(auto_in_araddr[28]),
-     auto_in_araddr[25]} == 5'h0;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
-  wire [3:0] _GEN_0 = auto_in_awaddr[28:25] ^ 4'h9;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
-  wire       requestAWIO_0_0 =
-    {auto_in_awaddr[31:28], auto_in_awaddr[25]} == 5'h0
-    | {auto_in_awaddr[31:29], _GEN_0[3], _GEN_0[0]} == 5'h0
-    | {auto_in_awaddr[31:28] ^ 4'hA,
-       auto_in_awaddr[25],
-       auto_in_awaddr[15:4]} == 17'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
-  wire       requestAWIO_0_1 =
-    {auto_in_awaddr[31:29],
-     ~(auto_in_awaddr[28]),
-     auto_in_awaddr[25]} == 5'h0;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
   wire       _arFIFOMap_15_T_1 = _portsAROI_in_0_arready_T_2 & auto_in_arvalid;	// src/main/scala/chisel3/util/Decoupled.scala:51:35, src/main/scala/chisel3/util/Mux.scala:30:73
   wire       _arFIFOMap_0_T_2 = auto_in_arid == 4'h0 & _arFIFOMap_15_T_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:134:{20,25}, src/main/scala/chisel3/util/Decoupled.scala:51:35
   wire       _arFIFOMap_15_T_4 = auto_in_rready & in_0_rvalid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:297:22, src/main/scala/chisel3/util/Decoupled.scala:51:35
@@ -1602,9 +1580,11 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   wire       awIn_0_io_enq_valid = auto_in_awvalid & ~latched;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:152:30, :155:{51,54}
   wire       in_0_wvalid = auto_in_wvalid & _awIn_0_io_deq_valid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47, :160:43
   assign _portsAROI_in_0_arready_T_2 =
-    requestARIO_0_0 & auto_out_0_arready | requestARIO_0_1 & auto_out_1_arready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
+    ~(auto_in_araddr[28]) & auto_out_0_arready | auto_in_araddr[28]
+    & auto_out_1_arready;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
   assign _portsAWOI_in_0_awready_T_2 =
-    requestAWIO_0_0 & auto_out_0_awready | requestAWIO_0_1 & auto_out_1_awready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
+    ~(auto_in_awaddr[28]) & auto_out_0_awready | auto_in_awaddr[28]
+    & auto_out_1_awready;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
   assign _portsWOI_in_0_wready_T_2 =
     _awIn_0_io_deq_bits[0] & auto_out_0_wready | _awIn_0_io_deq_bits[1]
     & auto_out_1_wready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47, :80:73, src/main/scala/chisel3/util/Mux.scala:30:73
@@ -2224,7 +2204,7 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
     .reset        (reset),
     .io_enq_ready (_awIn_0_io_enq_ready),
     .io_enq_valid (awIn_0_io_enq_valid),	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:155:51
-    .io_enq_bits  ({requestAWIO_0_1, requestAWIO_0_0}),	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, :79:75, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
+    .io_enq_bits  ({auto_in_awaddr[28], ~(auto_in_awaddr[28])}),	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:79:75, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
     .io_deq_ready (auto_in_wvalid & auto_in_wlast & _portsWOI_in_0_wready_T_2),	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:162:{50,74}, src/main/scala/chisel3/util/Mux.scala:30:73
     .io_deq_valid (_awIn_0_io_deq_valid),
     .io_deq_bits  (_awIn_0_io_deq_bits)
@@ -2246,7 +2226,7 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
     (muxState_2_0 ? auto_out_0_rresp : 2'h0)
     | (muxState_2_1 ? auto_out_1_rresp : 2'h0);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :281:23, src/main/scala/chisel3/util/Mux.scala:30:73
   assign auto_in_rlast = _in_0_rT_2;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, src/main/scala/chisel3/util/Mux.scala:30:73
-  assign auto_out_1_awvalid = in_0_awvalid & requestAWIO_0_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :153:45, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
+  assign auto_out_1_awvalid = in_0_awvalid & auto_in_awaddr[28];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :153:45, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46}
   assign auto_out_1_awid = auto_in_awid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_awaddr = auto_in_awaddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
   assign auto_out_1_awsize = auto_in_awsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
@@ -2256,13 +2236,13 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_wstrb = auto_in_wstrb;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_wlast = auto_in_wlast;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_bready = auto_in_bready & (idle_3 ? readys_readys_1[1] : state_3_1);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :261:23, :267:73, :280:24, :289:24, :291:31, rocket-chip/src/main/scala/tilelink/Arbiter.scala:26:18
-  assign auto_out_1_arvalid = auto_in_arvalid & requestARIO_0_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
+  assign auto_out_1_arvalid = auto_in_arvalid & auto_in_araddr[28];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46}
   assign auto_out_1_arid = auto_in_arid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_araddr = auto_in_araddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
   assign auto_out_1_arsize = auto_in_arsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_arburst = auto_in_arburst;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_rready = auto_in_rready & (idle_2 ? readys_readys[1] : state_2_1);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :261:23, :267:73, :280:24, :289:24, :291:31, rocket-chip/src/main/scala/tilelink/Arbiter.scala:26:18
-  assign auto_out_0_awvalid = in_0_awvalid & requestAWIO_0_0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :67:97, :153:45, :241:40
+  assign auto_out_0_awvalid = in_0_awvalid & ~(auto_in_awaddr[28]);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :153:45, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_0_awid = auto_in_awid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_awaddr = auto_in_awaddr;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_awsize = auto_in_awsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
@@ -2270,7 +2250,7 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_wdata = auto_in_wdata;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_wstrb = auto_in_wstrb;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_bready = auto_in_bready & (idle_3 ? readys_readys_1[0] : state_3_0);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :261:23, :267:73, :280:24, :289:24, :291:31, rocket-chip/src/main/scala/tilelink/Arbiter.scala:26:18
-  assign auto_out_0_arvalid = auto_in_arvalid & requestARIO_0_0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :67:97, :241:40
+  assign auto_out_0_arvalid = auto_in_arvalid & ~(auto_in_araddr[28]);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_0_arid = auto_in_arid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_araddr = auto_in_araddr;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_0_arsize = auto_in_arsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
@@ -2321,11 +2301,8 @@ module APBFanout(	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   output        auto_out_0_psel,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_out_0_penable,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_out_0_pwrite,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output [28:0] auto_out_0_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output [31:0] auto_out_0_pwdata,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output [3:0]  auto_out_0_pstrb,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
+  output [27:0] auto_out_0_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input         auto_out_0_pready,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-                auto_out_0_pslverr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input  [31:0] auto_out_0_prdata	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
 );
 
@@ -2339,8 +2316,7 @@ module APBFanout(	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   assign auto_in_pready =
     ~(~(auto_in_paddr[31]) & ~auto_out_0_pready | sel_1 & ~auto_out_1_pready | sel_2
       & ~auto_out_2_pready | sel_3 & ~auto_out_3_pready | sel_4 & ~auto_out_4_pready);	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :51:{21,44}, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
-  assign auto_in_pslverr =
-    ~(auto_in_paddr[31]) & auto_out_0_pslverr | sel_1 & auto_out_1_pslverr;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
+  assign auto_in_pslverr = sel_1 & auto_out_1_pslverr;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}, src/main/scala/chisel3/util/Mux.scala:30:73
   assign auto_in_prdata =
     (auto_in_paddr[31] ? 32'h0 : auto_out_0_prdata) | (sel_1 ? auto_out_1_prdata : 32'h0)
     | (sel_2 ? auto_out_2_prdata : 32'h0) | (sel_3 ? auto_out_3_prdata : 32'h0)
@@ -2370,9 +2346,7 @@ module APBFanout(	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   assign auto_out_0_psel = ~(auto_in_paddr[31]) & auto_in_psel;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :47:28, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_0_penable = ~(auto_in_paddr[31]) & auto_in_penable;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :48:28, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_0_pwrite = auto_in_pwrite;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
-  assign auto_out_0_paddr = auto_in_paddr[28:0];	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :46:24
-  assign auto_out_0_pwdata = auto_in_pwdata;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
-  assign auto_out_0_pstrb = auto_in_pstrb;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
+  assign auto_out_0_paddr = auto_in_paddr[27:0];	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :46:24
 endmodule
 
 // external module core_top
@@ -3216,45 +3190,133 @@ module APBUart(	// src/device/UART.scala:43:9
   );	// src/device/UART.scala:47:23
 endmodule
 
-// external module spi_top_apb
+// external module sd_ctrl_top
 
-module APBSPI(	// src/device/SPI.scala:54:9
-  input         clock,	// src/device/SPI.scala:54:9
-                reset,	// src/device/SPI.scala:54:9
+module spi_top_apb(	// src/device/SPI.scala:42:7
+  input         clock,	// src/device/SPI.scala:42:7
+                reset,	// src/device/SPI.scala:42:7
+                io_in_psel,	// src/device/SPI.scala:43:14
+                io_in_penable,	// src/device/SPI.scala:43:14
+                io_in_pwrite,	// src/device/SPI.scala:43:14
+  input  [31:0] io_in_paddr,	// src/device/SPI.scala:43:14
+  output        io_in_pready,	// src/device/SPI.scala:43:14
+  output [31:0] io_in_prdata,	// src/device/SPI.scala:43:14
+  output        io_spi_sck,	// src/device/SPI.scala:43:14
+                io_spi_ss,	// src/device/SPI.scala:43:14
+                io_spi_mosi,	// src/device/SPI.scala:43:14
+  input         io_spi_miso	// src/device/SPI.scala:43:14
+);
+
+  wire        _sd_ctrl_rd_val_en;	// src/device/SPI.scala:49:23
+  wire [15:0] _sd_ctrl_rd_val_data;	// src/device/SPI.scala:49:23
+  wire        _sd_ctrl_sd_init_done;	// src/device/SPI.scala:49:23
+  reg  [2:0]  state;	// src/device/SPI.scala:63:22
+  wire        _io_in_pready_T = state == 3'h0;	// src/device/SPI.scala:63:22, :64:14
+  wire        _sd_ctrl_io_rd_sec_addr_T = state == 3'h1;	// src/device/SPI.scala:63:22, :81:36
+  reg  [31:0] rdata;	// src/device/SPI.scala:84:22
+  wire        io_in_pready_0 = _io_in_pready_T & _sd_ctrl_sd_init_done;	// src/device/SPI.scala:49:23, :64:14, :89:38
+  always @(posedge clock) begin	// src/device/SPI.scala:42:7
+    if (reset) begin	// src/device/SPI.scala:42:7
+      state <= 3'h0;	// src/device/SPI.scala:63:22
+      rdata <= 32'h0;	// src/device/SPI.scala:84:22
+    end
+    else begin	// src/device/SPI.scala:42:7
+      if (_io_in_pready_T) begin	// src/device/SPI.scala:64:14
+        if (io_in_psel & io_in_penable & ~io_in_pwrite & io_in_pready_0)	// src/device/SPI.scala:65:{21,38,42,57}, :89:38
+          state <= 3'h1;	// src/device/SPI.scala:63:22
+      end
+      else if (state == 3'h1)	// src/device/SPI.scala:63:22, :68:20
+        state <= 3'h2;	// src/device/SPI.scala:63:22
+      else if (state == 3'h2) begin	// src/device/SPI.scala:63:22, :70:20
+        if (_sd_ctrl_rd_val_en)	// src/device/SPI.scala:49:23
+          state <= 3'h3;	// src/device/SPI.scala:63:22
+      end
+      else if (state == 3'h3)	// src/device/SPI.scala:63:22, :74:20
+        state <= 3'h4;	// src/device/SPI.scala:63:22
+      else if (state == 3'h4 & _sd_ctrl_rd_val_en)	// src/device/SPI.scala:49:23, :63:22, :76:{20,37}, :77:31, :78:13
+        state <= 3'h0;	// src/device/SPI.scala:63:22
+      if (_sd_ctrl_rd_val_en) begin	// src/device/SPI.scala:49:23
+        if (state == 3'h2)	// src/device/SPI.scala:63:22, :86:24
+          rdata <= {16'h0, _sd_ctrl_rd_val_data};	// src/device/SPI.scala:49:23, :84:22, :86:44
+        else	// src/device/SPI.scala:86:24
+          rdata <= {_sd_ctrl_rd_val_data, rdata[15:0]};	// src/device/SPI.scala:49:23, :84:22, :86:{83,113}
+      end
+    end
+  end // always @(posedge)
+  `ifdef ENABLE_INITIAL_REG_	// src/device/SPI.scala:42:7
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/device/SPI.scala:42:7
+      `FIRRTL_BEFORE_INITIAL	// src/device/SPI.scala:42:7
+    `endif // FIRRTL_BEFORE_INITIAL
+    initial begin	// src/device/SPI.scala:42:7
+      automatic logic [31:0] _RANDOM[0:1];	// src/device/SPI.scala:42:7
+      `ifdef INIT_RANDOM_PROLOG_	// src/device/SPI.scala:42:7
+        `INIT_RANDOM_PROLOG_	// src/device/SPI.scala:42:7
+      `endif // INIT_RANDOM_PROLOG_
+      `ifdef RANDOMIZE_REG_INIT	// src/device/SPI.scala:42:7
+        for (logic [1:0] i = 2'h0; i < 2'h2; i += 2'h1) begin
+          _RANDOM[i[0]] = `RANDOM;	// src/device/SPI.scala:42:7
+        end	// src/device/SPI.scala:42:7
+        state = _RANDOM[1'h0][2:0];	// src/device/SPI.scala:42:7, :63:22
+        rdata = {_RANDOM[1'h0][31:3], _RANDOM[1'h1][2:0]};	// src/device/SPI.scala:42:7, :63:22, :84:22
+      `endif // RANDOMIZE_REG_INIT
+    end // initial
+    `ifdef FIRRTL_AFTER_INITIAL	// src/device/SPI.scala:42:7
+      `FIRRTL_AFTER_INITIAL	// src/device/SPI.scala:42:7
+    `endif // FIRRTL_AFTER_INITIAL
+  `endif // ENABLE_INITIAL_REG_
+  sd_ctrl_top sd_ctrl (	// src/device/SPI.scala:49:23
+    .clk_ref        (clock),
+    .clk_ref_180deg (~clock),	// src/device/SPI.scala:51:33
+    .rst_n          (~reset),	// src/device/SPI.scala:52:23
+    .sd_miso        (io_spi_miso),
+    .sd_clk         (io_spi_sck),
+    .sd_cs          (io_spi_ss),
+    .sd_mosi        (io_spi_mosi),
+    .wr_start_en    (1'h0),	// src/device/SPI.scala:42:7
+    .wr_sec_addr    (32'h0),
+    .wr_data        (16'h0),
+    .wr_busy        (/* unused */),
+    .wr_req         (/* unused */),
+    .rd_start_en    (_sd_ctrl_io_rd_sec_addr_T | state == 3'h3),	// src/device/SPI.scala:63:22, :81:{36,49,59}
+    .rd_sec_addr    (_sd_ctrl_io_rd_sec_addr_T ? io_in_paddr : io_in_paddr + 32'h2),	// src/device/SPI.scala:81:36, :82:{32,76}
+    .rd_busy        (/* unused */),
+    .rd_val_en      (_sd_ctrl_rd_val_en),
+    .rd_val_data    (_sd_ctrl_rd_val_data),
+    .sd_init_done   (_sd_ctrl_sd_init_done)
+  );	// src/device/SPI.scala:49:23
+  assign io_in_pready = io_in_pready_0;	// src/device/SPI.scala:42:7, :89:38
+  assign io_in_prdata = rdata;	// src/device/SPI.scala:42:7, :84:22
+endmodule
+
+module APBSPI(	// src/device/SPI.scala:112:9
+  input         clock,	// src/device/SPI.scala:112:9
+                reset,	// src/device/SPI.scala:112:9
                 auto_in_psel,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_in_penable,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_in_pwrite,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  input  [28:0] auto_in_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  input  [31:0] auto_in_pwdata,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  input  [3:0]  auto_in_pstrb,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
+  input  [27:0] auto_in_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   output        auto_in_pready,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-                auto_in_pslverr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   output [31:0] auto_in_prdata,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output        spi_bundle_sck,	// src/device/SPI.scala:56:24
-  output [7:0]  spi_bundle_ss,	// src/device/SPI.scala:56:24
-  output        spi_bundle_mosi,	// src/device/SPI.scala:56:24
-  input         spi_bundle_miso	// src/device/SPI.scala:56:24
+  output        spi_bundle_sck,	// src/device/SPI.scala:114:24
+                spi_bundle_ss,	// src/device/SPI.scala:114:24
+                spi_bundle_mosi,	// src/device/SPI.scala:114:24
+  input         spi_bundle_miso	// src/device/SPI.scala:114:24
 );
 
-  spi_top_apb mspi (	// src/device/SPI.scala:58:22
-    .clock       (clock),
-    .reset       (reset),
-    .in_psel     (auto_in_psel),
-    .in_penable  (auto_in_penable),
-    .in_pwrite   (auto_in_pwrite),
-    .in_paddr    ({3'h0, auto_in_paddr}),	// src/device/SPI.scala:61:16
-    .in_pprot    (3'h1),	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18, src/device/SPI.scala:58:22
-    .in_pwdata   (auto_in_pwdata),
-    .in_pstrb    (auto_in_pstrb),
-    .in_pready   (auto_in_pready),
-    .in_pslverr  (auto_in_pslverr),
-    .in_prdata   (auto_in_prdata),
-    .spi_sck     (spi_bundle_sck),
-    .spi_ss      (spi_bundle_ss),
-    .spi_mosi    (spi_bundle_mosi),
-    .spi_miso    (spi_bundle_miso),
-    .spi_irq_out (/* unused */)
-  );	// src/device/SPI.scala:58:22
+  spi_top_apb mspi (	// src/device/SPI.scala:116:22
+    .clock         (clock),
+    .reset         (reset),
+    .io_in_psel    (auto_in_psel),
+    .io_in_penable (auto_in_penable),
+    .io_in_pwrite  (auto_in_pwrite),
+    .io_in_paddr   ({4'h0, auto_in_paddr}),	// src/device/SPI.scala:117:16
+    .io_in_pready  (auto_in_pready),
+    .io_in_prdata  (auto_in_prdata),
+    .io_spi_sck    (spi_bundle_sck),
+    .io_spi_ss     (spi_bundle_ss),
+    .io_spi_mosi   (spi_bundle_mosi),
+    .io_spi_miso   (spi_bundle_miso)
+  );	// src/device/SPI.scala:116:22
 endmodule
 
 module AsyncResetSynchronizerPrimitiveShiftReg_d3_i0(	// rocket-chip/src/main/scala/util/SynchronizerReg.scala:68:19
@@ -4623,36 +4685,36 @@ module sdram_top_axi(	// src/device/SDRAM.scala:97:7
   wire         accept_write = ~accept_read & _is_write_T & io_in_awvalid & io_in_wvalid;	// src/device/SDRAM.scala:108:{28,40}, :109:{22,35,57,69}
   reg          is_write_r;	// rocket-chip/src/main/scala/util/package.scala:88:63
   wire         is_write = _is_write_T ? accept_write : is_write_r;	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:108:28, :109:{35,57,69}
-  `ifndef SYNTHESIS	// src/device/SDRAM.scala:120:9
-    always @(posedge clock) begin	// src/device/SDRAM.scala:120:9
-      if (~reset & io_in_arvalid & (|io_in_arlen)) begin	// src/device/SDRAM.scala:120:{9,21,36}
-        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:120:9
-          $error("Assertion failed\n    at SDRAM.scala:120 assert(!(ar.valid && ar.bits.len =/= 0.U))\n");	// src/device/SDRAM.scala:120:9
-        if (`STOP_COND_)	// src/device/SDRAM.scala:120:9
-          $fatal;	// src/device/SDRAM.scala:120:9
+  `ifndef SYNTHESIS	// src/device/SDRAM.scala:140:9
+    always @(posedge clock) begin	// src/device/SDRAM.scala:140:9
+      if (~reset & io_in_arvalid & (|io_in_arlen)) begin	// src/device/SDRAM.scala:140:{9,21,36}
+        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:140:9
+          $error("Assertion failed\n    at SDRAM.scala:140 assert(!(ar.valid && ar.bits.len =/= 0.U))\n");	// src/device/SDRAM.scala:140:9
+        if (`STOP_COND_)	// src/device/SDRAM.scala:140:9
+          $fatal;	// src/device/SDRAM.scala:140:9
       end
-      if (~reset & io_in_awvalid & (|io_in_awlen)) begin	// src/device/SDRAM.scala:120:9, :121:{9,21,36}
-        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:121:9
-          $error("Assertion failed\n    at SDRAM.scala:121 assert(!(aw.valid && aw.bits.len =/= 0.U))\n");	// src/device/SDRAM.scala:121:9
-        if (`STOP_COND_)	// src/device/SDRAM.scala:121:9
-          $fatal;	// src/device/SDRAM.scala:121:9
+      if (~reset & io_in_awvalid & (|io_in_awlen)) begin	// src/device/SDRAM.scala:140:9, :141:{9,21,36}
+        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:141:9
+          $error("Assertion failed\n    at SDRAM.scala:141 assert(!(aw.valid && aw.bits.len =/= 0.U))\n");	// src/device/SDRAM.scala:141:9
+        if (`STOP_COND_)	// src/device/SDRAM.scala:141:9
+          $fatal;	// src/device/SDRAM.scala:141:9
       end
-      if (~reset & io_in_arvalid & io_in_arsize > 3'h2) begin	// src/device/SDRAM.scala:120:9, :123:{9,21,37}
-        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:123:9
-          $error("Assertion failed\n    at SDRAM.scala:123 assert(!(ar.valid && ar.bits.size > \"b10\".U))\n");	// src/device/SDRAM.scala:123:9
-        if (`STOP_COND_)	// src/device/SDRAM.scala:123:9
-          $fatal;	// src/device/SDRAM.scala:123:9
+      if (~reset & io_in_arvalid & io_in_arsize > 3'h2) begin	// src/device/SDRAM.scala:140:9, :143:{9,21,37}
+        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:143:9
+          $error("Assertion failed\n    at SDRAM.scala:143 assert(!(ar.valid && ar.bits.size > \"b10\".U))\n");	// src/device/SDRAM.scala:143:9
+        if (`STOP_COND_)	// src/device/SDRAM.scala:143:9
+          $fatal;	// src/device/SDRAM.scala:143:9
       end
-      if (~reset & io_in_awvalid & io_in_awsize > 3'h2) begin	// src/device/SDRAM.scala:120:9, :124:{9,21,37}
-        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:124:9
-          $error("Assertion failed\n    at SDRAM.scala:124 assert(!(aw.valid && aw.bits.size > \"b10\".U))\n");	// src/device/SDRAM.scala:124:9
-        if (`STOP_COND_)	// src/device/SDRAM.scala:124:9
-          $fatal;	// src/device/SDRAM.scala:124:9
+      if (~reset & io_in_awvalid & io_in_awsize > 3'h2) begin	// src/device/SDRAM.scala:140:9, :144:{9,21,37}
+        if (`ASSERT_VERBOSE_COND_)	// src/device/SDRAM.scala:144:9
+          $error("Assertion failed\n    at SDRAM.scala:144 assert(!(aw.valid && aw.bits.size > \"b10\".U))\n");	// src/device/SDRAM.scala:144:9
+        if (`STOP_COND_)	// src/device/SDRAM.scala:144:9
+          $fatal;	// src/device/SDRAM.scala:144:9
       end
     end // always @(posedge)
   `endif // not def SYNTHESIS
-  reg  [3:0]   rid_reg;	// src/device/SDRAM.scala:126:29
-  reg  [3:0]   bid_reg;	// src/device/SDRAM.scala:127:29
+  reg  [3:0]   rid_reg;	// src/device/SDRAM.scala:146:29
+  reg  [3:0]   bid_reg;	// src/device/SDRAM.scala:147:29
   reg  [31:0]  araddr_reg_r;	// rocket-chip/src/main/scala/util/package.scala:88:63
   reg  [31:0]  awaddr_reg_r;	// rocket-chip/src/main/scala/util/package.scala:88:63
   reg  [31:0]  wdata_reg_r;	// rocket-chip/src/main/scala/util/package.scala:88:63
@@ -4660,50 +4722,51 @@ module sdram_top_axi(	// src/device/SDRAM.scala:97:7
   wire [28:0]  addr =
     is_write
       ? (accept_write ? io_in_awaddr[28:0] : awaddr_reg_r[28:0])
-      : accept_read ? io_in_araddr[28:0] : araddr_reg_r[28:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:98:14, :108:40, :109:{35,57,69}, :133:17
-  wire         io_dmi_cmd_en_0 = state == 2'h1;	// src/device/SDRAM.scala:107:22, :135:26
+      : accept_read ? io_in_araddr[28:0] : araddr_reg_r[28:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:98:14, :108:40, :109:{35,57,69}, :153:17
+  wire         io_dmi_cmd_en_0 = state == 2'h1;	// src/device/SDRAM.scala:107:22, :155:26
   wire [510:0] _io_dmi_wr_data_T_3 =
-    {479'h0, accept_write ? io_in_wdata : wdata_reg_r} << {503'h0, addr[4:0], 3'h0};	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:109:{35,57,69}, :133:17, :137:{48,59}
+    {479'h0, accept_write ? io_in_wdata : wdata_reg_r} << {503'h0, addr[4:0], 3'h0};	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:109:{35,57,69}, :153:17, :157:{48,59}
   wire [62:0]  _io_dmi_wr_data_mask_T_3 =
-    {59'h0, accept_write ? io_in_wstrb : wstrb_reg_r} << addr[4:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:109:{35,57,69}, :133:17, :137:59, :140:71
-  wire         io_in_wready_0 = accept_write & io_dmi_init_calib_complete;	// src/device/SDRAM.scala:109:{35,57,69}, :147:28
-  wire         _io_in_bvalid_T_2 = state == 2'h2;	// src/device/SDRAM.scala:107:22, :152:88
+    {59'h0, accept_write ? io_in_wstrb : wstrb_reg_r} << addr[4:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:109:{35,57,69}, :153:17, :157:59, :160:71
+  wire         io_in_wready_0 = accept_write & io_dmi_init_calib_complete;	// src/device/SDRAM.scala:109:{35,57,69}, :167:28
+  wire         _io_in_bvalid_T_2 = state == 2'h2;	// src/device/SDRAM.scala:107:22, :172:88
   wire         io_in_rvalid_0 =
-    ~is_write & (io_dmi_cmd_en_0 & io_dmi_rd_data_valid | _io_in_bvalid_T_2);	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:135:26, :152:{15,25,53,78,88}
-  wire [255:0] _io_in_rdata_T_2 = io_dmi_rd_data >> {248'h0, addr[4:0], 3'h0};	// src/device/SDRAM.scala:133:17, :137:59, :153:34
+    ~is_write & (io_dmi_cmd_en_0 & io_dmi_rd_data_valid | _io_in_bvalid_T_2);	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:155:26, :172:{15,25,53,78,88}
+  wire [255:0] _io_in_rdata_T_2 = io_dmi_rd_data >> {248'h0, addr[4:0], 3'h0};	// src/device/SDRAM.scala:153:17, :157:59, :173:34
   reg  [255:0] io_in_rdata_r;	// rocket-chip/src/main/scala/util/package.scala:88:63
   wire         io_in_bvalid_0 =
-    is_write & (io_dmi_cmd_en_0 & io_dmi_wr_data_rdy | _io_in_bvalid_T_2);	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:135:26, :152:88, :158:{24,52,75}
+    is_write & (io_dmi_cmd_en_0 & io_dmi_wr_data_rdy | _io_in_bvalid_T_2);	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:155:26, :172:88, :178:{24,52,75}
   always @(posedge clock) begin	// src/device/SDRAM.scala:97:7
     if (reset)	// src/device/SDRAM.scala:97:7
       state <= 2'h0;	// src/device/SDRAM.scala:107:22
-    else begin	// src/device/SDRAM.scala:97:7
-      automatic logic [3:0][1:0] _GEN;	// src/device/SDRAM.scala:107:22, :108:28, :113:18, :114:29, :115:29, :116:39
-      _GEN =
-        {{state},
-         {{~(io_in_rready & io_in_rvalid_0 | io_in_bready & io_in_bvalid_0), 1'h0}},
-         {(is_write ? io_dmi_wr_data_rdy & io_dmi_cmd_ready : io_dmi_rd_data_valid)
-            ? {~(io_in_rready & io_in_rvalid_0 | io_in_bready & io_in_bvalid_0), 1'h0}
-            : 2'h1},
-         {{1'h0,
-           (io_in_arvalid | io_in_awvalid & io_in_wvalid)
-             & io_dmi_init_calib_complete}}};	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:107:22, :108:28, :112:{17,47}, :113:18, :114:{29,35,46,59,72}, :115:{29,35,45,53}, :116:{39,45,53}, :152:25, :158:24, src/main/scala/chisel3/util/Decoupled.scala:51:35
-      state <= _GEN[state];	// src/device/SDRAM.scala:107:22, :108:28, :113:18, :114:29, :115:29, :116:39
+    else if (_is_write_T) begin	// src/device/SDRAM.scala:108:28
+      if ((io_in_arvalid | io_in_awvalid & io_in_wvalid) & io_dmi_init_calib_complete)	// src/device/SDRAM.scala:107:22, :114:{19,32,44}, :115:39, :116:15
+        state <= 2'h1;	// src/device/SDRAM.scala:107:22
+    end
+    else begin	// src/device/SDRAM.scala:108:28
+      automatic logic _GEN;	// src/device/SDRAM.scala:121:19
+      _GEN = io_in_rready & io_in_rvalid_0 | io_in_bready & io_in_bvalid_0;	// src/device/SDRAM.scala:121:19, :172:25, :178:24, src/main/scala/chisel3/util/Decoupled.scala:51:35
+      if (state == 2'h1) begin	// src/device/SDRAM.scala:107:22, :119:20
+        if (is_write ? io_dmi_wr_data_rdy & io_dmi_cmd_ready : io_dmi_rd_data_valid)	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:112:{17,47}
+          state <= {~_GEN, 1'h0};	// src/device/SDRAM.scala:107:22, :121:{19,29}, :122:15, :125:15
+      end
+      else if (state == 2'h2 & _GEN)	// src/device/SDRAM.scala:107:22, :121:19, :128:{20,45}, :129:27, :130:13
+        state <= 2'h0;	// src/device/SDRAM.scala:107:22
     end
     if (_is_write_T)	// src/device/SDRAM.scala:108:28
       is_write_r <= accept_write;	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:109:{35,57,69}
     if (accept_read) begin	// src/device/SDRAM.scala:108:40
-      rid_reg <= io_in_arid;	// src/device/SDRAM.scala:126:29
+      rid_reg <= io_in_arid;	// src/device/SDRAM.scala:146:29
       araddr_reg_r <= io_in_araddr;	// rocket-chip/src/main/scala/util/package.scala:88:63
     end
     if (accept_write) begin	// src/device/SDRAM.scala:109:{35,57,69}
-      bid_reg <= io_in_awid;	// src/device/SDRAM.scala:127:29
+      bid_reg <= io_in_awid;	// src/device/SDRAM.scala:147:29
       awaddr_reg_r <= io_in_awaddr;	// rocket-chip/src/main/scala/util/package.scala:88:63
       wdata_reg_r <= io_in_wdata;	// rocket-chip/src/main/scala/util/package.scala:88:63
       wstrb_reg_r <= io_in_wstrb;	// rocket-chip/src/main/scala/util/package.scala:88:63
     end
-    if (io_dmi_cmd_en_0)	// src/device/SDRAM.scala:135:26
-      io_in_rdata_r <= _io_in_rdata_T_2;	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:153:34
+    if (io_dmi_cmd_en_0)	// src/device/SDRAM.scala:155:26
+      io_in_rdata_r <= _io_in_rdata_T_2;	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:173:34
   end // always @(posedge)
   `ifdef ENABLE_INITIAL_REG_	// src/device/SDRAM.scala:97:7
     `ifdef FIRRTL_BEFORE_INITIAL	// src/device/SDRAM.scala:97:7
@@ -4720,8 +4783,8 @@ module sdram_top_axi(	// src/device/SDRAM.scala:97:7
         end	// src/device/SDRAM.scala:97:7
         state = _RANDOM[4'h0][1:0];	// src/device/SDRAM.scala:97:7, :107:22
         is_write_r = _RANDOM[4'h0][2];	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:97:7, :107:22
-        rid_reg = _RANDOM[4'h0][6:3];	// src/device/SDRAM.scala:97:7, :107:22, :126:29
-        bid_reg = _RANDOM[4'h0][10:7];	// src/device/SDRAM.scala:97:7, :107:22, :127:29
+        rid_reg = _RANDOM[4'h0][6:3];	// src/device/SDRAM.scala:97:7, :107:22, :146:29
+        bid_reg = _RANDOM[4'h0][10:7];	// src/device/SDRAM.scala:97:7, :107:22, :147:29
         araddr_reg_r = {_RANDOM[4'h0][31:11], _RANDOM[4'h1][10:0]};	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:97:7, :107:22
         awaddr_reg_r = {_RANDOM[4'h1][31:11], _RANDOM[4'h2][10:0]};	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:97:7
         wdata_reg_r = {_RANDOM[4'h2][31:11], _RANDOM[4'h3][10:0]};	// rocket-chip/src/main/scala/util/package.scala:88:63, src/device/SDRAM.scala:97:7
@@ -4743,29 +4806,29 @@ module sdram_top_axi(	// src/device/SDRAM.scala:97:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
   assign io_clk_out = io_dmi_clk_out;	// src/device/SDRAM.scala:97:7
-  assign io_in_awready = io_in_wready_0;	// src/device/SDRAM.scala:97:7, :147:28
-  assign io_in_wready = io_in_wready_0;	// src/device/SDRAM.scala:97:7, :147:28
-  assign io_in_bvalid = io_in_bvalid_0;	// src/device/SDRAM.scala:97:7, :158:24
-  assign io_in_bid = bid_reg;	// src/device/SDRAM.scala:97:7, :127:29
-  assign io_in_arready = accept_read & io_dmi_init_calib_complete;	// src/device/SDRAM.scala:97:7, :108:40, :146:27
-  assign io_in_rvalid = io_in_rvalid_0;	// src/device/SDRAM.scala:97:7, :152:25
-  assign io_in_rid = rid_reg;	// src/device/SDRAM.scala:97:7, :126:29
+  assign io_in_awready = io_in_wready_0;	// src/device/SDRAM.scala:97:7, :167:28
+  assign io_in_wready = io_in_wready_0;	// src/device/SDRAM.scala:97:7, :167:28
+  assign io_in_bvalid = io_in_bvalid_0;	// src/device/SDRAM.scala:97:7, :178:24
+  assign io_in_bid = bid_reg;	// src/device/SDRAM.scala:97:7, :147:29
+  assign io_in_arready = accept_read & io_dmi_init_calib_complete;	// src/device/SDRAM.scala:97:7, :108:40, :166:27
+  assign io_in_rvalid = io_in_rvalid_0;	// src/device/SDRAM.scala:97:7, :172:25
+  assign io_in_rid = rid_reg;	// src/device/SDRAM.scala:97:7, :146:29
   assign io_in_rdata =
-    io_dmi_cmd_en_0 ? _io_in_rdata_T_2[31:0] : io_in_rdata_r[31:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:97:7, :135:26, :153:34
-  assign io_dmi_cmd = {2'h0, ~is_write};	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :134:{14,20}
-  assign io_dmi_cmd_en = io_dmi_cmd_en_0;	// src/device/SDRAM.scala:97:7, :135:26
-  assign io_dmi_addr = addr & 29'h1FFFFFE0;	// src/device/SDRAM.scala:97:7, :133:17, :136:{15,23}
-  assign io_dmi_wr_data = _io_dmi_wr_data_T_3[255:0];	// src/device/SDRAM.scala:97:7, :137:{18,48}
+    io_dmi_cmd_en_0 ? _io_in_rdata_T_2[31:0] : io_in_rdata_r[31:0];	// rocket-chip/src/main/scala/util/package.scala:88:{42,63}, src/device/SDRAM.scala:97:7, :155:26, :173:34
+  assign io_dmi_cmd = {2'h0, ~is_write};	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :154:{14,20}
+  assign io_dmi_cmd_en = io_dmi_cmd_en_0;	// src/device/SDRAM.scala:97:7, :155:26
+  assign io_dmi_addr = addr & 29'h1FFFFFE0;	// src/device/SDRAM.scala:97:7, :153:17, :156:{15,23}
+  assign io_dmi_wr_data = _io_dmi_wr_data_T_3[255:0];	// src/device/SDRAM.scala:97:7, :157:{18,48}
   assign io_dmi_wr_data_en =
-    io_dmi_cmd_en_0 & is_write & io_dmi_wr_data_rdy & io_dmi_cmd_ready;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :135:26, :138:{47,59,80}
+    io_dmi_cmd_en_0 & is_write & io_dmi_wr_data_rdy & io_dmi_cmd_ready;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :155:26, :158:{47,59,80}
   assign io_dmi_wr_data_end =
-    io_dmi_cmd_en_0 & is_write & io_dmi_wr_data_rdy & io_dmi_cmd_ready;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :135:26, :139:{48,60,81}
-  assign io_dmi_wr_data_mask = is_write ? _io_dmi_wr_data_mask_T_3[31:0] : 32'h0;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :140:{30,71}
+    io_dmi_cmd_en_0 & is_write & io_dmi_wr_data_rdy & io_dmi_cmd_ready;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :155:26, :159:{48,60,81}
+  assign io_dmi_wr_data_mask = is_write ? _io_dmi_wr_data_mask_T_3[31:0] : 32'h0;	// rocket-chip/src/main/scala/util/package.scala:88:42, src/device/SDRAM.scala:97:7, :160:{30,71}
 endmodule
 
-module AXI4SDRAM(	// src/device/SDRAM.scala:177:9
-  input          clock,	// src/device/SDRAM.scala:177:9
-                 reset,	// src/device/SDRAM.scala:177:9
+module AXI4SDRAM(	// src/device/SDRAM.scala:197:9
+  input          clock,	// src/device/SDRAM.scala:197:9
+                 reset,	// src/device/SDRAM.scala:197:9
   input  [3:0]   auto_axi4in_xing_in_awmem_0_id,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input  [29:0]  auto_axi4in_xing_in_awmem_0_addr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input  [7:0]   auto_axi4in_xing_in_awmem_0_len,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
@@ -4924,30 +4987,30 @@ module AXI4SDRAM(	// src/device/SDRAM.scala:177:9
   output         auto_axi4in_xing_in_rsafe_widx_valid,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                  auto_axi4in_xing_in_rsafe_source_reset_n,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input          auto_axi4in_xing_in_rsafe_sink_reset_n,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output [2:0]   sdram_bundle_cmd,	// src/device/SDRAM.scala:179:26
-  output         sdram_bundle_cmd_en,	// src/device/SDRAM.scala:179:26
-  output [28:0]  sdram_bundle_addr,	// src/device/SDRAM.scala:179:26
-  output [255:0] sdram_bundle_wr_data,	// src/device/SDRAM.scala:179:26
-  output         sdram_bundle_wr_data_en,	// src/device/SDRAM.scala:179:26
-                 sdram_bundle_wr_data_end,	// src/device/SDRAM.scala:179:26
-  output [31:0]  sdram_bundle_wr_data_mask,	// src/device/SDRAM.scala:179:26
-  input          sdram_bundle_clk_out,	// src/device/SDRAM.scala:179:26
-                 sdram_bundle_init_calib_complete,	// src/device/SDRAM.scala:179:26
-                 sdram_bundle_cmd_ready,	// src/device/SDRAM.scala:179:26
-                 sdram_bundle_wr_data_rdy,	// src/device/SDRAM.scala:179:26
-  input  [255:0] sdram_bundle_rd_data,	// src/device/SDRAM.scala:179:26
-  input          sdram_bundle_rd_data_valid,	// src/device/SDRAM.scala:179:26
-  output         clk_out	// src/device/SDRAM.scala:180:21
+  output [2:0]   sdram_bundle_cmd,	// src/device/SDRAM.scala:199:26
+  output         sdram_bundle_cmd_en,	// src/device/SDRAM.scala:199:26
+  output [28:0]  sdram_bundle_addr,	// src/device/SDRAM.scala:199:26
+  output [255:0] sdram_bundle_wr_data,	// src/device/SDRAM.scala:199:26
+  output         sdram_bundle_wr_data_en,	// src/device/SDRAM.scala:199:26
+                 sdram_bundle_wr_data_end,	// src/device/SDRAM.scala:199:26
+  output [31:0]  sdram_bundle_wr_data_mask,	// src/device/SDRAM.scala:199:26
+  input          sdram_bundle_clk_out,	// src/device/SDRAM.scala:199:26
+                 sdram_bundle_init_calib_complete,	// src/device/SDRAM.scala:199:26
+                 sdram_bundle_cmd_ready,	// src/device/SDRAM.scala:199:26
+                 sdram_bundle_wr_data_rdy,	// src/device/SDRAM.scala:199:26
+  input  [255:0] sdram_bundle_rd_data,	// src/device/SDRAM.scala:199:26
+  input          sdram_bundle_rd_data_valid,	// src/device/SDRAM.scala:199:26
+  output         clk_out	// src/device/SDRAM.scala:200:21
 );
 
-  wire        _msdram_io_in_awready;	// src/device/SDRAM.scala:182:24
-  wire        _msdram_io_in_wready;	// src/device/SDRAM.scala:182:24
-  wire        _msdram_io_in_bvalid;	// src/device/SDRAM.scala:182:24
-  wire [3:0]  _msdram_io_in_bid;	// src/device/SDRAM.scala:182:24
-  wire        _msdram_io_in_arready;	// src/device/SDRAM.scala:182:24
-  wire        _msdram_io_in_rvalid;	// src/device/SDRAM.scala:182:24
-  wire [3:0]  _msdram_io_in_rid;	// src/device/SDRAM.scala:182:24
-  wire [31:0] _msdram_io_in_rdata;	// src/device/SDRAM.scala:182:24
+  wire        _msdram_io_in_awready;	// src/device/SDRAM.scala:202:24
+  wire        _msdram_io_in_wready;	// src/device/SDRAM.scala:202:24
+  wire        _msdram_io_in_bvalid;	// src/device/SDRAM.scala:202:24
+  wire [3:0]  _msdram_io_in_bid;	// src/device/SDRAM.scala:202:24
+  wire        _msdram_io_in_arready;	// src/device/SDRAM.scala:202:24
+  wire        _msdram_io_in_rvalid;	// src/device/SDRAM.scala:202:24
+  wire [3:0]  _msdram_io_in_rid;	// src/device/SDRAM.scala:202:24
+  wire [31:0] _msdram_io_in_rdata;	// src/device/SDRAM.scala:202:24
   wire        _axi4asink_auto_out_awvalid;	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
   wire [3:0]  _axi4asink_auto_out_awid;	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
   wire [29:0] _axi4asink_auto_out_awaddr;	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
@@ -5124,38 +5187,38 @@ module AXI4SDRAM(	// src/device/SDRAM.scala:177:9
     .auto_in_rsafe_widx_valid      (auto_axi4in_xing_in_rsafe_widx_valid),
     .auto_in_rsafe_source_reset_n  (auto_axi4in_xing_in_rsafe_source_reset_n),
     .auto_in_rsafe_sink_reset_n    (auto_axi4in_xing_in_rsafe_sink_reset_n),
-    .auto_out_awready              (_msdram_io_in_awready),	// src/device/SDRAM.scala:182:24
+    .auto_out_awready              (_msdram_io_in_awready),	// src/device/SDRAM.scala:202:24
     .auto_out_awvalid              (_axi4asink_auto_out_awvalid),
     .auto_out_awid            (_axi4asink_auto_out_awid),
     .auto_out_awaddr          (_axi4asink_auto_out_awaddr),
     .auto_out_awlen           (_axi4asink_auto_out_awlen),
     .auto_out_awsize          (_axi4asink_auto_out_awsize),
-    .auto_out_wready               (_msdram_io_in_wready),	// src/device/SDRAM.scala:182:24
+    .auto_out_wready               (_msdram_io_in_wready),	// src/device/SDRAM.scala:202:24
     .auto_out_wvalid               (_axi4asink_auto_out_wvalid),
     .auto_out_wdata           (_axi4asink_auto_out_wdata),
     .auto_out_wstrb           (_axi4asink_auto_out_wstrb),
     .auto_out_bready               (_axi4asink_auto_out_bready),
-    .auto_out_bvalid               (_msdram_io_in_bvalid),	// src/device/SDRAM.scala:182:24
-    .auto_out_bid             (_msdram_io_in_bid),	// src/device/SDRAM.scala:182:24
-    .auto_out_arready              (_msdram_io_in_arready),	// src/device/SDRAM.scala:182:24
+    .auto_out_bvalid               (_msdram_io_in_bvalid),	// src/device/SDRAM.scala:202:24
+    .auto_out_bid             (_msdram_io_in_bid),	// src/device/SDRAM.scala:202:24
+    .auto_out_arready              (_msdram_io_in_arready),	// src/device/SDRAM.scala:202:24
     .auto_out_arvalid              (_axi4asink_auto_out_arvalid),
     .auto_out_arid            (_axi4asink_auto_out_arid),
     .auto_out_araddr          (_axi4asink_auto_out_araddr),
     .auto_out_arlen           (_axi4asink_auto_out_arlen),
     .auto_out_arsize          (_axi4asink_auto_out_arsize),
     .auto_out_rready               (_axi4asink_auto_out_rready),
-    .auto_out_rvalid               (_msdram_io_in_rvalid),	// src/device/SDRAM.scala:182:24
-    .auto_out_rid             (_msdram_io_in_rid),	// src/device/SDRAM.scala:182:24
-    .auto_out_rdata           (_msdram_io_in_rdata)	// src/device/SDRAM.scala:182:24
+    .auto_out_rvalid               (_msdram_io_in_rvalid),	// src/device/SDRAM.scala:202:24
+    .auto_out_rid             (_msdram_io_in_rid),	// src/device/SDRAM.scala:202:24
+    .auto_out_rdata           (_msdram_io_in_rdata)	// src/device/SDRAM.scala:202:24
   );	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
-  sdram_top_axi msdram (	// src/device/SDRAM.scala:182:24
+  sdram_top_axi msdram (	// src/device/SDRAM.scala:202:24
     .clock                      (clock),
     .reset                      (reset),
     .io_clk_out                 (clk_out),
     .io_in_awready             (_msdram_io_in_awready),
     .io_in_awvalid             (_axi4asink_auto_out_awvalid),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_awid           (_axi4asink_auto_out_awid),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
-    .io_in_awaddr         ({2'h0, _axi4asink_auto_out_awaddr}),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31, src/device/SDRAM.scala:183:18
+    .io_in_awaddr         ({2'h0, _axi4asink_auto_out_awaddr}),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31, src/device/SDRAM.scala:203:18
     .io_in_awlen          (_axi4asink_auto_out_awlen),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_awsize         (_axi4asink_auto_out_awsize),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_wready              (_msdram_io_in_wready),
@@ -5168,7 +5231,7 @@ module AXI4SDRAM(	// src/device/SDRAM.scala:177:9
     .io_in_arready             (_msdram_io_in_arready),
     .io_in_arvalid             (_axi4asink_auto_out_arvalid),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_arid           (_axi4asink_auto_out_arid),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
-    .io_in_araddr         ({2'h0, _axi4asink_auto_out_araddr}),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31, src/device/SDRAM.scala:183:18
+    .io_in_araddr         ({2'h0, _axi4asink_auto_out_araddr}),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31, src/device/SDRAM.scala:203:18
     .io_in_arlen          (_axi4asink_auto_out_arlen),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_arsize         (_axi4asink_auto_out_arsize),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
     .io_in_rready              (_axi4asink_auto_out_rready),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:72:31
@@ -5188,7 +5251,7 @@ module AXI4SDRAM(	// src/device/SDRAM.scala:177:9
     .io_dmi_wr_data_rdy         (sdram_bundle_wr_data_rdy),
     .io_dmi_rd_data             (sdram_bundle_rd_data),
     .io_dmi_rd_data_valid       (sdram_bundle_rd_data_valid)
-  );	// src/device/SDRAM.scala:182:24
+  );	// src/device/SDRAM.scala:202:24
 endmodule
 
 module AXI4ToAPB(	// src/amba/AXI4ToAPB.scala:45:25
@@ -8612,45 +8675,45 @@ module SynchronizerShiftReg_w1_d10(	// rocket-chip/src/main/scala/util/Synchroni
   );	// rocket-chip/src/main/scala/util/ShiftReg.scala:45:23
 endmodule
 
-module SoCASIC(	// src/SoC.scala:57:9
-  input          clock,	// src/SoC.scala:57:9
-                 reset,	// src/SoC.scala:57:9
-  input  [7:0]   intr_from_SoC,	// src/SoC.scala:61:27
-  input          intc_timer_int,	// src/SoC.scala:65:18
-  output         intc_int_o,	// src/SoC.scala:65:18
-                 timer_int,	// src/SoC.scala:66:19
-                 spi_sck,	// src/SoC.scala:67:17
-  output [7:0]   spi_ss,	// src/SoC.scala:67:17
-  output         spi_mosi,	// src/SoC.scala:67:17
-  input          spi_miso,	// src/SoC.scala:67:17
-                 uart_rx,	// src/SoC.scala:68:18
-  output         uart_tx,	// src/SoC.scala:68:18
-  output [2:0]   sdram_cmd,	// src/SoC.scala:69:19
-  output         sdram_cmd_en,	// src/SoC.scala:69:19
-  output [28:0]  sdram_addr,	// src/SoC.scala:69:19
-  output [255:0] sdram_wr_data,	// src/SoC.scala:69:19
-  output         sdram_wr_data_en,	// src/SoC.scala:69:19
-                 sdram_wr_data_end,	// src/SoC.scala:69:19
-  output [31:0]  sdram_wr_data_mask,	// src/SoC.scala:69:19
-  input          sdram_clk_out,	// src/SoC.scala:69:19
-                 sdram_init_calib_complete,	// src/SoC.scala:69:19
-                 sdram_cmd_ready,	// src/SoC.scala:69:19
-                 sdram_wr_data_rdy,	// src/SoC.scala:69:19
-  input  [255:0] sdram_rd_data,	// src/SoC.scala:69:19
-  input          sdram_rd_data_valid,	// src/SoC.scala:69:19
-  output [5:0]   gpio_out,	// src/SoC.scala:70:18
-  input  [3:0]   gpio_in,	// src/SoC.scala:70:18
-  output         sram_reset,	// src/SoC.scala:72:18
-                 sram_oce,	// src/SoC.scala:72:18
-                 sram_clka,	// src/SoC.scala:72:18
-                 sram_cea,	// src/SoC.scala:72:18
-  output [15:0]  sram_ada,	// src/SoC.scala:72:18
-  output [31:0]  sram_din,	// src/SoC.scala:72:18
-  output [3:0]   sram_byte_ena,	// src/SoC.scala:72:18
-  output         sram_clkb,	// src/SoC.scala:72:18
-                 sram_ceb,	// src/SoC.scala:72:18
-  output [15:0]  sram_adb,	// src/SoC.scala:72:18
-  input  [31:0]  sram_dout	// src/SoC.scala:72:18
+module SoCASIC(	// src/SoC.scala:53:9
+  input          clock,	// src/SoC.scala:53:9
+                 reset,	// src/SoC.scala:53:9
+  input  [7:0]   intr_from_SoC,	// src/SoC.scala:57:27
+  input          intc_timer_int,	// src/SoC.scala:61:18
+  output         intc_int_o,	// src/SoC.scala:61:18
+                 timer_int,	// src/SoC.scala:62:19
+                 spi_sck,	// src/SoC.scala:63:17
+                 spi_ss,	// src/SoC.scala:63:17
+                 spi_mosi,	// src/SoC.scala:63:17
+  input          spi_miso,	// src/SoC.scala:63:17
+                 uart_rx,	// src/SoC.scala:64:18
+  output         uart_tx,	// src/SoC.scala:64:18
+  output [2:0]   sdram_cmd,	// src/SoC.scala:65:19
+  output         sdram_cmd_en,	// src/SoC.scala:65:19
+  output [28:0]  sdram_addr,	// src/SoC.scala:65:19
+  output [255:0] sdram_wr_data,	// src/SoC.scala:65:19
+  output         sdram_wr_data_en,	// src/SoC.scala:65:19
+                 sdram_wr_data_end,	// src/SoC.scala:65:19
+  output [31:0]  sdram_wr_data_mask,	// src/SoC.scala:65:19
+  input          sdram_clk_out,	// src/SoC.scala:65:19
+                 sdram_init_calib_complete,	// src/SoC.scala:65:19
+                 sdram_cmd_ready,	// src/SoC.scala:65:19
+                 sdram_wr_data_rdy,	// src/SoC.scala:65:19
+  input  [255:0] sdram_rd_data,	// src/SoC.scala:65:19
+  input          sdram_rd_data_valid,	// src/SoC.scala:65:19
+  output [5:0]   gpio_out,	// src/SoC.scala:66:18
+  input  [3:0]   gpio_in,	// src/SoC.scala:66:18
+  output         sram_reset,	// src/SoC.scala:68:18
+                 sram_oce,	// src/SoC.scala:68:18
+                 sram_clka,	// src/SoC.scala:68:18
+                 sram_cea,	// src/SoC.scala:68:18
+  output [15:0]  sram_ada,	// src/SoC.scala:68:18
+  output [31:0]  sram_din,	// src/SoC.scala:68:18
+  output [3:0]   sram_byte_ena,	// src/SoC.scala:68:18
+  output         sram_clkb,	// src/SoC.scala:68:18
+                 sram_ceb,	// src/SoC.scala:68:18
+  output [15:0]  sram_adb,	// src/SoC.scala:68:18
+  input  [31:0]  sram_dout	// src/SoC.scala:68:18
 );
 
   wire        _cpu_reset_chain_io_q;	// rocket-chip/src/main/scala/util/ShiftReg.scala:45:23
@@ -8887,49 +8950,48 @@ module SoCASIC(	// src/SoC.scala:57:9
   wire [31:0] _axi42apb_auto_out_paddr;	// src/amba/AXI4ToAPB.scala:103:30
   wire [31:0] _axi42apb_auto_out_pwdata;	// src/amba/AXI4ToAPB.scala:103:30
   wire [3:0]  _axi42apb_auto_out_pstrb;	// src/amba/AXI4ToAPB.scala:103:30
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_awridx;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_awsafe_ridx_valid;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_awsafe_sink_reset_n;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_wridx;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_wsafe_ridx_valid;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_wsafe_sink_reset_n;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_0_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_1_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_2_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_3_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_4_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_5_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_6_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_7_id;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_bwidx;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_bsafe_widx_valid;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_bsafe_source_reset_n;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_arridx;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_arsafe_ridx_valid;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_arsafe_sink_reset_n;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_0_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_0_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_1_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_1_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_2_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_2_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_3_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_3_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_4_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_4_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_5_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_5_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_6_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_6_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_7_id;	// src/SoC.scala:48:26
-  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_7_data;	// src/SoC.scala:48:26
-  wire [3:0]  _lsdram_auto_axi4in_xing_in_rwidx;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_rsafe_widx_valid;	// src/SoC.scala:48:26
-  wire        _lsdram_auto_axi4in_xing_in_rsafe_source_reset_n;	// src/SoC.scala:48:26
-  wire        _lsdram_clk_out;	// src/SoC.scala:48:26
-  wire        _lspi_auto_in_pready;	// src/SoC.scala:43:25
-  wire        _lspi_auto_in_pslverr;	// src/SoC.scala:43:25
-  wire [31:0] _lspi_auto_in_prdata;	// src/SoC.scala:43:25
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_awridx;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_awsafe_ridx_valid;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_awsafe_sink_reset_n;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_wridx;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_wsafe_ridx_valid;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_wsafe_sink_reset_n;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_0_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_1_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_2_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_3_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_4_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_5_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_6_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bmem_7_id;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_bwidx;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_bsafe_widx_valid;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_bsafe_source_reset_n;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_arridx;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_arsafe_ridx_valid;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_arsafe_sink_reset_n;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_0_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_0_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_1_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_1_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_2_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_2_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_3_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_3_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_4_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_4_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_5_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_5_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_6_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_6_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rmem_7_id;	// src/SoC.scala:44:27
+  wire [31:0] _lsdram_auto_axi4in_xing_in_rmem_7_data;	// src/SoC.scala:44:27
+  wire [3:0]  _lsdram_auto_axi4in_xing_in_rwidx;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_rsafe_widx_valid;	// src/SoC.scala:44:27
+  wire        _lsdram_auto_axi4in_xing_in_rsafe_source_reset_n;	// src/SoC.scala:44:27
+  wire        _lsdram_clk_out;	// src/SoC.scala:44:27
+  wire        _lspi_auto_in_pready;	// src/SoC.scala:42:27
+  wire [31:0] _lspi_auto_in_prdata;	// src/SoC.scala:42:27
   wire        _luart_auto_in_pready;	// src/SoC.scala:40:27
   wire        _luart_auto_in_pslverr;	// src/SoC.scala:40:27
   wire [31:0] _luart_auto_in_prdata;	// src/SoC.scala:40:27
@@ -8996,9 +9058,7 @@ module SoCASIC(	// src/SoC.scala:57:9
   wire        _apbxbar_auto_out_0_psel;	// src/SoC.scala:32:27
   wire        _apbxbar_auto_out_0_penable;	// src/SoC.scala:32:27
   wire        _apbxbar_auto_out_0_pwrite;	// src/SoC.scala:32:27
-  wire [28:0] _apbxbar_auto_out_0_paddr;	// src/SoC.scala:32:27
-  wire [31:0] _apbxbar_auto_out_0_pwdata;	// src/SoC.scala:32:27
-  wire [3:0]  _apbxbar_auto_out_0_pstrb;	// src/SoC.scala:32:27
+  wire [27:0] _apbxbar_auto_out_0_paddr;	// src/SoC.scala:32:27
   wire        _axi4xbar_1_auto_in_awready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:230:30
   wire        _axi4xbar_1_auto_in_wready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:230:30
   wire        _axi4xbar_1_auto_in_bvalid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:230:30
@@ -9303,15 +9363,12 @@ module SoCASIC(	// src/SoC.scala:57:9
     .auto_out_0_penable (_apbxbar_auto_out_0_penable),
     .auto_out_0_pwrite  (_apbxbar_auto_out_0_pwrite),
     .auto_out_0_paddr   (_apbxbar_auto_out_0_paddr),
-    .auto_out_0_pwdata  (_apbxbar_auto_out_0_pwdata),
-    .auto_out_0_pstrb   (_apbxbar_auto_out_0_pstrb),
-    .auto_out_0_pready  (_lspi_auto_in_pready),	// src/SoC.scala:43:25
-    .auto_out_0_pslverr (_lspi_auto_in_pslverr),	// src/SoC.scala:43:25
-    .auto_out_0_prdata  (_lspi_auto_in_prdata)	// src/SoC.scala:43:25
+    .auto_out_0_pready  (_lspi_auto_in_pready),	// src/SoC.scala:42:27
+    .auto_out_0_prdata  (_lspi_auto_in_prdata)	// src/SoC.scala:42:27
   );	// src/SoC.scala:32:27
   CPU cpu (	// src/SoC.scala:34:23
     .clock                         (clock),
-    .reset                         (_cpu_reset_chain_io_q | reset),	// rocket-chip/src/main/scala/util/ShiftReg.scala:45:23, src/SoC.scala:59:64
+    .reset                         (_cpu_reset_chain_io_q | reset),	// rocket-chip/src/main/scala/util/ShiftReg.scala:45:23, src/SoC.scala:55:64
     .auto_master_out_awready      (_axi4xbar_auto_in_awready),	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:230:30
     .auto_master_out_awvalid      (_cpu_auto_master_out_awvalid),
     .auto_master_out_awid    (_cpu_auto_master_out_awid),
@@ -9439,25 +9496,22 @@ module SoCASIC(	// src/SoC.scala:57:9
     .uart_bundle_rx  (uart_rx),
     .uart_bundle_tx  (uart_tx)
   );	// src/SoC.scala:40:27
-  APBSPI lspi (	// src/SoC.scala:43:25
+  APBSPI lspi (	// src/SoC.scala:42:27
     .clock           (clock),
     .reset           (reset),
     .auto_in_psel    (_apbxbar_auto_out_0_psel),	// src/SoC.scala:32:27
     .auto_in_penable (_apbxbar_auto_out_0_penable),	// src/SoC.scala:32:27
     .auto_in_pwrite  (_apbxbar_auto_out_0_pwrite),	// src/SoC.scala:32:27
     .auto_in_paddr   (_apbxbar_auto_out_0_paddr),	// src/SoC.scala:32:27
-    .auto_in_pwdata  (_apbxbar_auto_out_0_pwdata),	// src/SoC.scala:32:27
-    .auto_in_pstrb   (_apbxbar_auto_out_0_pstrb),	// src/SoC.scala:32:27
     .auto_in_pready  (_lspi_auto_in_pready),
-    .auto_in_pslverr (_lspi_auto_in_pslverr),
     .auto_in_prdata  (_lspi_auto_in_prdata),
     .spi_bundle_sck  (spi_sck),
     .spi_bundle_ss   (spi_ss),
     .spi_bundle_mosi (spi_mosi),
     .spi_bundle_miso (spi_miso)
-  );	// src/SoC.scala:43:25
-  AXI4SDRAM lsdram (	// src/SoC.scala:48:26
-    .clock                                      (_lsdram_clk_out),	// src/SoC.scala:48:26
+  );	// src/SoC.scala:42:27
+  AXI4SDRAM lsdram (	// src/SoC.scala:44:27
+    .clock                                      (_lsdram_clk_out),	// src/SoC.scala:44:27
     .reset                                      (reset),
     .auto_axi4in_xing_in_awmem_0_id            (_axi4asource_auto_out_awmem_0_id),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:64:33
     .auto_axi4in_xing_in_awmem_0_addr          (_axi4asource_auto_out_awmem_0_addr),	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:64:33
@@ -9656,7 +9710,7 @@ module SoCASIC(	// src/SoC.scala:57:9
     .sdram_bundle_rd_data                       (sdram_rd_data),
     .sdram_bundle_rd_data_valid                 (sdram_rd_data_valid),
     .clk_out                                    (_lsdram_clk_out)
-  );	// src/SoC.scala:48:26
+  );	// src/SoC.scala:44:27
   AXI4ToAPB axi42apb (	// src/amba/AXI4ToAPB.scala:103:30
     .clock                (clock),
     .reset                (reset),
@@ -9891,12 +9945,12 @@ module SoCASIC(	// src/SoC.scala:57:9
     .auto_out_awmem_7_len           (_axi4asource_auto_out_awmem_7_len),
     .auto_out_awmem_7_size          (_axi4asource_auto_out_awmem_7_size),
     .auto_out_awmem_7_burst         (_axi4asource_auto_out_awmem_7_burst),
-    .auto_out_awridx                (_lsdram_auto_axi4in_xing_in_awridx),	// src/SoC.scala:48:26
+    .auto_out_awridx                (_lsdram_auto_axi4in_xing_in_awridx),	// src/SoC.scala:44:27
     .auto_out_awwidx                (_axi4asource_auto_out_awwidx),
-    .auto_out_awsafe_ridx_valid     (_lsdram_auto_axi4in_xing_in_awsafe_ridx_valid),	// src/SoC.scala:48:26
+    .auto_out_awsafe_ridx_valid     (_lsdram_auto_axi4in_xing_in_awsafe_ridx_valid),	// src/SoC.scala:44:27
     .auto_out_awsafe_widx_valid     (_axi4asource_auto_out_awsafe_widx_valid),
     .auto_out_awsafe_source_reset_n (_axi4asource_auto_out_awsafe_source_reset_n),
-    .auto_out_awsafe_sink_reset_n   (_lsdram_auto_axi4in_xing_in_awsafe_sink_reset_n),	// src/SoC.scala:48:26
+    .auto_out_awsafe_sink_reset_n   (_lsdram_auto_axi4in_xing_in_awsafe_sink_reset_n),	// src/SoC.scala:44:27
     .auto_out_wmem_0_data           (_axi4asource_auto_out_wmem_0_data),
     .auto_out_wmem_0_strb           (_axi4asource_auto_out_wmem_0_strb),
     .auto_out_wmem_0_last           (_axi4asource_auto_out_wmem_0_last),
@@ -9921,25 +9975,25 @@ module SoCASIC(	// src/SoC.scala:57:9
     .auto_out_wmem_7_data           (_axi4asource_auto_out_wmem_7_data),
     .auto_out_wmem_7_strb           (_axi4asource_auto_out_wmem_7_strb),
     .auto_out_wmem_7_last           (_axi4asource_auto_out_wmem_7_last),
-    .auto_out_wridx                 (_lsdram_auto_axi4in_xing_in_wridx),	// src/SoC.scala:48:26
+    .auto_out_wridx                 (_lsdram_auto_axi4in_xing_in_wridx),	// src/SoC.scala:44:27
     .auto_out_wwidx                 (_axi4asource_auto_out_wwidx),
-    .auto_out_wsafe_ridx_valid      (_lsdram_auto_axi4in_xing_in_wsafe_ridx_valid),	// src/SoC.scala:48:26
+    .auto_out_wsafe_ridx_valid      (_lsdram_auto_axi4in_xing_in_wsafe_ridx_valid),	// src/SoC.scala:44:27
     .auto_out_wsafe_widx_valid      (_axi4asource_auto_out_wsafe_widx_valid),
     .auto_out_wsafe_source_reset_n  (_axi4asource_auto_out_wsafe_source_reset_n),
-    .auto_out_wsafe_sink_reset_n    (_lsdram_auto_axi4in_xing_in_wsafe_sink_reset_n),	// src/SoC.scala:48:26
-    .auto_out_bmem_0_id             (_lsdram_auto_axi4in_xing_in_bmem_0_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_1_id             (_lsdram_auto_axi4in_xing_in_bmem_1_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_2_id             (_lsdram_auto_axi4in_xing_in_bmem_2_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_3_id             (_lsdram_auto_axi4in_xing_in_bmem_3_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_4_id             (_lsdram_auto_axi4in_xing_in_bmem_4_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_5_id             (_lsdram_auto_axi4in_xing_in_bmem_5_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_6_id             (_lsdram_auto_axi4in_xing_in_bmem_6_id),	// src/SoC.scala:48:26
-    .auto_out_bmem_7_id             (_lsdram_auto_axi4in_xing_in_bmem_7_id),	// src/SoC.scala:48:26
+    .auto_out_wsafe_sink_reset_n    (_lsdram_auto_axi4in_xing_in_wsafe_sink_reset_n),	// src/SoC.scala:44:27
+    .auto_out_bmem_0_id             (_lsdram_auto_axi4in_xing_in_bmem_0_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_1_id             (_lsdram_auto_axi4in_xing_in_bmem_1_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_2_id             (_lsdram_auto_axi4in_xing_in_bmem_2_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_3_id             (_lsdram_auto_axi4in_xing_in_bmem_3_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_4_id             (_lsdram_auto_axi4in_xing_in_bmem_4_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_5_id             (_lsdram_auto_axi4in_xing_in_bmem_5_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_6_id             (_lsdram_auto_axi4in_xing_in_bmem_6_id),	// src/SoC.scala:44:27
+    .auto_out_bmem_7_id             (_lsdram_auto_axi4in_xing_in_bmem_7_id),	// src/SoC.scala:44:27
     .auto_out_bridx                 (_axi4asource_auto_out_bridx),
-    .auto_out_bwidx                 (_lsdram_auto_axi4in_xing_in_bwidx),	// src/SoC.scala:48:26
+    .auto_out_bwidx                 (_lsdram_auto_axi4in_xing_in_bwidx),	// src/SoC.scala:44:27
     .auto_out_bsafe_ridx_valid      (_axi4asource_auto_out_bsafe_ridx_valid),
-    .auto_out_bsafe_widx_valid      (_lsdram_auto_axi4in_xing_in_bsafe_widx_valid),	// src/SoC.scala:48:26
-    .auto_out_bsafe_source_reset_n  (_lsdram_auto_axi4in_xing_in_bsafe_source_reset_n),	// src/SoC.scala:48:26
+    .auto_out_bsafe_widx_valid      (_lsdram_auto_axi4in_xing_in_bsafe_widx_valid),	// src/SoC.scala:44:27
+    .auto_out_bsafe_source_reset_n  (_lsdram_auto_axi4in_xing_in_bsafe_source_reset_n),	// src/SoC.scala:44:27
     .auto_out_bsafe_sink_reset_n    (_axi4asource_auto_out_bsafe_sink_reset_n),
     .auto_out_armem_0_id            (_axi4asource_auto_out_armem_0_id),
     .auto_out_armem_0_addr          (_axi4asource_auto_out_armem_0_addr),
@@ -9981,33 +10035,33 @@ module SoCASIC(	// src/SoC.scala:57:9
     .auto_out_armem_7_len           (_axi4asource_auto_out_armem_7_len),
     .auto_out_armem_7_size          (_axi4asource_auto_out_armem_7_size),
     .auto_out_armem_7_burst         (_axi4asource_auto_out_armem_7_burst),
-    .auto_out_arridx                (_lsdram_auto_axi4in_xing_in_arridx),	// src/SoC.scala:48:26
+    .auto_out_arridx                (_lsdram_auto_axi4in_xing_in_arridx),	// src/SoC.scala:44:27
     .auto_out_arwidx                (_axi4asource_auto_out_arwidx),
-    .auto_out_arsafe_ridx_valid     (_lsdram_auto_axi4in_xing_in_arsafe_ridx_valid),	// src/SoC.scala:48:26
+    .auto_out_arsafe_ridx_valid     (_lsdram_auto_axi4in_xing_in_arsafe_ridx_valid),	// src/SoC.scala:44:27
     .auto_out_arsafe_widx_valid     (_axi4asource_auto_out_arsafe_widx_valid),
     .auto_out_arsafe_source_reset_n (_axi4asource_auto_out_arsafe_source_reset_n),
-    .auto_out_arsafe_sink_reset_n   (_lsdram_auto_axi4in_xing_in_arsafe_sink_reset_n),	// src/SoC.scala:48:26
-    .auto_out_rmem_0_id             (_lsdram_auto_axi4in_xing_in_rmem_0_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_0_data           (_lsdram_auto_axi4in_xing_in_rmem_0_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_1_id             (_lsdram_auto_axi4in_xing_in_rmem_1_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_1_data           (_lsdram_auto_axi4in_xing_in_rmem_1_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_2_id             (_lsdram_auto_axi4in_xing_in_rmem_2_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_2_data           (_lsdram_auto_axi4in_xing_in_rmem_2_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_3_id             (_lsdram_auto_axi4in_xing_in_rmem_3_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_3_data           (_lsdram_auto_axi4in_xing_in_rmem_3_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_4_id             (_lsdram_auto_axi4in_xing_in_rmem_4_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_4_data           (_lsdram_auto_axi4in_xing_in_rmem_4_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_5_id             (_lsdram_auto_axi4in_xing_in_rmem_5_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_5_data           (_lsdram_auto_axi4in_xing_in_rmem_5_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_6_id             (_lsdram_auto_axi4in_xing_in_rmem_6_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_6_data           (_lsdram_auto_axi4in_xing_in_rmem_6_data),	// src/SoC.scala:48:26
-    .auto_out_rmem_7_id             (_lsdram_auto_axi4in_xing_in_rmem_7_id),	// src/SoC.scala:48:26
-    .auto_out_rmem_7_data           (_lsdram_auto_axi4in_xing_in_rmem_7_data),	// src/SoC.scala:48:26
+    .auto_out_arsafe_sink_reset_n   (_lsdram_auto_axi4in_xing_in_arsafe_sink_reset_n),	// src/SoC.scala:44:27
+    .auto_out_rmem_0_id             (_lsdram_auto_axi4in_xing_in_rmem_0_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_0_data           (_lsdram_auto_axi4in_xing_in_rmem_0_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_1_id             (_lsdram_auto_axi4in_xing_in_rmem_1_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_1_data           (_lsdram_auto_axi4in_xing_in_rmem_1_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_2_id             (_lsdram_auto_axi4in_xing_in_rmem_2_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_2_data           (_lsdram_auto_axi4in_xing_in_rmem_2_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_3_id             (_lsdram_auto_axi4in_xing_in_rmem_3_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_3_data           (_lsdram_auto_axi4in_xing_in_rmem_3_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_4_id             (_lsdram_auto_axi4in_xing_in_rmem_4_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_4_data           (_lsdram_auto_axi4in_xing_in_rmem_4_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_5_id             (_lsdram_auto_axi4in_xing_in_rmem_5_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_5_data           (_lsdram_auto_axi4in_xing_in_rmem_5_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_6_id             (_lsdram_auto_axi4in_xing_in_rmem_6_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_6_data           (_lsdram_auto_axi4in_xing_in_rmem_6_data),	// src/SoC.scala:44:27
+    .auto_out_rmem_7_id             (_lsdram_auto_axi4in_xing_in_rmem_7_id),	// src/SoC.scala:44:27
+    .auto_out_rmem_7_data           (_lsdram_auto_axi4in_xing_in_rmem_7_data),	// src/SoC.scala:44:27
     .auto_out_rridx                 (_axi4asource_auto_out_rridx),
-    .auto_out_rwidx                 (_lsdram_auto_axi4in_xing_in_rwidx),	// src/SoC.scala:48:26
+    .auto_out_rwidx                 (_lsdram_auto_axi4in_xing_in_rwidx),	// src/SoC.scala:44:27
     .auto_out_rsafe_ridx_valid      (_axi4asource_auto_out_rsafe_ridx_valid),
-    .auto_out_rsafe_widx_valid      (_lsdram_auto_axi4in_xing_in_rsafe_widx_valid),	// src/SoC.scala:48:26
-    .auto_out_rsafe_source_reset_n  (_lsdram_auto_axi4in_xing_in_rsafe_source_reset_n),	// src/SoC.scala:48:26
+    .auto_out_rsafe_widx_valid      (_lsdram_auto_axi4in_xing_in_rsafe_widx_valid),	// src/SoC.scala:44:27
+    .auto_out_rsafe_source_reset_n  (_lsdram_auto_axi4in_xing_in_rsafe_source_reset_n),	// src/SoC.scala:44:27
     .auto_out_rsafe_sink_reset_n    (_axi4asource_auto_out_rsafe_sink_reset_n)
   );	// rocket-chip/src/main/scala/amba/axi4/AsyncCrossing.scala:64:33
   AXI4UserYanker_1 axi4yank_1 (	// rocket-chip/src/main/scala/amba/axi4/UserYanker.scala:122:30
@@ -10081,103 +10135,103 @@ endmodule
 
 // external module Gowin_PLL
 
-// external module SRAM_SDPB
-
 // external module DDR3_Memory_Interface_Top
 
-module SoCFull(	// src/SoC.scala:95:9
-  input         clock,	// src/SoC.scala:95:9
-                reset,	// src/SoC.scala:95:9
-  output        spi_sck,	// src/SoC.scala:102:17
-  output [7:0]  spi_ss,	// src/SoC.scala:102:17
-  output        spi_mosi,	// src/SoC.scala:102:17
-  input         spi_miso,	// src/SoC.scala:102:17
-  output [5:0]  externalPins_gpio_out,	// src/SoC.scala:105:26
-  input  [3:0]  externalPins_gpio_in,	// src/SoC.scala:105:26
-  input         externalPins_uart_rx,	// src/SoC.scala:105:26
-  output        externalPins_uart_tx,	// src/SoC.scala:105:26
-  output [14:0] sdram_O_ddr_addr,	// src/SoC.scala:146:19
-  output [2:0]  sdram_O_ddr_ba,	// src/SoC.scala:146:19
-  output        sdram_O_ddr_cs_n,	// src/SoC.scala:146:19
-                sdram_O_ddr_ras_n,	// src/SoC.scala:146:19
-                sdram_O_ddr_cas_n,	// src/SoC.scala:146:19
-                sdram_O_ddr_we_n,	// src/SoC.scala:146:19
-                sdram_O_ddr_clk,	// src/SoC.scala:146:19
-                sdram_O_ddr_clk_n,	// src/SoC.scala:146:19
-                sdram_O_ddr_cke,	// src/SoC.scala:146:19
-                sdram_O_ddr_odt,	// src/SoC.scala:146:19
-                sdram_O_ddr_reset_n,	// src/SoC.scala:146:19
-  output [3:0]  sdram_O_ddr_dqm,	// src/SoC.scala:146:19
-  inout  [31:0] sdram_dq,	// src/SoC.scala:146:19
-  inout  [3:0]  sdram_dqs,	// src/SoC.scala:146:19
-                sdram_dqs_n	// src/SoC.scala:146:19
+// external module SRAM_SDPB
+
+module SoCFull(	// src/SoC.scala:91:9
+  input         clock,	// src/SoC.scala:91:9
+                reset,	// src/SoC.scala:91:9
+  output        spi_sck,	// src/SoC.scala:100:17
+                spi_ss,	// src/SoC.scala:100:17
+                spi_mosi,	// src/SoC.scala:100:17
+  input         spi_miso,	// src/SoC.scala:100:17
+  output [5:0]  externalPins_gpio_out,	// src/SoC.scala:103:26
+  input  [3:0]  externalPins_gpio_in,	// src/SoC.scala:103:26
+  input         externalPins_uart_rx,	// src/SoC.scala:103:26
+  output        externalPins_uart_tx,	// src/SoC.scala:103:26
+  output [14:0] ddr3_O_ddr_addr,	// src/SoC.scala:176:18
+  output [2:0]  ddr3_O_ddr_ba,	// src/SoC.scala:176:18
+  output        ddr3_O_ddr_cs_n,	// src/SoC.scala:176:18
+                ddr3_O_ddr_ras_n,	// src/SoC.scala:176:18
+                ddr3_O_ddr_cas_n,	// src/SoC.scala:176:18
+                ddr3_O_ddr_we_n,	// src/SoC.scala:176:18
+                ddr3_O_ddr_clk,	// src/SoC.scala:176:18
+                ddr3_O_ddr_clk_n,	// src/SoC.scala:176:18
+                ddr3_O_ddr_cke,	// src/SoC.scala:176:18
+                ddr3_O_ddr_odt,	// src/SoC.scala:176:18
+                ddr3_O_ddr_reset_n,	// src/SoC.scala:176:18
+  output [3:0]  ddr3_O_ddr_dqm,	// src/SoC.scala:176:18
+  inout  [31:0] ddr3_dq,	// src/SoC.scala:176:18
+  inout  [3:0]  ddr3_dqs,	// src/SoC.scala:176:18
+                ddr3_dqs_n	// src/SoC.scala:176:18
 );
 
-  wire         _dmi_pll_stop;	// src/SoC.scala:145:21
-  wire         _dmi_clk_out;	// src/SoC.scala:145:21
-  wire         _dmi_init_calib_complete;	// src/SoC.scala:145:21
-  wire         _dmi_cmd_ready;	// src/SoC.scala:145:21
-  wire         _dmi_wr_data_rdy;	// src/SoC.scala:145:21
-  wire [255:0] _dmi_rd_data;	// src/SoC.scala:145:21
-  wire         _dmi_rd_data_valid;	// src/SoC.scala:145:21
-  wire [31:0]  _sram_dout;	// src/SoC.scala:99:22
+  wire [31:0]  _sram_dout;	// src/SoC.scala:97:22
+  wire         _dmi_pll_stop;	// src/SoC.scala:95:21
+  wire         _dmi_clk_out;	// src/SoC.scala:95:21
+  wire         _dmi_init_calib_complete;	// src/SoC.scala:95:21
+  wire         _dmi_cmd_ready;	// src/SoC.scala:95:21
+  wire         _dmi_wr_data_rdy;	// src/SoC.scala:95:21
+  wire [255:0] _dmi_rd_data;	// src/SoC.scala:95:21
+  wire         _dmi_rd_data_valid;	// src/SoC.scala:95:21
   wire         _pll_pll_clkout0;	// src/device/PLL.scala:35:21
   wire         _pll_pll_clkout2;	// src/device/PLL.scala:35:21
   wire         _pll_pll_lock;	// src/device/PLL.scala:35:21
-  wire         _asic_intc_int_o;	// src/SoC.scala:89:24
-  wire         _asic_timer_int;	// src/SoC.scala:89:24
-  wire [2:0]   _asic_sdram_cmd;	// src/SoC.scala:89:24
-  wire         _asic_sdram_cmd_en;	// src/SoC.scala:89:24
-  wire [28:0]  _asic_sdram_addr;	// src/SoC.scala:89:24
-  wire [255:0] _asic_sdram_wr_data;	// src/SoC.scala:89:24
-  wire         _asic_sdram_wr_data_en;	// src/SoC.scala:89:24
-  wire         _asic_sdram_wr_data_end;	// src/SoC.scala:89:24
-  wire [31:0]  _asic_sdram_wr_data_mask;	// src/SoC.scala:89:24
-  wire         _asic_sram_reset;	// src/SoC.scala:89:24
-  wire         _asic_sram_oce;	// src/SoC.scala:89:24
-  wire         _asic_sram_clka;	// src/SoC.scala:89:24
-  wire         _asic_sram_cea;	// src/SoC.scala:89:24
-  wire [15:0]  _asic_sram_ada;	// src/SoC.scala:89:24
-  wire [31:0]  _asic_sram_din;	// src/SoC.scala:89:24
-  wire [3:0]   _asic_sram_byte_ena;	// src/SoC.scala:89:24
-  wire         _asic_sram_clkb;	// src/SoC.scala:89:24
-  wire         _asic_sram_ceb;	// src/SoC.scala:89:24
-  wire [15:0]  _asic_sram_adb;	// src/SoC.scala:89:24
+  wire         _asic_intc_int_o;	// src/SoC.scala:85:24
+  wire         _asic_timer_int;	// src/SoC.scala:85:24
+  wire [2:0]   _asic_sdram_cmd;	// src/SoC.scala:85:24
+  wire         _asic_sdram_cmd_en;	// src/SoC.scala:85:24
+  wire [28:0]  _asic_sdram_addr;	// src/SoC.scala:85:24
+  wire [255:0] _asic_sdram_wr_data;	// src/SoC.scala:85:24
+  wire         _asic_sdram_wr_data_en;	// src/SoC.scala:85:24
+  wire         _asic_sdram_wr_data_end;	// src/SoC.scala:85:24
+  wire [31:0]  _asic_sdram_wr_data_mask;	// src/SoC.scala:85:24
+  wire         _asic_sram_reset;	// src/SoC.scala:85:24
+  wire         _asic_sram_oce;	// src/SoC.scala:85:24
+  wire         _asic_sram_clka;	// src/SoC.scala:85:24
+  wire         _asic_sram_cea;	// src/SoC.scala:85:24
+  wire [15:0]  _asic_sram_ada;	// src/SoC.scala:85:24
+  wire [31:0]  _asic_sram_din;	// src/SoC.scala:85:24
+  wire [3:0]   _asic_sram_byte_ena;	// src/SoC.scala:85:24
+  wire         _asic_sram_clkb;	// src/SoC.scala:85:24
+  wire         _asic_sram_ceb;	// src/SoC.scala:85:24
+  wire [15:0]  _asic_sram_adb;	// src/SoC.scala:85:24
   reg  [15:0]  cnt_value;	// src/main/scala/chisel3/util/Counter.scala:61:40
-  wire         _rst_T = cnt_value < 16'h9C3F;	// src/SoC.scala:126:20, src/main/scala/chisel3/util/Counter.scala:61:40
-  always @(posedge clock) begin	// src/SoC.scala:95:9
-    if (~(externalPins_gpio_in[0]))	// src/SoC.scala:95:9, :125:{25,46}
+  wire         _rst_T = cnt_value < 16'h9C3F;	// src/SoC.scala:125:20, src/main/scala/chisel3/util/Counter.scala:61:40
+  always @(posedge clock) begin	// src/SoC.scala:91:9
+    if (~(externalPins_gpio_in[0]))	// src/SoC.scala:91:9, :124:{25,46}
       cnt_value <= 16'h0;	// src/main/scala/chisel3/util/Counter.scala:61:40
-    else if (_rst_T) begin	// src/SoC.scala:126:20
+    else if (_rst_T) begin	// src/SoC.scala:125:20
       if (cnt_value == 16'h9C3F)	// src/main/scala/chisel3/util/Counter.scala:61:40, :73:24
         cnt_value <= 16'h0;	// src/main/scala/chisel3/util/Counter.scala:61:40
       else	// src/main/scala/chisel3/util/Counter.scala:73:24
         cnt_value <= cnt_value + 16'h1;	// src/main/scala/chisel3/util/Counter.scala:61:40, :77:24
     end
   end // always @(posedge)
-  `ifdef ENABLE_INITIAL_REG_	// src/SoC.scala:95:9
-    `ifdef FIRRTL_BEFORE_INITIAL	// src/SoC.scala:95:9
-      `FIRRTL_BEFORE_INITIAL	// src/SoC.scala:95:9
+  `ifdef ENABLE_INITIAL_REG_	// src/SoC.scala:91:9
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/SoC.scala:91:9
+      `FIRRTL_BEFORE_INITIAL	// src/SoC.scala:91:9
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// src/SoC.scala:95:9
-      automatic logic [31:0] _RANDOM[0:0];	// src/SoC.scala:95:9
-      `ifdef INIT_RANDOM_PROLOG_	// src/SoC.scala:95:9
-        `INIT_RANDOM_PROLOG_	// src/SoC.scala:95:9
+    initial begin	// src/SoC.scala:91:9
+      automatic logic [31:0] _RANDOM[0:0];	// src/SoC.scala:91:9
+      `ifdef INIT_RANDOM_PROLOG_	// src/SoC.scala:91:9
+        `INIT_RANDOM_PROLOG_	// src/SoC.scala:91:9
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// src/SoC.scala:95:9
-        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/SoC.scala:95:9
-        cnt_value = _RANDOM[/*Zero width*/ 1'b0][15:0];	// src/SoC.scala:95:9, src/main/scala/chisel3/util/Counter.scala:61:40
+      `ifdef RANDOMIZE_REG_INIT	// src/SoC.scala:91:9
+        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/SoC.scala:91:9
+        cnt_value = _RANDOM[/*Zero width*/ 1'b0][15:0];	// src/SoC.scala:91:9, src/main/scala/chisel3/util/Counter.scala:61:40
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// src/SoC.scala:95:9
-      `FIRRTL_AFTER_INITIAL	// src/SoC.scala:95:9
+    `ifdef FIRRTL_AFTER_INITIAL	// src/SoC.scala:91:9
+      `FIRRTL_AFTER_INITIAL	// src/SoC.scala:91:9
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
-  SoCASIC asic (	// src/SoC.scala:89:24
+  SoCASIC asic (	// src/SoC.scala:85:24
     .clock                     (_pll_pll_clkout0),	// src/device/PLL.scala:35:21
-    .reset                     (_rst_T & cnt_value > 16'hA),	// src/SoC.scala:126:20, :129:{48,62}, src/main/scala/chisel3/util/Counter.scala:61:40
-    .intr_from_SoC             ({7'h0, _asic_intc_int_o}),	// src/SoC.scala:89:24, :134:25
-    .intc_timer_int            (_asic_timer_int),	// src/SoC.scala:89:24
+    .reset                     (_rst_T & cnt_value > 16'hA),	// src/SoC.scala:125:20, :128:{48,62}, src/main/scala/chisel3/util/Counter.scala:61:40
+    .intr_from_SoC             ({7'h0, _asic_intc_int_o}),	// src/SoC.scala:85:24, :133:25
+    .intc_timer_int            (_asic_timer_int),	// src/SoC.scala:85:24
     .intc_int_o                (_asic_intc_int_o),
     .timer_int                 (_asic_timer_int),
     .spi_sck                   (spi_sck),
@@ -10193,12 +10247,12 @@ module SoCFull(	// src/SoC.scala:95:9
     .sdram_wr_data_en          (_asic_sdram_wr_data_en),
     .sdram_wr_data_end         (_asic_sdram_wr_data_end),
     .sdram_wr_data_mask        (_asic_sdram_wr_data_mask),
-    .sdram_clk_out             (_dmi_clk_out),	// src/SoC.scala:145:21
-    .sdram_init_calib_complete (_dmi_init_calib_complete),	// src/SoC.scala:145:21
-    .sdram_cmd_ready           (_dmi_cmd_ready),	// src/SoC.scala:145:21
-    .sdram_wr_data_rdy         (_dmi_wr_data_rdy),	// src/SoC.scala:145:21
-    .sdram_rd_data             (_dmi_rd_data),	// src/SoC.scala:145:21
-    .sdram_rd_data_valid       (_dmi_rd_data_valid),	// src/SoC.scala:145:21
+    .sdram_clk_out             (_dmi_clk_out),	// src/SoC.scala:95:21
+    .sdram_init_calib_complete (_dmi_init_calib_complete),	// src/SoC.scala:95:21
+    .sdram_cmd_ready           (_dmi_cmd_ready),	// src/SoC.scala:95:21
+    .sdram_wr_data_rdy         (_dmi_wr_data_rdy),	// src/SoC.scala:95:21
+    .sdram_rd_data             (_dmi_rd_data),	// src/SoC.scala:95:21
+    .sdram_rd_data_valid       (_dmi_rd_data_valid),	// src/SoC.scala:95:21
     .gpio_out                  (externalPins_gpio_out),
     .gpio_in                   (externalPins_gpio_in),
     .sram_reset                (_asic_sram_reset),
@@ -10211,42 +10265,29 @@ module SoCFull(	// src/SoC.scala:95:9
     .sram_clkb                 (_asic_sram_clkb),
     .sram_ceb                  (_asic_sram_ceb),
     .sram_adb                  (_asic_sram_adb),
-    .sram_dout                 (_sram_dout)	// src/SoC.scala:99:22
-  );	// src/SoC.scala:89:24
+    .sram_dout                 (_sram_dout)	// src/SoC.scala:97:22
+  );	// src/SoC.scala:85:24
   Gowin_PLL pll_pll (	// src/device/PLL.scala:35:21
     .clkin   (clock),
     .clkout0 (_pll_pll_clkout0),
     .clkout1 (/* unused */),
     .clkout2 (_pll_pll_clkout2),
     .lock    (_pll_pll_lock),
-    .enclk0  (1'h1),	// src/SoC.scala:95:9
-    .enclk1  (1'h1),	// src/SoC.scala:95:9
-    .enclk2  (_dmi_pll_stop)	// src/SoC.scala:145:21
+    .enclk0  (1'h1),	// src/SoC.scala:91:9
+    .enclk1  (1'h1),	// src/SoC.scala:91:9
+    .enclk2  (_dmi_pll_stop)	// src/SoC.scala:95:21
   );	// src/device/PLL.scala:35:21
-  SRAM_SDPB sram (	// src/SoC.scala:99:22
-    .reset    (_asic_sram_reset),	// src/SoC.scala:89:24
-    .oce      (_asic_sram_oce),	// src/SoC.scala:89:24
-    .clka     (_asic_sram_clka),	// src/SoC.scala:89:24
-    .cea      (_asic_sram_cea),	// src/SoC.scala:89:24
-    .ada      (_asic_sram_ada),	// src/SoC.scala:89:24
-    .din      (_asic_sram_din),	// src/SoC.scala:89:24
-    .byte_ena (_asic_sram_byte_ena),	// src/SoC.scala:89:24
-    .clkb     (_asic_sram_clkb),	// src/SoC.scala:89:24
-    .ceb      (_asic_sram_ceb),	// src/SoC.scala:89:24
-    .adb      (_asic_sram_adb),	// src/SoC.scala:89:24
-    .dout     (_sram_dout)
-  );	// src/SoC.scala:99:22
-  DDR3_Memory_Interface_Top dmi (	// src/SoC.scala:145:21
-    .cmd                 (_asic_sdram_cmd),	// src/SoC.scala:89:24
-    .cmd_en              (_asic_sdram_cmd_en),	// src/SoC.scala:89:24
-    .addr                (_asic_sdram_addr),	// src/SoC.scala:89:24
-    .wr_data             (_asic_sdram_wr_data),	// src/SoC.scala:89:24
-    .wr_data_en          (_asic_sdram_wr_data_en),	// src/SoC.scala:89:24
-    .wr_data_end         (_asic_sdram_wr_data_end),	// src/SoC.scala:89:24
-    .wr_data_mask        (_asic_sdram_wr_data_mask),	// src/SoC.scala:89:24
-    .sr_req              (1'h0),	// src/SoC.scala:95:9
-    .ref_req             (1'h0),	// src/SoC.scala:95:9
-    .burst               (1'h0),	// src/SoC.scala:95:9
+  DDR3_Memory_Interface_Top dmi (	// src/SoC.scala:95:21
+    .cmd                 (_asic_sdram_cmd),	// src/SoC.scala:85:24
+    .cmd_en              (_asic_sdram_cmd_en),	// src/SoC.scala:85:24
+    .addr                (_asic_sdram_addr),	// src/SoC.scala:85:24
+    .wr_data             (_asic_sdram_wr_data),	// src/SoC.scala:85:24
+    .wr_data_en          (_asic_sdram_wr_data_en),	// src/SoC.scala:85:24
+    .wr_data_end         (_asic_sdram_wr_data_end),	// src/SoC.scala:85:24
+    .wr_data_mask        (_asic_sdram_wr_data_mask),	// src/SoC.scala:85:24
+    .sr_req              (1'h0),	// src/SoC.scala:91:9
+    .ref_req             (1'h0),	// src/SoC.scala:91:9
+    .burst               (1'h0),	// src/SoC.scala:91:9
     .pll_stop            (_dmi_pll_stop),
     .clk_out             (_dmi_clk_out),
     .ddr_rst             (/* unused */),
@@ -10261,87 +10302,111 @@ module SoCFull(	// src/SoC.scala:95:9
     .clk                 (clock),
     .memory_clk          (_pll_pll_clkout2),	// src/device/PLL.scala:35:21
     .pll_lock            (_pll_pll_lock),	// src/device/PLL.scala:35:21
-    .rst_n               (externalPins_gpio_in[0]),	// src/SoC.scala:125:46
-    .O_ddr_addr          (sdram_O_ddr_addr),
-    .O_ddr_ba            (sdram_O_ddr_ba),
-    .O_ddr_cs_n          (sdram_O_ddr_cs_n),
-    .O_ddr_ras_n         (sdram_O_ddr_ras_n),
-    .O_ddr_cas_n         (sdram_O_ddr_cas_n),
-    .O_ddr_we_n          (sdram_O_ddr_we_n),
-    .O_ddr_clk           (sdram_O_ddr_clk),
-    .O_ddr_clk_n         (sdram_O_ddr_clk_n),
-    .O_ddr_cke           (sdram_O_ddr_cke),
-    .O_ddr_odt           (sdram_O_ddr_odt),
-    .O_ddr_reset_n       (sdram_O_ddr_reset_n),
-    .O_ddr_dqm           (sdram_O_ddr_dqm),
-    .IO_ddr_dq           (sdram_dq),
-    .IO_ddr_dqs          (sdram_dqs),
-    .IO_ddr_dqs_n        (sdram_dqs_n)
-  );	// src/SoC.scala:145:21
+    .rst_n               (externalPins_gpio_in[0]),	// src/SoC.scala:124:46
+    .O_ddr_addr          (ddr3_O_ddr_addr),
+    .O_ddr_ba            (ddr3_O_ddr_ba),
+    .O_ddr_cs_n          (ddr3_O_ddr_cs_n),
+    .O_ddr_ras_n         (ddr3_O_ddr_ras_n),
+    .O_ddr_cas_n         (ddr3_O_ddr_cas_n),
+    .O_ddr_we_n          (ddr3_O_ddr_we_n),
+    .O_ddr_clk           (ddr3_O_ddr_clk),
+    .O_ddr_clk_n         (ddr3_O_ddr_clk_n),
+    .O_ddr_cke           (ddr3_O_ddr_cke),
+    .O_ddr_odt           (ddr3_O_ddr_odt),
+    .O_ddr_reset_n       (ddr3_O_ddr_reset_n),
+    .O_ddr_dqm           (ddr3_O_ddr_dqm),
+    .IO_ddr_dq           (ddr3_dq),
+    .IO_ddr_dqs          (ddr3_dqs),
+    .IO_ddr_dqs_n        (ddr3_dqs_n)
+  );	// src/SoC.scala:95:21
+  SRAM_SDPB sram (	// src/SoC.scala:97:22
+    .reset    (_asic_sram_reset),	// src/SoC.scala:85:24
+    .oce      (_asic_sram_oce),	// src/SoC.scala:85:24
+    .clka     (_asic_sram_clka),	// src/SoC.scala:85:24
+    .cea      (_asic_sram_cea),	// src/SoC.scala:85:24
+    .ada      (_asic_sram_ada),	// src/SoC.scala:85:24
+    .din      (_asic_sram_din),	// src/SoC.scala:85:24
+    .byte_ena (_asic_sram_byte_ena),	// src/SoC.scala:85:24
+    .clkb     (_asic_sram_clkb),	// src/SoC.scala:85:24
+    .ceb      (_asic_sram_ceb),	// src/SoC.scala:85:24
+    .adb      (_asic_sram_adb),	// src/SoC.scala:85:24
+    .dout     (_sram_dout)
+  );	// src/SoC.scala:97:22
 endmodule
 
-// external module flash
+// external module ddr3_top
 
 module SoCTop(	// src/Top.scala:15:7
-  input         clock,	// src/Top.scala:15:7
-                reset,	// src/Top.scala:15:7
-  output [5:0]  externalPins_gpio_out,	// src/Top.scala:20:24
-  input  [3:0]  externalPins_gpio_in,	// src/Top.scala:20:24
-  input         externalPins_uart_rx,	// src/Top.scala:20:24
-  output        externalPins_uart_tx,	// src/Top.scala:20:24
-  output [14:0] sdram_O_ddr_addr,	// src/Top.scala:31:17
-  output [2:0]  sdram_O_ddr_ba,	// src/Top.scala:31:17
-  output        sdram_O_ddr_cs_n,	// src/Top.scala:31:17
-                sdram_O_ddr_ras_n,	// src/Top.scala:31:17
-                sdram_O_ddr_cas_n,	// src/Top.scala:31:17
-                sdram_O_ddr_we_n,	// src/Top.scala:31:17
-                sdram_O_ddr_clk,	// src/Top.scala:31:17
-                sdram_O_ddr_clk_n,	// src/Top.scala:31:17
-                sdram_O_ddr_cke,	// src/Top.scala:31:17
-                sdram_O_ddr_odt,	// src/Top.scala:31:17
-                sdram_O_ddr_reset_n,	// src/Top.scala:31:17
-  output [3:0]  sdram_O_ddr_dqm,	// src/Top.scala:31:17
-  inout  [31:0] sdram_dq,	// src/Top.scala:31:17
-  inout  [3:0]  sdram_dqs,	// src/Top.scala:31:17
-                sdram_dqs_n	// src/Top.scala:31:17
+  input        clock,	// src/Top.scala:15:7
+               reset,	// src/Top.scala:15:7
+  output [5:0] externalPins_gpio_out,	// src/Top.scala:20:24
+  input  [3:0] externalPins_gpio_in,	// src/Top.scala:20:24
+  input        externalPins_uart_rx,	// src/Top.scala:20:24
+  output       externalPins_uart_tx,	// src/Top.scala:20:24
+               spi_sck,	// src/Top.scala:25:15
+               spi_ss,	// src/Top.scala:25:15
+               spi_mosi,	// src/Top.scala:25:15
+  input        spi_miso	// src/Top.scala:25:15
 );
 
-  wire       _flash_miso;	// src/Top.scala:25:21
-  wire       _dut_spi_sck;	// src/Top.scala:19:20
-  wire [7:0] _dut_spi_ss;	// src/Top.scala:19:20
-  wire       _dut_spi_mosi;	// src/Top.scala:19:20
+  wire [14:0] _dut_ddr3_O_ddr_addr;	// src/Top.scala:19:20
+  wire [2:0]  _dut_ddr3_O_ddr_ba;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_cs_n;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_ras_n;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_cas_n;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_we_n;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_clk;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_clk_n;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_cke;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_odt;	// src/Top.scala:19:20
+  wire        _dut_ddr3_O_ddr_reset_n;	// src/Top.scala:19:20
+  wire [3:0]  _dut_ddr3_O_ddr_dqm;	// src/Top.scala:19:20
+  wire [31:0] _dq_wire;	// src/Top.scala:35:20
+  wire [3:0]  _dqs_wire;	// src/Top.scala:35:20
+  wire [3:0]  _dqs_n_wire;	// src/Top.scala:35:20
   SoCFull dut (	// src/Top.scala:19:20
     .clock                 (clock),
     .reset                 (reset),
-    .spi_sck               (_dut_spi_sck),
-    .spi_ss                (_dut_spi_ss),
-    .spi_mosi              (_dut_spi_mosi),
-    .spi_miso              (_flash_miso),	// src/Top.scala:25:21
+    .spi_sck               (spi_sck),
+    .spi_ss                (spi_ss),
+    .spi_mosi              (spi_mosi),
+    .spi_miso              (spi_miso),
     .externalPins_gpio_out (externalPins_gpio_out),
     .externalPins_gpio_in  (externalPins_gpio_in),
     .externalPins_uart_rx  (externalPins_uart_rx),
     .externalPins_uart_tx  (externalPins_uart_tx),
-    .sdram_O_ddr_addr      (sdram_O_ddr_addr),
-    .sdram_O_ddr_ba        (sdram_O_ddr_ba),
-    .sdram_O_ddr_cs_n      (sdram_O_ddr_cs_n),
-    .sdram_O_ddr_ras_n     (sdram_O_ddr_ras_n),
-    .sdram_O_ddr_cas_n     (sdram_O_ddr_cas_n),
-    .sdram_O_ddr_we_n      (sdram_O_ddr_we_n),
-    .sdram_O_ddr_clk       (sdram_O_ddr_clk),
-    .sdram_O_ddr_clk_n     (sdram_O_ddr_clk_n),
-    .sdram_O_ddr_cke       (sdram_O_ddr_cke),
-    .sdram_O_ddr_odt       (sdram_O_ddr_odt),
-    .sdram_O_ddr_reset_n   (sdram_O_ddr_reset_n),
-    .sdram_O_ddr_dqm       (sdram_O_ddr_dqm),
-    .sdram_dq              (sdram_dq),
-    .sdram_dqs             (sdram_dqs),
-    .sdram_dqs_n           (sdram_dqs_n)
+    .ddr3_O_ddr_addr       (_dut_ddr3_O_ddr_addr),
+    .ddr3_O_ddr_ba         (_dut_ddr3_O_ddr_ba),
+    .ddr3_O_ddr_cs_n       (_dut_ddr3_O_ddr_cs_n),
+    .ddr3_O_ddr_ras_n      (_dut_ddr3_O_ddr_ras_n),
+    .ddr3_O_ddr_cas_n      (_dut_ddr3_O_ddr_cas_n),
+    .ddr3_O_ddr_we_n       (_dut_ddr3_O_ddr_we_n),
+    .ddr3_O_ddr_clk        (_dut_ddr3_O_ddr_clk),
+    .ddr3_O_ddr_clk_n      (_dut_ddr3_O_ddr_clk_n),
+    .ddr3_O_ddr_cke        (_dut_ddr3_O_ddr_cke),
+    .ddr3_O_ddr_odt        (_dut_ddr3_O_ddr_odt),
+    .ddr3_O_ddr_reset_n    (_dut_ddr3_O_ddr_reset_n),
+    .ddr3_O_ddr_dqm        (_dut_ddr3_O_ddr_dqm),
+    .ddr3_dq               (_dq_wire),
+    .ddr3_dqs              (_dqs_wire),
+    .ddr3_dqs_n            (_dqs_n_wire)
   );	// src/Top.scala:19:20
-  flash flash (	// src/Top.scala:25:21
-    .sck  (_dut_spi_sck),	// src/Top.scala:19:20
-    .ss   (_dut_spi_ss[0]),	// src/Top.scala:19:20, :27:29
-    .mosi (_dut_spi_mosi),	// src/Top.scala:19:20
-    .miso (_flash_miso)
-  );	// src/Top.scala:25:21
+  ddr3_top ddr3 (	// src/Top.scala:35:20
+    .O_ddr_addr    (_dut_ddr3_O_ddr_addr),	// src/Top.scala:19:20
+    .O_ddr_ba      (_dut_ddr3_O_ddr_ba),	// src/Top.scala:19:20
+    .O_ddr_cs_n    (_dut_ddr3_O_ddr_cs_n),	// src/Top.scala:19:20
+    .O_ddr_ras_n   (_dut_ddr3_O_ddr_ras_n),	// src/Top.scala:19:20
+    .O_ddr_cas_n   (_dut_ddr3_O_ddr_cas_n),	// src/Top.scala:19:20
+    .O_ddr_we_n    (_dut_ddr3_O_ddr_we_n),	// src/Top.scala:19:20
+    .O_ddr_clk     (_dut_ddr3_O_ddr_clk),	// src/Top.scala:19:20
+    .O_ddr_clk_n   (_dut_ddr3_O_ddr_clk_n),	// src/Top.scala:19:20
+    .O_ddr_cke     (_dut_ddr3_O_ddr_cke),	// src/Top.scala:19:20
+    .O_ddr_odt     (_dut_ddr3_O_ddr_odt),	// src/Top.scala:19:20
+    .O_ddr_reset_n (_dut_ddr3_O_ddr_reset_n),	// src/Top.scala:19:20
+    .O_ddr_dqm     (_dut_ddr3_O_ddr_dqm),	// src/Top.scala:19:20
+    .dq            (_dq_wire),
+    .dqs           (_dqs_wire),
+    .dqs_n         (_dqs_n_wire)
+  );	// src/Top.scala:35:20
 endmodule
 

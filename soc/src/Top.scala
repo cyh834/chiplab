@@ -22,14 +22,18 @@ class SoCTop extends Module {
   mdut.dontTouchPorts()
   mdut.externalPins <> externalPins
 
-  val flash = Module(new flash)
-  flash.io <> mdut.spi
-  flash.io.ss := mdut.spi.ss(0)
+  val spi = IO(chiselTypeOf(mdut.spi))
+  spi <> mdut.spi
+  //val flash = Module(new flash)
+  //flash.io <> mdut.spi
+  //flash.io.ss := mdut.spi.ss(0)
 
   //val sdram = Module(new sdram)
   //sdram.io <> mdut.sdram
-  val sdram = IO(chiselTypeOf(mdut.sdram))
-  sdram <> mdut.sdram
+  //val ddr3 = IO(chiselTypeOf(mdut.ddr3))
+  //ddr3 <> mdut.ddr3
+  val ddr3 = Module(new ddr3_top)
+  ddr3.io <> mdut.ddr3
 
   //val cmos_hdmi = IO(chiselTypeOf(mdut.ch))
   //cmos_hdmi <> mdut.ch

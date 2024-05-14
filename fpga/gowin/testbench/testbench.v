@@ -29,11 +29,11 @@ module tb();
   initial
   begin
     gpio_in = 4'b1;
-    #10 gpio_in = 4'b0;
-    #10 gpio_in = 4'b1;
-    #100000 gpio_in = 4'b0;
-    #10 gpio_in = 4'b1;
-    #600000000 $display("************ Test TIMEOUT ***************");
+    #(`CLOCK_PERIOD*10000000) gpio_in = 4'b0;
+    #(`CLOCK_PERIOD*100)  gpio_in = 4'b1;
+    #(`CLOCK_PERIOD*10000000) gpio_in = 4'b0;
+    #(`CLOCK_PERIOD*100) gpio_in = 4'b1;
+    #(`CLOCK_PERIOD*6000000000000) $display("************ Test TIMEOUT ***************");
     $finish;
   end
 

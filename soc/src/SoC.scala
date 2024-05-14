@@ -39,13 +39,9 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
   val luart   = LazyModule(new APBUart  (AddressSet.misaligned(0xa0030000L, 0x10)))
 
-  //val lvga = LazyModule(new APBVGA(AddressSet.misaligned(0x21000000, 0x200000)))
-  val lspi  = LazyModule(new APBSPI(
-    AddressSet.misaligned(0x00000000, 0x100000) ++  // XIP flash 
-    AddressSet.misaligned(0x1fe80000, 0x100000)     // SPI 控制器
-  ))
+  val lspi    = LazyModule(new APBSPI   (AddressSet.misaligned(0x00000000, 0x10000000))) //sd卡
 
-  val lsdram = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
+  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
 
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lintc.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
@@ -96,6 +92,8 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     val masic = asic.module
     val mpll = pll.module
 
+    val dmi = Module(new DDR3_Memory_Interface_Top)
+
     val sram = Module(new SRAM_SDPB)
     sram.io <> masic.sram
 
@@ -108,6 +106,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
       val uart = (chiselTypeOf(masic.uart))
     })
     externalPins.gpio <> masic.gpio
+    //externalPins.gpio.out <> dmi.io.init_calib_complete
     //externalPins.vga <> masic.vga
     externalPins.uart.rx <> masic.uart.rx
     externalPins.uart.tx <> masic.uart.tx
@@ -142,13 +141,14 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     masic.intc.dma_int := 0.U
 
     //ddr
-    val dmi = Module(new DDR3_Memory_Interface_Top)
-    val sdram = IO(new DDR3IO)
 
     dmi.io.clk <> clock   //50MHz
+    dmi.io.pll_stop <> pll.module.pll_bundle.enclk(2)
     dmi.io.memory_clk <> mpll.pll_bundle.clkout(2) //400MHz
     dmi.io.pll_lock <> mpll.pll_bundle.lock
+
     dmi.io.rst_n <> externalPins.gpio.in(0) //按钮
+
     dmi.io.cmd <> masic.sdram.cmd
     dmi.io.cmd_en <> masic.sdram.cmd_en
     dmi.io.addr <> masic.sdram.addr
@@ -160,8 +160,7 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
     dmi.io.ref_req <> masic.sdram.ref_req
     dmi.io.burst <> masic.sdram.burst
 
-    pll.module.pll_bundle.enclk(2) <> dmi.io.pll_stop
-    dmi.io.clk_out <> masic.sdram.clk_out //200MHz
+    dmi.io.clk_out <> masic.sdram.clk_out //100MHz
     dmi.io.ddr_rst <> masic.sdram.ddr_rst
     dmi.io.init_calib_complete <> masic.sdram.init_calib_complete
     dmi.io.cmd_ready <> masic.sdram.cmd_ready
@@ -174,10 +173,11 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
 
     dmi.io.pll_stop <> masic.sdram.pll_stop
     
-    sdram.O_ddr <> dmi.io.O_ddr
-    sdram.dq <> dmi.io.IO_ddr_dq
-    sdram.dqs <> dmi.io.IO_ddr_dqs
-    sdram.dqs_n <> dmi.io.IO_ddr_dqs_n
+    val ddr3 = IO(new DDR3IO)
+    ddr3.O_ddr <> dmi.io.O_ddr
+    ddr3.dq <> dmi.io.IO_ddr_dq
+    ddr3.dqs <> dmi.io.IO_ddr_dqs
+    ddr3.dqs_n <> dmi.io.IO_ddr_dqs_n
 
     //camera_hdmi
     //val camera_hdmi = Module(new camera_hdmi)
@@ -190,22 +190,3 @@ class SoCFull(implicit p: Parameters) extends LazyModule {
   }
 }
 
-
-//class temp(implicit p: Parameters) extends LazyModule {
-//
-//  val xbar = AXI4Xbar()
-//  val xbar2 = AXI4Xbar()
-//
-//  val island = LazyModule(new CrossingWrapper(AsynchronousCrossing()))
-//  val lsdram = island {LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000)))}
-//  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), island.crossAXI4In(lsdram.node)).map( _ := xbar)
-//  override lazy val module = new Impl
-//  class Impl extends LazyModuleImp(this) with DontTouch {
-//
-//    val sdram = IO(chiselTypeOf(lsdram.module.sdram_bundle))
-//    sdram <> lsdram.module.sdram_bundle
-//
-//    val clocks = Module(new Pow2ClockDivider(2))
-//    island.module.clock := clocks.io.clock_out
-//  }
-//}

@@ -2,6 +2,22 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x21.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x32.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SoCFull.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/addr_trans.v",
    "Type" : "verilog"
   },
@@ -158,18 +174,6 @@
    "Type" : "verilog"
   },
   {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SoCFull.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x21.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x32.v",
-   "Type" : "verilog"
-  },
-  {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_clgen.v",
    "Type" : "verilog"
   },
@@ -187,10 +191,6 @@
   },
   {
    "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_top_apb.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v",
    "Type" : "verilog"
   },
   {

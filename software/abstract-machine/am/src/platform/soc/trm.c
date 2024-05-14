@@ -5,6 +5,7 @@
 
 extern char _heap_start;
 
+#ifdef BOOTLOADER
 extern char p_start, p_load_start, p_load_end;
 
 extern char _ram_start;
@@ -12,6 +13,7 @@ extern char _ram_start;
 extern char _ssbl_start, _ssbl_load_start, _ssbl_load_end;
 
 extern char _bss_start,  _bss_end;
+#endif
 
 
 int main(const char *args);
@@ -51,6 +53,7 @@ void halt(int code) {
 //  putch('\n');
 //}
 
+#ifdef BOOTLOADER
 #pragma GCC push_options
 #pragma GCC optimize("O0")
 void fsbl(){
@@ -82,11 +85,14 @@ void _init_bss(){
 }
 
 #pragma GCC pop_options
+#endif
 
 void _trm_init() {
+#ifdef BOOTLOADER
   fsbl();
   ssbl();
   _init_bss();
+#endif
   //printf("heap: [%p, %p]\n", heap.start, heap.end);
   ioe_init();
   int ret = main(mainargs);

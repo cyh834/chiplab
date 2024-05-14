@@ -110,11 +110,31 @@ class sdram_top_axi extends Module{
   val is_write = accept_write holdUnless (state === s_idle)
 
   val done = Mux(is_write, io.dmi.wr_data_rdy & io.dmi.cmd_ready, io.dmi.rd_data_valid)
-  switch (state) {
-    is (s_idle)     { state := Mux((ar.valid || (aw.valid && w.valid)) & io.dmi.init_calib_complete, s_inflight, s_idle) }
-    is (s_inflight) { state := Mux(done, Mux(r.fire || b.fire, s_idle, s_wait_rready_bready), s_inflight) }
-    is (s_wait_rready_bready) { state := Mux(r.fire || b.fire, s_idle, s_wait_rready_bready) }
+  when(state === s_idle){
+    when(ar.valid || (aw.valid && w.valid)){
+      when(io.dmi.init_calib_complete){
+        state := s_inflight
+      }
+    }
+  }.elsewhen(state === s_inflight){
+    when(done){
+      when(r.fire || b.fire){
+        state := s_idle
+      }
+      .otherwise{
+        state := s_wait_rready_bready
+      }
+    }
+  }.elsewhen(state === s_wait_rready_bready){
+    when(r.fire || b.fire){
+      state := s_idle
+    }
   }
+  //switch (state) {
+  //  is (s_idle)     { state := Mux((ar.valid || (aw.valid && w.valid)) & io.dmi.init_calib_complete, s_inflight, s_idle) }
+  //  is (s_inflight) { state := Mux(done, Mux(r.fire || b.fire, s_idle, s_wait_rready_bready), s_inflight) }
+  //  is (s_wait_rready_bready) { state := Mux(r.fire || b.fire, s_idle, s_wait_rready_bready) }
+  //}
 
   // burst is not supported
   assert(!(ar.valid && ar.bits.len =/= 0.U))
@@ -187,6 +207,9 @@ class AXI4SDRAM(address: Seq[AddressSet])(implicit p: Parameters) extends LazyMo
 }
 
 
+class ddr3_top extends BlackBox {
+  val io = IO(Flipped(new DDR3IO))
+}
 
 
 

@@ -1,27 +1,45 @@
 Reading netlist file: "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg"
 Parsing netlist file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/gwsynthesis/jcs.vg" completed
 Processing netlist completed
-Reading constraint file: "/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/jcs.cst"
-Physical Constraint parsed completed
 Running placement......
-[10%] Placement Phase 0 completed
-[20%] Placement Phase 1 completed
-[30%] Placement Phase 2 completed
-[50%] Placement Phase 3 completed
-Running routing......
-[60%] Routing Phase 0 completed
-[70%] Routing Phase 1 completed
-[80%] Routing Phase 2 completed
-WARN  (PR1014) : Generic routing resource will be used to clock signal 'clock_d' by the specified constraint. And then it may lead to the excessive delay or skew
-[90%] Routing Phase 3 completed
-Running timing analysis......
-[95%] Timing analysis completed
-Placement and routing completed
-Bitstream generation in progress......
-Bitstream generation completed
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[0].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[1].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[2].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[3].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[4].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[5].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[6].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[7].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dm_obuf_gen[0].dm_obuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[0].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[8].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[9].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[10].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[11].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[12].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[13].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[14].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[15].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dm_obuf_gen[1].dm_obuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[1].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[16].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[17].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[18].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[19].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[20].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[21].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[22].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[23].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dm_obuf_gen[2].dm_obuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[2].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[24].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[25].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[26].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[27].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[28].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[29].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[30].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dq_iobuf_gen[31].dq_iobuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
+ERROR  (PR1085) : 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/dm_obuf_gen[3].dm_obuf' whose iologic drived by 'dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs' cannot be placed, perhaps because BANK_VCCIO conflicts or driven resources mismatch
 Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.pin.html" completed
 Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.rpt.html" completed
 Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.rpt.txt" completed
-Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.tr.html" completed
-Fri Apr 19 05:09:04 2024
+Tue May 14 12:13:55 2024
 

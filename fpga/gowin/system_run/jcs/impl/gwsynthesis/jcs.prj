@@ -4,7 +4,10 @@
     <Version>beta</Version>
     <Device id="GW5AST-138B" package="FCPBGA676A" speed="2" partNumber="GW5AST-LV138FPG676AC2/I1"/>
     <FileList>
-        <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x21.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x32.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SoCFull.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/addr_trans.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/alu.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/axi_bridge.v" type="verilog"/>
@@ -44,15 +47,11 @@
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/reg_config.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/regfile.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/rwfifo.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SoCFull.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x21.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SP_256x32.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_clgen.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_defines.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_shift.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_top.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/spi_top_apb.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/SRAM_SDPB.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/tb_rwfifo.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/tlb_entry.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/system_run/jcs/src/tmds_pll.v" type="verilog"/>

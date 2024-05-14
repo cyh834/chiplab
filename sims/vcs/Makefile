@@ -50,18 +50,23 @@ deltmp:
 
 VCS = vcs -full64 -LDFLAGS -Wl,--no-as-needed
 
-VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ns/1ns -quiet \
+VCS_OPTS = -line +lint=all,noVCDE,noONGS,noUI,noNS,noOUDPE -error=PCWM-L -timescale=1ps/1ps -quiet \
 	+rad +v2k +vcs+lic+wait \
 	+vc+list -CC "-I$(VCS_HOME)/include" \
 	-sverilog +v2k \
 	+incdir+$(soc)/perip/spi/rtl \
 	+incdir+$(soc)/perip/uart16550/rtl \
 	+incdir+$(IP)/open-la500 \
-	+define+CLOCK_PERIOD=2 $(sim_vsrcs) $(sim_csrcs) \
+	+incdir+$(soc)/perip/sdram \
+	+define+CLOCK_PERIOD=20000 $(sim_vsrcs) $(sim_csrcs) \
 	+define+RANDOMIZE_MEM_INIT \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \
 	+define+RANDOMIZE_DELAY=0.1 \
+	+define+sg25 \
+	+define+x16 \
+	+define+den1024Mb \
+	-pva \
 	+libext+.v \
 	-top tb
 
