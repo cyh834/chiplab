@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="SoCFull" Register="16" Lut="29" T_Register="18468(16)" T_Alu="5980(0)" T_Lut="24233(29)" T_Bsram="175(0)">
- <SubModule name="asic" T_Register="12825(0)" T_Alu="5791(0)" T_Lut="18314(0)" T_Bsram="23(0)">
-  <SubModule name="axi4xbar" Register="23" Lut="65" T_Register="30(23)" T_Lut="77(65)">
+<Module name="SoCFull" Register="16" Lut="33" T_Register="23483(16)" T_Alu="6140(0)" T_Lut="26314(33)" T_Bsram="236(0)">
+ <SubModule name="gw_gao_inst_0" Register="4667" Alu="139" Lut="1661" Bsram="61" T_Register="4667(4667)" T_Alu="139(139)" T_Lut="1661(1661)" T_Bsram="61(61)"/>
+ <SubModule name="asic" T_Register="13173(0)" T_Alu="5812(0)" T_Lut="18729(0)" T_Bsram="23(0)">
+  <SubModule name="axi4xbar" Register="23" Lut="48" T_Register="30(23)" T_Lut="60(48)">
    <SubModule name="awIn_0" Register="3" Lut="10" T_Register="7(3)" T_Lut="12(10)">
     <SubModule name="ram_ext" Register="4" Lut="2" T_Register="4(4)" T_Lut="2(2)"/>
    </SubModule>
   </SubModule>
-  <SubModule name="axi4xbar_1" Register="11" Lut="27" T_Register="18(11)" T_Lut="44(27)">
+  <SubModule name="axi4xbar_1" Register="11" Lut="30" T_Register="18(11)" T_Lut="47(30)">
    <SubModule name="awIn_0" Register="3" Lut="13" T_Register="7(3)" T_Lut="17(13)">
     <SubModule name="ram_ext" Register="4" Lut="4" T_Register="4(4)" T_Lut="4(4)"/>
    </SubModule>
   </SubModule>
-  <SubModule name="apbxbar" Lut="202" T_Lut="202(202)"/>
-  <SubModule name="cpu" T_Register="10009(0)" T_Alu="5625(0)" T_Lut="14088(0)" T_Bsram="23(0)">
-   <SubModule name="cpu" Register="1" T_Register="10009(1)" T_Alu="5625(0)" T_Lut="14088(0)" T_Bsram="23(0)">
-    <SubModule name="if_stage" Register="173" Alu="6" Lut="574" T_Register="173(173)" T_Alu="6(6)" T_Lut="574(574)"/>
-    <SubModule name="id_stage" Register="113" Alu="115" Lut="1377" T_Register="1137(113)" T_Alu="124(115)" T_Lut="1937(1377)" T_Bsram="1(0)">
-     <SubModule name="u_regfile" Register="1024" Alu="9" Lut="560" Bsram="1" T_Register="1024(1024)" T_Alu="9(9)" T_Lut="560(560)" T_Bsram="1(1)"/>
+  <SubModule name="apbxbar" Lut="178" T_Lut="178(178)"/>
+  <SubModule name="cpu" T_Register="10009(0)" T_Alu="5654(0)" T_Lut="14253(0)" T_Bsram="23(0)">
+   <SubModule name="cpu" Register="1" T_Register="10009(1)" T_Alu="5654(0)" T_Lut="14253(0)" T_Bsram="23(0)">
+    <SubModule name="if_stage" Register="173" Alu="6" Lut="599" T_Register="173(173)" T_Alu="6(6)" T_Lut="599(599)"/>
+    <SubModule name="id_stage" Register="113" Alu="115" Lut="1270" T_Register="1137(113)" T_Alu="123(115)" T_Lut="1821(1270)" T_Bsram="1(0)">
+     <SubModule name="u_regfile" Register="1024" Alu="8" Lut="551" Bsram="1" T_Register="1024(1024)" T_Alu="8(8)" T_Lut="551(551)" T_Bsram="1(1)"/>
     </SubModule>
-    <SubModule name="exe_stage" Register="233" Lut="504" T_Register="233(233)" T_Alu="32(0)" T_Lut="860(504)">
-     <SubModule name="u_alu" Alu="32" Lut="356" T_Alu="32(32)" T_Lut="356(356)"/>
+    <SubModule name="exe_stage" Register="233" Lut="378" T_Register="233(233)" T_Alu="32(0)" T_Lut="930(378)">
+     <SubModule name="u_alu" Alu="32" Lut="552" T_Alu="32(32)" T_Lut="552(552)"/>
     </SubModule>
-    <SubModule name="u_div" Register="107" Alu="33" Lut="149" T_Register="107(107)" T_Alu="33(33)" T_Lut="149(149)"/>
-    <SubModule name="u_mul" Register="592" Alu="64" Lut="1" T_Register="592(592)" T_Alu="64(64)" T_Lut="2601(1)">
+    <SubModule name="u_div" Register="107" Alu="33" Lut="181" T_Register="107(107)" T_Alu="33(33)" T_Lut="181(181)"/>
+    <SubModule name="u_mul" Register="592" Alu="64" Lut="1" T_Register="592(592)" T_Alu="64(64)" T_Lut="2632(1)">
      <SubModule name="fir" T_Lut="35(0)">
       <SubModule name="fir" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[1].ui" Lut="1" T_Lut="1(1)"/>
@@ -59,7 +60,7 @@
       <SubModule name="gfor[32].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[33].ui" Lut="2" T_Lut="2(2)"/>
      </SubModule>
-     <SubModule name="boothfor[2].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[2].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[2].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[3].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[4].ui" Lut="2" T_Lut="2(2)"/>
@@ -92,12 +93,12 @@
       <SubModule name="gfor[31].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[32].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[33].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[34].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[34].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[35].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[4].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[4].ai" Lut="2" T_Lut="72(2)">
       <SubModule name="gfor[4].ui" Lut="1" T_Lut="1(1)"/>
-      <SubModule name="gfor[5].ui" Lut="4" T_Lut="4(4)"/>
+      <SubModule name="gfor[5].ui" Lut="5" T_Lut="5(5)"/>
       <SubModule name="gfor[6].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[7].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[8].ui" Lut="2" T_Lut="2(2)"/>
@@ -128,10 +129,10 @@
       <SubModule name="gfor[33].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[34].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[35].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[36].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[36].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[37].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[6].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[6].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[6].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[7].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[8].ui" Lut="2" T_Lut="2(2)"/>
@@ -164,10 +165,10 @@
       <SubModule name="gfor[35].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[36].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[37].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[38].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[38].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[39].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[8].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[8].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[8].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[9].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[10].ui" Lut="2" T_Lut="2(2)"/>
@@ -200,10 +201,10 @@
       <SubModule name="gfor[37].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[38].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[39].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[40].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[40].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[41].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[10].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[10].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[10].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[11].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[12].ui" Lut="2" T_Lut="2(2)"/>
@@ -236,10 +237,10 @@
       <SubModule name="gfor[39].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[40].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[41].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[42].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[42].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[43].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[12].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[12].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[12].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[13].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[14].ui" Lut="2" T_Lut="2(2)"/>
@@ -272,10 +273,10 @@
       <SubModule name="gfor[41].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[42].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[43].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[44].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[44].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[45].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[14].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[14].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[14].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[15].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[16].ui" Lut="2" T_Lut="2(2)"/>
@@ -308,10 +309,10 @@
       <SubModule name="gfor[43].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[44].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[45].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[46].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[46].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[47].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[16].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[16].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[16].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[17].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[18].ui" Lut="2" T_Lut="2(2)"/>
@@ -344,10 +345,10 @@
       <SubModule name="gfor[45].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[46].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[47].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[48].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[48].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[49].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[18].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[18].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[18].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[19].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[20].ui" Lut="2" T_Lut="2(2)"/>
@@ -380,10 +381,10 @@
       <SubModule name="gfor[47].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[48].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[49].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[50].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[50].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[51].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[20].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[20].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[20].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[21].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[22].ui" Lut="2" T_Lut="2(2)"/>
@@ -416,10 +417,10 @@
       <SubModule name="gfor[49].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[50].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[51].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[52].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[52].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[53].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[22].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[22].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[22].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[23].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[24].ui" Lut="2" T_Lut="2(2)"/>
@@ -452,10 +453,10 @@
       <SubModule name="gfor[51].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[52].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[53].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[54].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[54].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[55].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[24].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[24].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[24].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[25].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[26].ui" Lut="2" T_Lut="2(2)"/>
@@ -488,10 +489,10 @@
       <SubModule name="gfor[53].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[54].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[55].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[56].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[56].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[57].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[26].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[26].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[26].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[27].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[28].ui" Lut="2" T_Lut="2(2)"/>
@@ -524,10 +525,10 @@
       <SubModule name="gfor[55].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[56].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[57].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[58].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[58].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[59].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[28].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[28].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[28].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[29].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[30].ui" Lut="2" T_Lut="2(2)"/>
@@ -560,10 +561,10 @@
       <SubModule name="gfor[57].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[58].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[59].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[60].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[60].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[61].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="boothfor[30].ai" Lut="1" T_Lut="69(1)">
+     <SubModule name="boothfor[30].ai" Lut="2" T_Lut="71(2)">
       <SubModule name="gfor[30].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[31].ui" Lut="4" T_Lut="4(4)"/>
       <SubModule name="gfor[32].ui" Lut="2" T_Lut="2(2)"/>
@@ -596,7 +597,7 @@
       <SubModule name="gfor[59].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[60].ui" Lut="2" T_Lut="2(2)"/>
       <SubModule name="gfor[61].ui" Lut="2" T_Lut="2(2)"/>
-      <SubModule name="gfor[62].ui" Lut="2" T_Lut="2(2)"/>
+      <SubModule name="gfor[62].ui" Lut="3" T_Lut="3(3)"/>
       <SubModule name="gfor[63].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
      <SubModule name="las" T_Lut="32(0)">
@@ -633,68 +634,68 @@
       <SubModule name="gfor[62].ui" Lut="1" T_Lut="1(1)"/>
       <SubModule name="gfor[63].ui" Lut="1" T_Lut="1(1)"/>
      </SubModule>
-     <SubModule name="firs" T_Lut="5(0)">
-      <SubModule name="sixth1" Lut="5" T_Lut="5(5)"/>
+     <SubModule name="firs" T_Lut="6(0)">
+      <SubModule name="sixth1" Lut="6" T_Lut="6(6)"/>
      </SubModule>
-     <SubModule name="wallacefor[1].bi" T_Lut="16(0)">
+     <SubModule name="wallacefor[1].bi" T_Lut="20(0)">
+      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
+     </SubModule>
+     <SubModule name="wallacefor[2].bi" T_Lut="20(0)">
+      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
+     </SubModule>
+     <SubModule name="wallacefor[3].bi" T_Lut="16(0)">
       <SubModule name="sixth1" Lut="16" T_Lut="16(16)"/>
-     </SubModule>
-     <SubModule name="wallacefor[2].bi" T_Lut="17(0)">
-      <SubModule name="sixth1" Lut="17" T_Lut="17(17)"/>
-     </SubModule>
-     <SubModule name="wallacefor[3].bi" T_Lut="21(0)">
-      <SubModule name="sixth1" Lut="21" T_Lut="21(21)"/>
      </SubModule>
      <SubModule name="wallacefor[4].bi" T_Lut="16(0)">
       <SubModule name="sixth1" Lut="16" T_Lut="16(16)"/>
      </SubModule>
-     <SubModule name="wallacefor[5].bi" T_Lut="16(0)">
+     <SubModule name="wallacefor[5].bi" T_Lut="20(0)">
+      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
+     </SubModule>
+     <SubModule name="wallacefor[6].bi" T_Lut="16(0)">
       <SubModule name="sixth1" Lut="16" T_Lut="16(16)"/>
      </SubModule>
-     <SubModule name="wallacefor[6].bi" T_Lut="20(0)">
-      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
-     </SubModule>
-     <SubModule name="wallacefor[7].bi" T_Lut="20(0)">
-      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
-     </SubModule>
-     <SubModule name="wallacefor[8].bi" T_Lut="14(0)">
-      <SubModule name="sixth1" Lut="14" T_Lut="14(14)"/>
-     </SubModule>
-     <SubModule name="wallacefor[9].bi" T_Lut="22(0)">
-      <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
-     </SubModule>
-     <SubModule name="wallacefor[10].bi" T_Lut="18(0)">
+     <SubModule name="wallacefor[7].bi" T_Lut="18(0)">
       <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
      </SubModule>
-     <SubModule name="wallacefor[11].bi" T_Lut="18(0)">
-      <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
+     <SubModule name="wallacefor[8].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
      </SubModule>
-     <SubModule name="wallacefor[12].bi" T_Lut="18(0)">
-      <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
+     <SubModule name="wallacefor[9].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
+     </SubModule>
+     <SubModule name="wallacefor[10].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
+     </SubModule>
+     <SubModule name="wallacefor[11].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
+     </SubModule>
+     <SubModule name="wallacefor[12].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
      </SubModule>
      <SubModule name="wallacefor[13].bi" T_Lut="18(0)">
       <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
      </SubModule>
-     <SubModule name="wallacefor[14].bi" T_Lut="22(0)">
+     <SubModule name="wallacefor[14].bi" T_Lut="21(0)">
+      <SubModule name="sixth1" Lut="21" T_Lut="21(21)"/>
+     </SubModule>
+     <SubModule name="wallacefor[15].bi" T_Lut="22(0)">
       <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
      </SubModule>
-     <SubModule name="wallacefor[15].bi" T_Lut="24(0)">
-      <SubModule name="sixth1" Lut="24" T_Lut="24(24)"/>
-     </SubModule>
-     <SubModule name="wallacefor[16].bi" T_Lut="23(0)">
-      <SubModule name="sixth1" Lut="23" T_Lut="23(23)"/>
+     <SubModule name="wallacefor[16].bi" T_Lut="22(0)">
+      <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
      </SubModule>
      <SubModule name="wallacefor[17].bi" T_Lut="22(0)">
       <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
      </SubModule>
-     <SubModule name="wallacefor[18].bi" T_Lut="23(0)">
-      <SubModule name="sixth1" Lut="23" T_Lut="23(23)"/>
+     <SubModule name="wallacefor[18].bi" T_Lut="22(0)">
+      <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
      </SubModule>
      <SubModule name="wallacefor[19].bi" T_Lut="25(0)">
       <SubModule name="sixth1" Lut="25" T_Lut="25(25)"/>
      </SubModule>
-     <SubModule name="wallacefor[20].bi" T_Lut="26(0)">
-      <SubModule name="sixth1" Lut="26" T_Lut="26(26)"/>
+     <SubModule name="wallacefor[20].bi" T_Lut="27(0)">
+      <SubModule name="sixth1" Lut="27" T_Lut="27(27)"/>
      </SubModule>
      <SubModule name="wallacefor[21].bi" T_Lut="27(0)">
       <SubModule name="sixth1" Lut="27" T_Lut="27(27)"/>
@@ -765,17 +766,17 @@
      <SubModule name="wallacefor[43].bi" T_Lut="28(0)">
       <SubModule name="sixth1" Lut="28" T_Lut="28(28)"/>
      </SubModule>
-     <SubModule name="wallacefor[44].bi" T_Lut="27(0)">
-      <SubModule name="sixth1" Lut="27" T_Lut="27(27)"/>
+     <SubModule name="wallacefor[44].bi" T_Lut="26(0)">
+      <SubModule name="sixth1" Lut="26" T_Lut="26(26)"/>
      </SubModule>
-     <SubModule name="wallacefor[45].bi" T_Lut="27(0)">
-      <SubModule name="sixth1" Lut="27" T_Lut="27(27)"/>
-     </SubModule>
-     <SubModule name="wallacefor[46].bi" T_Lut="25(0)">
+     <SubModule name="wallacefor[45].bi" T_Lut="25(0)">
       <SubModule name="sixth1" Lut="25" T_Lut="25(25)"/>
      </SubModule>
-     <SubModule name="wallacefor[47].bi" T_Lut="25(0)">
-      <SubModule name="sixth1" Lut="25" T_Lut="25(25)"/>
+     <SubModule name="wallacefor[46].bi" T_Lut="26(0)">
+      <SubModule name="sixth1" Lut="26" T_Lut="26(26)"/>
+     </SubModule>
+     <SubModule name="wallacefor[47].bi" T_Lut="24(0)">
+      <SubModule name="sixth1" Lut="24" T_Lut="24(24)"/>
      </SubModule>
      <SubModule name="wallacefor[48].bi" T_Lut="25(0)">
       <SubModule name="sixth1" Lut="25" T_Lut="25(25)"/>
@@ -783,8 +784,8 @@
      <SubModule name="wallacefor[49].bi" T_Lut="25(0)">
       <SubModule name="sixth1" Lut="25" T_Lut="25(25)"/>
      </SubModule>
-     <SubModule name="wallacefor[50].bi" T_Lut="24(0)">
-      <SubModule name="sixth1" Lut="24" T_Lut="24(24)"/>
+     <SubModule name="wallacefor[50].bi" T_Lut="23(0)">
+      <SubModule name="sixth1" Lut="23" T_Lut="23(23)"/>
      </SubModule>
      <SubModule name="wallacefor[51].bi" T_Lut="22(0)">
       <SubModule name="sixth1" Lut="22" T_Lut="22(22)"/>
@@ -798,8 +799,8 @@
      <SubModule name="wallacefor[54].bi" T_Lut="21(0)">
       <SubModule name="sixth1" Lut="21" T_Lut="21(21)"/>
      </SubModule>
-     <SubModule name="wallacefor[55].bi" T_Lut="20(0)">
-      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
+     <SubModule name="wallacefor[55].bi" T_Lut="21(0)">
+      <SubModule name="sixth1" Lut="21" T_Lut="21(21)"/>
      </SubModule>
      <SubModule name="wallacefor[56].bi" T_Lut="20(0)">
       <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
@@ -807,11 +808,11 @@
      <SubModule name="wallacefor[57].bi" T_Lut="19(0)">
       <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
      </SubModule>
-     <SubModule name="wallacefor[58].bi" T_Lut="18(0)">
-      <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
+     <SubModule name="wallacefor[58].bi" T_Lut="19(0)">
+      <SubModule name="sixth1" Lut="19" T_Lut="19(19)"/>
      </SubModule>
-     <SubModule name="wallacefor[59].bi" T_Lut="20(0)">
-      <SubModule name="sixth1" Lut="20" T_Lut="20(20)"/>
+     <SubModule name="wallacefor[59].bi" T_Lut="21(0)">
+      <SubModule name="sixth1" Lut="21" T_Lut="21(21)"/>
      </SubModule>
      <SubModule name="wallacefor[60].bi" T_Lut="18(0)">
       <SubModule name="sixth1" Lut="18" T_Lut="18(18)"/>
@@ -819,24 +820,24 @@
      <SubModule name="wallacefor[61].bi" T_Lut="17(0)">
       <SubModule name="sixth1" Lut="17" T_Lut="17(17)"/>
      </SubModule>
-     <SubModule name="wallacefor[62].bi" T_Lut="12(0)">
-      <SubModule name="sixth1" Lut="12" T_Lut="12(12)"/>
+     <SubModule name="wallacefor[62].bi" T_Lut="15(0)">
+      <SubModule name="sixth1" Lut="15" T_Lut="15(15)"/>
      </SubModule>
-     <SubModule name="wallacefor[63].bi" T_Lut="30(0)">
-      <SubModule name="sixth1" Lut="30" T_Lut="30(30)"/>
+     <SubModule name="wallacefor[63].bi" T_Lut="26(0)">
+      <SubModule name="sixth1" Lut="26" T_Lut="26(26)"/>
      </SubModule>
     </SubModule>
-    <SubModule name="mem_stage" Register="211" Alu="6" Lut="531" T_Register="211(211)" T_Alu="6(6)" T_Lut="531(531)"/>
+    <SubModule name="mem_stage" Register="211" Alu="4" Lut="636" T_Register="211(211)" T_Alu="4(4)" T_Lut="636(636)"/>
     <SubModule name="wb_stage" Register="212" Lut="21" T_Register="212(212)" T_Lut="21(21)"/>
-    <SubModule name="u_csr" Register="657" Alu="127" Lut="476" T_Register="657(657)" T_Alu="127(127)" T_Lut="476(476)"/>
-    <SubModule name="axi_bridge" Register="215" Lut="325" T_Register="215(215)" T_Lut="325(325)"/>
-    <SubModule name="addr_trans" Register="40" Lut="69" T_Register="2950(40)" T_Alu="3712(0)" T_Lut="3071(69)" T_Bsram="2(0)">
-     <SubModule name="tlb_entry" Register="2910" Alu="3712" Lut="2760" Bsram="2" T_Register="2910(2910)" T_Alu="3712(3712)" T_Lut="3002(2760)" T_Bsram="2(2)">
-      <SubModule name="en_match0" Lut="130" T_Lut="130(130)"/>
-      <SubModule name="en_match1" Lut="112" T_Lut="112(112)"/>
+    <SubModule name="u_csr" Register="657" Alu="127" Lut="502" T_Register="657(657)" T_Alu="127(127)" T_Lut="502(502)"/>
+    <SubModule name="axi_bridge" Register="215" Lut="330" T_Register="215(215)" T_Lut="330(330)"/>
+    <SubModule name="addr_trans" Register="40" Lut="65" T_Register="2950(40)" T_Alu="3744(0)" T_Lut="3012(65)" T_Bsram="2(0)">
+     <SubModule name="tlb_entry" Register="2910" Alu="3744" Lut="2756" Bsram="2" T_Register="2910(2910)" T_Alu="3744(3744)" T_Lut="2947(2756)" T_Bsram="2(2)">
+      <SubModule name="en_match0" Lut="112" T_Lut="112(112)"/>
+      <SubModule name="en_match1" Lut="79" T_Lut="79(79)"/>
      </SubModule>
     </SubModule>
-    <SubModule name="icache" Register="46" Alu="38" Lut="563" T_Register="54(46)" T_Alu="38(38)" T_Lut="566(563)" T_Bsram="10(0)">
+    <SubModule name="icache" Register="46" Alu="39" Lut="581" T_Register="54(46)" T_Alu="39(39)" T_Lut="584(581)" T_Bsram="10(0)">
      <SubModule name="way0_bank0" T_Bsram="1(0)">
       <SubModule name="sp0" Bsram="1" T_Bsram="1(1)"/>
      </SubModule>
@@ -869,7 +870,7 @@
      </SubModule>
      <SubModule name="lfsr" Register="8" Lut="3" T_Register="8(8)" T_Lut="3(3)"/>
     </SubModule>
-    <SubModule name="dcache" Register="648" Alu="46" Lut="1734" T_Register="656(648)" T_Alu="46(46)" T_Lut="1745(1734)" T_Bsram="10(0)">
+    <SubModule name="dcache" Register="648" Alu="47" Lut="1722" T_Register="656(648)" T_Alu="47(47)" T_Lut="1733(1722)" T_Bsram="10(0)">
      <SubModule name="way0_bank0" Lut="1" T_Lut="1(1)" T_Bsram="1(0)">
       <SubModule name="sp0" Bsram="1" T_Bsram="1(1)"/>
      </SubModule>
@@ -902,64 +903,67 @@
      </SubModule>
      <SubModule name="lfsr" Register="8" Lut="3" T_Register="8(8)" T_Lut="3(3)"/>
     </SubModule>
-    <SubModule name="btb" Register="2811" Alu="1437" Lut="1201" T_Register="2811(2811)" T_Alu="1437(1437)" T_Lut="1232(1201)">
-     <SubModule name="encode_btb_match" Lut="31" T_Lut="31(31)"/>
+    <SubModule name="btb" Register="2811" Alu="1435" Lut="1240" T_Register="2811(2811)" T_Alu="1435(1435)" T_Lut="1272(1240)">
+     <SubModule name="encode_btb_match" Lut="32" T_Lut="32(32)"/>
     </SubModule>
    </SubModule>
   </SubModule>
   <SubModule name="lsram" T_Register="4(0)" T_Lut="15(0)">
    <SubModule name="msram" Register="4" Lut="15" T_Register="4(4)" T_Lut="15(15)"/>
   </SubModule>
-  <SubModule name="ltimer" T_Register="133(0)" T_Alu="64(0)" T_Lut="198(0)">
-   <SubModule name="mtimer" Register="133" Alu="64" Lut="198" T_Register="133(133)" T_Alu="64(64)" T_Lut="198(198)"/>
+  <SubModule name="lgpio" T_Register="6(0)" T_Lut="11(0)">
+   <SubModule name="mgpio" Register="6" Lut="11" T_Register="6(6)" T_Lut="11(11)"/>
   </SubModule>
-  <SubModule name="lintc" T_Register="33(0)" T_Lut="36(0)">
-   <SubModule name="mintc" Register="24" Lut="25" T_Register="33(24)" T_Lut="36(25)">
+  <SubModule name="ltimer" T_Register="133(0)" T_Alu="64(0)" T_Lut="203(0)">
+   <SubModule name="mtimer" Register="133" Alu="64" Lut="203" T_Register="133(133)" T_Alu="64(64)" T_Lut="203(203)"/>
+  </SubModule>
+  <SubModule name="lintc" T_Register="33(0)" T_Lut="32(0)">
+   <SubModule name="mintc" Register="24" Lut="27" T_Register="33(24)" T_Lut="32(27)">
     <SubModule name="OneIntGen" Register="2" Lut="4" T_Register="2(2)" T_Lut="4(4)"/>
     <SubModule name="OneIntGen_1" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_2" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_3" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_4" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_5" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_6" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
-    <SubModule name="OneIntGen_7" Register="1" Lut="1" T_Register="1(1)" T_Lut="1(1)"/>
+    <SubModule name="OneIntGen_2" Register="1" T_Register="1(1)"/>
+    <SubModule name="OneIntGen_3" Register="1" T_Register="1(1)"/>
+    <SubModule name="OneIntGen_4" Register="1" T_Register="1(1)"/>
+    <SubModule name="OneIntGen_5" Register="1" T_Register="1(1)"/>
+    <SubModule name="OneIntGen_6" Register="1" T_Register="1(1)"/>
+    <SubModule name="OneIntGen_7" Register="1" T_Register="1(1)"/>
    </SubModule>
   </SubModule>
-  <SubModule name="luart" T_Register="526(0)" T_Alu="9(0)" T_Lut="657(0)">
-   <SubModule name="muart" Register="8" Lut="32" T_Register="526(8)" T_Alu="9(0)" T_Lut="657(32)">
-    <SubModule name="Uregs" Register="109" Lut="163" T_Register="518(109)" T_Alu="9(0)" T_Lut="625(163)">
-     <SubModule name="transmitter" Register="22" Lut="51" T_Register="163(22)" T_Alu="5(0)" T_Lut="155(51)">
-      <SubModule name="fifo_tx" Register="13" Alu="5" Lut="17" T_Register="141(13)" T_Alu="5(5)" T_Lut="104(17)">
+  <SubModule name="luart" T_Register="526(0)" T_Alu="8(0)" T_Lut="692(0)">
+   <SubModule name="muart" Register="8" Lut="32" T_Register="526(8)" T_Alu="8(0)" T_Lut="692(32)">
+    <SubModule name="Uregs" Register="109" Lut="174" T_Register="518(109)" T_Alu="8(0)" T_Lut="660(174)">
+     <SubModule name="transmitter" Register="22" Lut="55" T_Register="163(22)" T_Alu="4(0)" T_Lut="161(55)">
+      <SubModule name="fifo_tx" Register="13" Alu="4" Lut="19" T_Register="141(13)" T_Alu="4(4)" T_Lut="106(19)">
        <SubModule name="tfifo" Register="128" Lut="87" T_Register="128(128)" T_Lut="87(87)"/>
       </SubModule>
      </SubModule>
      <SubModule name="i_uart_sync_flops" Register="2" T_Register="2(2)"/>
-     <SubModule name="receiver" Register="54" Lut="127" T_Register="244(54)" T_Alu="4(0)" T_Lut="307(127)">
-      <SubModule name="fifo_rx" Register="62" Alu="4" Lut="94" T_Register="190(62)" T_Alu="4(4)" T_Lut="180(94)">
+     <SubModule name="receiver" Register="54" Lut="137" T_Register="244(54)" T_Alu="4(0)" T_Lut="325(137)">
+      <SubModule name="fifo_rx" Register="62" Alu="4" Lut="102" T_Register="190(62)" T_Alu="4(4)" T_Lut="188(102)">
        <SubModule name="rfifo" Register="128" Lut="86" T_Register="128(128)" T_Lut="86(86)"/>
       </SubModule>
      </SubModule>
     </SubModule>
    </SubModule>
   </SubModule>
-  <SubModule name="lspi" T_Register="232(0)" T_Alu="14(0)" T_Lut="785(0)">
-   <SubModule name="mspi" Register="4" Lut="82" T_Register="232(4)" T_Alu="14(0)" T_Lut="785(82)">
-    <SubModule name="u0_spi_top" Register="71" Lut="139" T_Register="228(71)" T_Alu="14(0)" T_Lut="703(139)">
-     <SubModule name="clgen" Register="19" Lut="47" T_Register="19(19)" T_Lut="47(47)"/>
-     <SubModule name="shift" Register="138" Alu="14" Lut="517" T_Register="138(138)" T_Alu="14(14)" T_Lut="517(517)"/>
+  <SubModule name="lspi" T_Register="244(0)" T_Alu="7(0)" T_Lut="371(0)">
+   <SubModule name="mspi" Register="35" Lut="150" T_Register="244(35)" T_Alu="7(0)" T_Lut="371(150)">
+    <SubModule name="sd_ctrl" Lut="3" T_Register="209(0)" T_Alu="7(0)" T_Lut="221(3)">
+     <SubModule name="u_sd_init" Register="106" Alu="7" Lut="120" T_Register="106(106)" T_Alu="7(7)" T_Lut="120(120)"/>
+     <SubModule name="u_sd_read" Register="103" Lut="98" T_Register="103(103)" T_Lut="98(98)"/>
     </SubModule>
    </SubModule>
   </SubModule>
-  <SubModule name="lsdram" T_Register="607(0)" T_Alu="9(0)" T_Lut="1636(0)">
-   <SubModule name="axi4asink" T_Register="478(0)" T_Alu="9(0)" T_Lut="443(0)">
-    <SubModule name="nodeOut_arsink" Register="8" Alu="3" Lut="126" T_Register="55(8)" T_Alu="3(3)" T_Lut="126(126)">
+  <SubModule name="lsdram" T_Register="844(0)" T_Alu="9(0)" T_Lut="2306(0)">
+   <SubModule name="axi4asink" T_Register="489(0)" T_Alu="9(0)" T_Lut="486(0)">
+    <SubModule name="nodeOut_arsink" Register="8" Alu="3" Lut="146" T_Register="60(8)" T_Alu="3(3)" T_Lut="146(146)">
      <SubModule name="widx_widx_gray" T_Register="12(0)">
       <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_2" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_3" Register="3" T_Register="3(3)"/>
      </SubModule>
-     <SubModule name="io_deq_bits_deq_bits_reg" Register="29" T_Register="29(29)"/>
+     <SubModule name="io_deq_bits_deq_bits_reg" Register="34" T_Register="34(34)"/>
      <SubModule name="sink_valid_0" T_Register="2(0)">
       <SubModule name="io_out_sink_valid_0" T_Register="2(0)">
        <SubModule name="output_chain" Register="2" T_Register="2(2)"/>
@@ -981,14 +985,14 @@
       </SubModule>
      </SubModule>
     </SubModule>
-    <SubModule name="nodeOut_awsink" Register="8" Alu="3" Lut="121" T_Register="49(8)" T_Alu="3(3)" T_Lut="121(121)">
+    <SubModule name="nodeOut_awsink" Register="8" Alu="3" Lut="146" T_Register="55(8)" T_Alu="3(3)" T_Lut="146(146)">
      <SubModule name="widx_widx_gray" T_Register="12(0)">
       <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_2" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_3" Register="3" T_Register="3(3)"/>
      </SubModule>
-     <SubModule name="io_deq_bits_deq_bits_reg" Register="29" T_Register="29(29)"/>
+     <SubModule name="io_deq_bits_deq_bits_reg" Register="35" T_Register="35(35)"/>
     </SubModule>
     <SubModule name="nodeOut_wsink" Register="8" Alu="3" Lut="154" T_Register="56(8)" T_Alu="3(3)" T_Lut="154(154)">
      <SubModule name="widx_widx_gray" T_Register="12(0)">
@@ -999,7 +1003,7 @@
      </SubModule>
      <SubModule name="io_deq_bits_deq_bits_reg" Register="36" T_Register="36(36)"/>
     </SubModule>
-    <SubModule name="nodeIn_rsource" Register="272" Lut="22" T_Register="284(272)" T_Lut="22(22)">
+    <SubModule name="nodeIn_rsource" Register="272" Lut="20" T_Register="284(272)" T_Lut="20(20)">
      <SubModule name="ridx_ridx_gray" T_Register="12(0)">
       <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
       <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
@@ -1036,22 +1040,22 @@
      </SubModule>
     </SubModule>
    </SubModule>
-   <SubModule name="msdram" Register="129" Lut="1193" T_Register="129(129)" T_Lut="1193(1193)"/>
+   <SubModule name="msdram" Register="355" Lut="1820" T_Register="355(355)" T_Lut="1820(1820)"/>
   </SubModule>
-  <SubModule name="axi42apb" Register="122" Lut="74" T_Register="122(122)" T_Lut="74(74)"/>
-  <SubModule name="axi4yank" T_Register="6(0)" T_Lut="24(0)">
-   <SubModule name="Queue1_BundleMap" Register="2" Lut="15" T_Register="2(2)" T_Lut="15(15)"/>
-   <SubModule name="Queue1_BundleMap_1" Register="2" Lut="3" T_Register="2(2)" T_Lut="3(3)"/>
-   <SubModule name="Queue1_BundleMap_16" Lut="3" T_Lut="3(3)"/>
-   <SubModule name="Queue1_BundleMap_17" Register="2" Lut="3" T_Register="2(2)" T_Lut="3(3)"/>
+  <SubModule name="axi42apb" Register="127" Lut="65" T_Register="127(127)" T_Lut="65(65)"/>
+  <SubModule name="axi4yank" T_Register="6(0)" T_Lut="14(0)">
+   <SubModule name="Queue1_BundleMap" Register="2" Lut="6" T_Register="2(2)" T_Lut="6(6)"/>
+   <SubModule name="Queue1_BundleMap_1" Register="2" Lut="2" T_Register="2(2)" T_Lut="2(2)"/>
+   <SubModule name="Queue1_BundleMap_16" Lut="2" T_Lut="2(2)"/>
+   <SubModule name="Queue1_BundleMap_17" Register="2" Lut="4" T_Register="2(2)" T_Lut="4(4)"/>
   </SubModule>
-  <SubModule name="axi4frag" Register="92" Alu="64" Lut="187" T_Register="203(92)" T_Alu="64(64)" T_Lut="238(187)">
-   <SubModule name="deq_q" Register="37" Lut="4" T_Register="37(37)" T_Lut="4(4)"/>
-   <SubModule name="deq_q_1" Register="37" Lut="4" T_Register="37(37)" T_Lut="4(4)"/>
-   <SubModule name="in_wdeq_q" Register="37" Lut="43" T_Register="37(37)" T_Lut="43(43)"/>
+  <SubModule name="axi4frag" Register="92" Alu="64" Lut="189" T_Register="203(92)" T_Alu="64(64)" T_Lut="241(189)">
+   <SubModule name="deq_q" Register="37" Lut="9" T_Register="37(37)" T_Lut="9(9)"/>
+   <SubModule name="deq_q_1" Register="37" Lut="3" T_Register="37(37)" T_Lut="3(3)"/>
+   <SubModule name="in_wdeq_q" Register="37" Lut="40" T_Register="37(37)" T_Lut="40(40)"/>
   </SubModule>
-  <SubModule name="axi4asource" T_Register="889(0)" T_Alu="6(0)" T_Lut="224(0)">
-   <SubModule name="nodeOut_arsource" Register="240" Lut="22" T_Register="257(240)" T_Lut="22(22)">
+  <SubModule name="axi4asource" T_Register="977(0)" T_Alu="6(0)" T_Lut="226(0)">
+   <SubModule name="nodeOut_arsource" Register="280" Lut="22" T_Register="297(280)" T_Lut="22(22)">
     <SubModule name="ridx_ridx_gray" T_Register="12(0)">
      <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
      <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
@@ -1079,7 +1083,7 @@
      </SubModule>
     </SubModule>
    </SubModule>
-   <SubModule name="nodeOut_awsource" Register="232" Lut="22" T_Register="244(232)" T_Lut="22(22)">
+   <SubModule name="nodeOut_awsource" Register="280" Lut="22" T_Register="292(280)" T_Lut="22(22)">
     <SubModule name="ridx_ridx_gray" T_Register="12(0)">
      <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
      <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
@@ -1087,7 +1091,7 @@
      <SubModule name="output_chain_3" Register="3" T_Register="3(3)"/>
     </SubModule>
    </SubModule>
-   <SubModule name="nodeOut_wsource" Register="296" Lut="25" T_Register="308(296)" T_Lut="25(25)">
+   <SubModule name="nodeOut_wsource" Register="296" Lut="28" T_Register="308(296)" T_Lut="28(28)">
     <SubModule name="ridx_ridx_gray" T_Register="12(0)">
      <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
      <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
@@ -1095,7 +1099,7 @@
      <SubModule name="output_chain_3" Register="3" T_Register="3(3)"/>
     </SubModule>
    </SubModule>
-   <SubModule name="nodeIn_rsink" Register="8" Alu="3" Lut="142" T_Register="53(8)" T_Alu="3(3)" T_Lut="142(142)">
+   <SubModule name="nodeIn_rsink" Register="8" Alu="3" Lut="141" T_Register="53(8)" T_Alu="3(3)" T_Lut="141(141)">
     <SubModule name="widx_widx_gray" T_Register="12(0)">
      <SubModule name="output_chain" Register="3" T_Register="3(3)"/>
      <SubModule name="output_chain_1" Register="3" T_Register="3(3)"/>
@@ -1139,11 +1143,11 @@
    <SubModule name="Queue1_BundleMap_1" Register="1" Lut="2" T_Register="1(1)" T_Lut="2(2)"/>
    <SubModule name="Queue1_BundleMap_17" Register="1" Lut="5" T_Register="1(1)" T_Lut="5(5)"/>
   </SubModule>
-  <SubModule name="cpu_reset_chain" T_Register="10(0)" T_Lut="5(0)">
-   <SubModule name="output_chain" Register="10" Lut="5" T_Register="10(10)" T_Lut="5(5)"/>
+  <SubModule name="cpu_reset_chain" T_Register="10(0)" T_Lut="4(0)">
+   <SubModule name="output_chain" Register="10" Lut="4" T_Register="10(10)" T_Lut="4(4)"/>
   </SubModule>
  </SubModule>
  <SubModule name="pll_pll"/>
- <SubModule name="dmi" Register="5621" Alu="189" Lut="3362" Bsram="24" T_Register="5621(5621)" T_Alu="189(189)" T_Lut="3362(3362)" T_Bsram="24(24)"/>
+ <SubModule name="dmi" Register="5621" Alu="189" Lut="3363" Bsram="24" T_Register="5621(5621)" T_Alu="189(189)" T_Lut="3363(3363)" T_Bsram="24(24)"/>
  <SubModule name="sram" Register="6" Lut="2528" Bsram="128" T_Register="6(6)" T_Lut="2528(2528)" T_Bsram="128(128)"/>
 </Module>

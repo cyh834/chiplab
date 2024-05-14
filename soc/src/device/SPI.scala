@@ -83,7 +83,7 @@ class spi_top_apb extends Module{
 
   val rdata = RegInit(0.U(32.W))
   when(sd_ctrl.io.rd_val_en){
-    rdata := Mux(state === s_wait_data0,Cat(0.U(16.W),sd_ctrl.io.rd_val_data), Cat(sd_ctrl.io.rd_val_data, rdata(15,0)))
+    rdata := Mux(state === s_wait_data0,Cat(0.U(16.W),sd_ctrl.io.rd_val_data), Cat(rdata(15,0), sd_ctrl.io.rd_val_data))
   }
 
   io.in.pready := (state === s_idle) && sd_ctrl.io.sd_init_done

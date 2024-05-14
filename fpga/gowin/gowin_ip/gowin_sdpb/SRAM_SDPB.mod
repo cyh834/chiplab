@@ -18,5 +18,5 @@
 -read_mode bypass
 -byteEnable 1
 -reset_mode sync
--init_file /home/cyh/chiplab/software/am-kernels/tests/soc-tests/build/hello-loongarch32r-soc.mi
+-init_file /home/cyh/chiplab/software/am-kernels/tests/soc-tests/build/ddr_test-loongarch32r-soc.mi
 -init_match port_A

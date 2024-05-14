@@ -1,7 +1,7 @@
 #include "trap.h"
 
-#define DDR_BEGIN  0x20000000 + 0x10000
-#define DDR_END    0x20000000 + 0x11000
+#define DDR_BEGIN  0x20000000
+#define DDR_END    0x20000000 + 0x20000000
 
 static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
@@ -12,14 +12,17 @@ static inline void outw(uintptr_t addr, uint16_t data) { *(volatile uint16_t *)a
 static inline void outl(uintptr_t addr, uint32_t data) { *(volatile uint32_t *)addr = data; }
 
 int main(){
-  for(int i = DDR_BEGIN; i < DDR_END; i += 4) {
-      outl(i, i);
-  }
-  for(int i = DDR_BEGIN; i < DDR_END; i += 4) {
-      int in = inl(i);
-      if(in != i) {
-          return -1;
-      }
-  }
-  return 0;
+    volatile uint32_t state = 0b000001;
+    io_write(AM_GPIO_WRITE, state);
+    state++;
+    outl(DDR_BEGIN, state);
+
+    while(1){
+        uint32_t in = inl(DDR_BEGIN);
+        io_write(AM_GPIO_WRITE, in);
+        state++;
+        outl(DDR_BEGIN, state);
+        for(volatile int i=0;i<1000000;i++);
+    }
+    return 0;
 }
