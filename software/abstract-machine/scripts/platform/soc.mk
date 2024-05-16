@@ -19,6 +19,9 @@ LDFLAGS   += --gc-sections -e _start -Map $(IMAGE).map
 
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/soc/include
+
+LIBGCC += $(TOOLCHAINS)/loongarch32r-linux-gnusf-v2.0/lib/gcc/loongarch32r-linux-gnusf/8.3.0/libgcc.a
+
 .PHONY: $(AM_HOME)/am/src/platform/soc/trm.c
 
 image: $(IMAGE).elf

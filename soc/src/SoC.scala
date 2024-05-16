@@ -39,13 +39,16 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))
   val luart   = LazyModule(new APBUart  (AddressSet.misaligned(0xa0030000L, 0x10)))
 
-  val lspi    = LazyModule(new APBSPI   (AddressSet.misaligned(0x00000000, 0x10000000))) //sd卡
+  val lspi  = LazyModule(new APBSPI(
+    AddressSet.misaligned(0x10001000, 0x1000) ++    // SPI controller
+    AddressSet.misaligned(0x30000000, 0x10000000)   // XIP flash
+  ))
 
-  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x20000000 , 0x20000000))) // 512MB
+  val lsdram  = LazyModule(new AXI4SDRAM(AddressSet.misaligned(0x40000000 , 0x20000000))) // 512MB
 
   List(lspi.node, luart.node, ltimer.node,  lgpio.node, lintc.node).map(_ := apbxbar)
   List(apbxbar := AXI4ToAPB(), lsram.node).map(_ := xbar2)
-  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.crossAXI4In(lsdram.node) := AXI4UserYanker(Some(1))).map( _ := xbar)
+  List(xbar2 := AXI4UserYanker(Some(1)) := AXI4Fragmenter(), lsdram.crossAXI4In(lsdram.node) := AXI4UserYanker(Some(1)) := AXI4Fragmenter()).map( _ := xbar)
 
   xbar := cpu.masterNode
 

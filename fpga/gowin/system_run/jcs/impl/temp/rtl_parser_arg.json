@@ -2,30 +2,6 @@
  "Device" : "GW5AST-138B",
  "Files" : [
   {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x21/SP_256x21.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x32/SP_256x32.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/fpga/gowin/camera-hdmi/ddr3_memory_interface/ddr3_memory_interface.v",
-   "Type" : "verilog"
-  },
-  {
    "Path" : "/home/cyh/chiplab/IP/open-la500/addr_trans.v",
    "Type" : "verilog"
   },
@@ -99,6 +75,30 @@
   },
   {
    "Path" : "/home/cyh/chiplab/IP/open-la500/wb_stage.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/camera-hdmi/ddr3_memory_interface/ddr3_memory_interface.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x21/SP_256x21.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/SP_256x32/SP_256x32.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_pll/gowin_pll.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v",
    "Type" : "verilog"
   },
   {

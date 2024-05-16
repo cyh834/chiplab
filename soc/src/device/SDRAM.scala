@@ -103,45 +103,67 @@ class sdram_top_axi extends Module{
 
   val (ar, r, aw, w, b) = (io.in.ar, io.in.r, io.in.aw, io.in.w, io.in.b)
 
-  val s_idle :: s_inflight :: s_wait_rready_bready :: Nil = Enum(3)
+  val s_idle :: s_inflight :: s_wait_rready_bready :: s_wait_rdata :: Nil = Enum(4)
   val state = RegInit(s_idle)
   val accept_read = (state === s_idle) && ar.valid
   val accept_write = !accept_read && (state === s_idle) && aw.valid && w.valid
   val is_write = accept_write holdUnless (state === s_idle)
+  val is_read  = accept_read  holdUnless (state === s_idle)
 
-  val done = Mux(is_write, io.dmi.wr_data_rdy & io.dmi.cmd_ready, io.dmi.rd_data_valid)
-  when(state === s_idle){
-    when(ar.valid || (aw.valid && w.valid)){
-      when(io.dmi.init_calib_complete){
-        state := s_inflight
+
+  val done = Mux(is_write,io.dmi.cmd_en && io.dmi.wr_data_rdy & io.dmi.cmd_ready & io.dmi.wr_data_en,
+             Mux(is_read,io.dmi.cmd_ready,false.B))
+
+
+  switch(state){
+    is(s_idle){
+      when((ar.valid || (aw.valid && w.valid)) && io.dmi.init_calib_complete){
+          state := s_inflight
       }
     }
-  }.elsewhen(state === s_inflight){
-    when(done){
+    is(s_inflight){
+      when(done){
+        when(is_read){
+          when( io.dmi.rd_data_valid && io.dmi.rd_data_end){
+            when(r.fire){
+              state := s_idle
+            }.otherwise{
+              state := s_wait_rready_bready
+            }
+          }.otherwise{
+            state := s_wait_rdata
+          }
+        }
+        .elsewhen(b.fire){
+          state := s_idle
+        }
+        .otherwise{
+          state := s_wait_rready_bready
+        }
+      }
+    }
+    is(s_wait_rdata){
+      when( io.dmi.rd_data_valid && io.dmi.rd_data_end){
+        when(r.fire){
+          state := s_idle
+        }.otherwise{
+          state := s_wait_rready_bready
+        }
+      }
+    }
+    is(s_wait_rready_bready){
       when(r.fire || b.fire){
         state := s_idle
       }
-      .otherwise{
-        state := s_wait_rready_bready
-      }
-    }
-  }.elsewhen(state === s_wait_rready_bready){
-    when(r.fire || b.fire){
-      state := s_idle
     }
   }
-  //switch (state) {
-  //  is (s_idle)     { state := Mux((ar.valid || (aw.valid && w.valid)) & io.dmi.init_calib_complete, s_inflight, s_idle) }
-  //  is (s_inflight) { state := Mux(done, Mux(r.fire || b.fire, s_idle, s_wait_rready_bready), s_inflight) }
-  //  is (s_wait_rready_bready) { state := Mux(r.fire || b.fire, s_idle, s_wait_rready_bready) }
-  //}
-
-  // burst is not supported
-  assert(!(ar.valid && ar.bits.len =/= 0.U))
-  assert(!(aw.valid && aw.bits.len =/= 0.U))
-  // size > 4 is not supported
-  assert(!(ar.valid && ar.bits.size > "b10".U))
-  assert(!(aw.valid && aw.bits.size > "b10".U))
+    
+  //// burst is not supported
+  //assert(!(ar.valid && ar.bits.len =/= 0.U))
+  //assert(!(aw.valid && aw.bits.len =/= 0.U))
+  //// size > 4 is not supported
+  //assert(!(ar.valid && ar.bits.size > "b10".U))
+  //assert(!(aw.valid && aw.bits.size > "b10".U))
 
   val rid_reg    = RegEnable(ar.bits.id, accept_read)
   val bid_reg    = RegEnable(aw.bits.id, accept_write)
@@ -150,11 +172,12 @@ class sdram_top_axi extends Module{
   val wdata_reg  =  w.bits.data holdUnless accept_write
   val wstrb_reg  =  w.bits.strb holdUnless accept_write
 
+
   val addr = Mux(is_write, awaddr_reg, araddr_reg)
   io.dmi.cmd := Mux(is_write, 0.U, 1.U)
   io.dmi.cmd_en := state === s_inflight
-  io.dmi.addr := addr & "xffffffe0".U
-  io.dmi.wr_data := (Cat(0.U(224.W),wdata_reg) << Cat(addr(4,0),0.U(3.W)))
+  io.dmi.addr := (addr & "xffffffe0".U)(13,0)
+  io.dmi.wr_data := (wdata_reg << Cat(addr(4,0),0.U(3.W)))
   io.dmi.wr_data_en := (state === s_inflight) & is_write  & io.dmi.wr_data_rdy & io.dmi.cmd_ready
   io.dmi.wr_data_end := (state === s_inflight) & is_write  & io.dmi.wr_data_rdy & io.dmi.cmd_ready
   io.dmi.wr_data_mask :=  Mux(is_write,(Cat(0.U(28.W),wstrb_reg(3,0)) << addr(4,0)), 0.U)
@@ -169,13 +192,13 @@ class sdram_top_axi extends Module{
 
   val resp = AXI4Parameters.RESP_OKAY
   val resp_hold = resp holdUnless (state === s_inflight)
-  r.valid  := !is_write && (((state === s_inflight) && io.dmi.rd_data_valid) || (state === s_wait_rready_bready))
-  r.bits.data := (io.dmi.rd_data >> Cat(addr(4,0),0.U(3.W))) holdUnless (state === s_inflight)
+  r.valid  := (!is_write) && (((state === s_wait_rdata) && io.dmi.rd_data_valid && io.dmi.rd_data_end) || (state === s_wait_rready_bready))
+  r.bits.data := (io.dmi.rd_data >> Cat(addr(4,0),0.U(3.W))) holdUnless (state === s_wait_rdata)
   r.bits.id   := rid_reg
   r.bits.resp := resp_hold
   r.bits.last := true.B
 
-  b.valid  := is_write && (((state === s_inflight) && io.dmi.wr_data_rdy) || (state === s_wait_rready_bready))
+  b.valid  := is_write && ((io.dmi.cmd_en && io.dmi.wr_data_en) || (state === s_wait_rready_bready))
   b.bits.resp := resp_hold
   b.bits.id   := bid_reg
 }

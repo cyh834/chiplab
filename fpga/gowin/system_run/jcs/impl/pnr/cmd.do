@@ -3,7 +3,6 @@
 -pn GW5AST-LV138FPG676AC2/I1
 -cst /home/cyh/chiplab/fpga/gowin/system_run/jcs/src/jcs.cst
 -cfg /home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/device.cfg
--gao_crc 0001111011111011
 -bit
 -tr
 -ph
@@ -16,4 +15,3 @@
 -route_maxfan 23
 -global_freq 100.000
 -enable_dsrm 0
--rtl_gao

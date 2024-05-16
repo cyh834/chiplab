@@ -43,6 +43,16 @@ void delay_us(uint32_t x);
 void delay_ms(uint32_t x);
 void delay_s(uint32_t x);
 
+//fp.h
+#ifndef MIN
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#endif
+
+float expf(float x);
+void qsort(void *base, size_t nel, size_t width,int(*compar)(const void *, const void *));
+double exp(double x);
+double ldexp(double x, int exp);
+double mypow(double base, int exponent);
 
 // assert.h
 #ifdef NDEBUG

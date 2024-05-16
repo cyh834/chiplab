@@ -10,7 +10,7 @@
     </FlowState>
     <ResultFileList>
         <ResultFile ResultFileType="RES.netlist" ResultFilePath="impl/gwsynthesis/jcs.vg"/>
-        <ResultFile ResultFileType="RES.pnr.bitstream" ResultFilePath="impl/pnr/ao_0.fs"/>
+        <ResultFile ResultFileType="RES.pnr.bitstream" ResultFilePath="impl/pnr/jcs.fs"/>
         <ResultFile ResultFileType="RES.pnr.pin.rpt" ResultFilePath="impl/pnr/jcs.pin.html"/>
         <ResultFile ResultFileType="RES.pnr.posp.bin" ResultFilePath="impl/pnr/jcs.db"/>
         <ResultFile ResultFileType="RES.pnr.pwr.rpt" ResultFilePath="impl/pnr/jcs.power.html"/>

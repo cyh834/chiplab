@@ -47,7 +47,7 @@
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v" type="file.verilog" enable="1"/>
         <File path="src/jcs.cst" type="file.cst" enable="1"/>
-        <File path="src/jcs.rao" type="file.gao" enable="1"/>
+        <File path="src/jcs.rao" type="file.gao" enable="0"/>
         <File path="/home/cyh/chiplab/IP/open-la500/csr.h" type="file.other" enable="1"/>
         <File path="/home/cyh/chiplab/IP/open-la500/mycpu.h" type="file.other" enable="1"/>
     </FileList>
