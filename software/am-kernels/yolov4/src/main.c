@@ -196,6 +196,7 @@ void resize_image(unsigned char* input, int width, int height, unsigned char* ou
 
 int main(int argc, char** argv)
 {
+    TM_PRINTF("start\n");
     resize_image(pic,224,224,pics,224,224,3);
     TM_DBGT_INIT();
     TM_PRINTF("MaixHub detection yolov2\n");

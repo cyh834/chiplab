@@ -1,17 +1,23 @@
 ENTRY(_start)
+OUTPUT_FORMAT(elf32-loongarch);
 
 MEMORY {
   ROM (rxa) : ORIGIN = 0x1c000000, LENGTH = 256M
-  RAM (rwxa) : ORIGIN = 0x60000000, LENGTH = 512K
+  RAM (rwxa) : ORIGIN = 0x1b000000, LENGTH = 512K
 }
 
 SECTIONS {
   . = ORIGIN(ROM);
-  .text : {
+  .bl : {
     *(entry)
-    *(.text*)
+    *(.text._trm_init)
     . = ALIGN(0x10);
   } > ROM
+
+  .text : {
+    *(.text*)
+    . = ALIGN(0x10);
+  }> ROM
   etext = .;
   _etext = .;
 
@@ -20,22 +26,30 @@ SECTIONS {
     . = ALIGN(0x10);
     *(.srodata*)
     . = ALIGN(0x10);
-  } > ROM
+  }> ROM
 
-  p_start = LOADADDR(.data);
+  p_start = .;
   .data :{
-    /*VMA*/
     p_load_start = .;
+    /*VMA*/
     *(.data*)
     . = ALIGN(0x10);
     *(.sdata*)
     . = ALIGN(0x10);
-    p_load_end = .;
+
   }> RAM AT> ROM
 
   edata = .;
   _data = .;
-  
+
+  .got : {
+    *(.got.plt) 
+    . = ALIGN(0x10);
+    *(.got) 
+    . = ALIGN(0x10);
+    p_load_end = .;
+  }> RAM AT> ROM
+
   .bss : {
 	  _bss_start = .;
     *(.bss*)

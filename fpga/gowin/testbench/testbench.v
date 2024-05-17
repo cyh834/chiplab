@@ -58,8 +58,8 @@ module tb();
     $display("************ Test Start ***************");
     forever begin
       #(`CLOCK_PERIOD * 10000)
-        $display("running at pc %x",`CPU.debug0_wb_pc);
-        $display("LED = 0x %x",gpio_out);
+        //$display("running at pc %x",`CPU.debug0_wb_pc);
+        //$display("LED = 0x %x",gpio_out);
       if(`CPU.wb_stage.ws_excp && `CPU.wb_stage.ws_excp_num[6]) begin
       	$display("************ Test Success ***************");
 	    $finish;

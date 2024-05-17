@@ -27,6 +27,7 @@ module spi_top_apb #(
   output                  spi_irq_out
 );
 
+`define FAST_FLASH
 `ifdef FAST_FLASH
 
 wire [31:0] data;

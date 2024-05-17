@@ -24,7 +24,7 @@ sim_vsrcs = \
 
 sim_csrcs ?=
 
-MEM_BIN = "/home/cyh/chiplab/software/am-kernels/yolov4/build/yolov4-loongarch32r-soc.mem"
+MEM_HEX = '"$(IMG).mem"'
 #--------------------------------------------------------------------
 # Build Verilog
 #--------------------------------------------------------------------
@@ -64,7 +64,7 @@ VCS_OPTS = -line +lint=all -timescale=1ps/1ps -quiet \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \
 	+define+RANDOMIZE_DELAY=0.1 \
-	+define+MEM_BIN=$(MEM_BIN) \
+	+define+MEM_HEX=$(MEM_HEX) \
 	+libext+.v \
 	-top tb
 

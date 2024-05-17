@@ -10,7 +10,7 @@ AM_SRCS := platform/soc/trm.c \
 					 platform/soc/ioe/intc.c \
            platform/soc/mpe.c 
 
-CFLAGS    += -fdata-sections -ffunction-sections -DHAS_FLASH
+CFLAGS    += -fdata-sections -ffunction-sections
 
 ##LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
 	             --defsym=_pmem_start=0x1c000000 --defsym=_entry_offset=0x0
@@ -31,6 +31,7 @@ image: $(IMAGE).elf
 	@$(OBJDUMP) -alD $(IMAGE).elf > $(IMAGE).txt
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
+	@hexdump -v -e '1/4 "%08x" "\n"' $(IMAGE).bin > $(IMAGE).mem
 	@$(SIZE) $(IMAGE).elf
 
 mi: image

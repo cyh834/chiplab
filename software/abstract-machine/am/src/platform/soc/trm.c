@@ -5,20 +5,6 @@
 
 extern char _heap_start;
 
-#ifdef HAS_FLASH
-extern char p_start, p_load_start, p_load_end;
-#endif
-#ifdef HAS_DDR_FLASH
-extern char p_start, p_load_start, p_load_end;
-
-extern char _ram_start;
-
-extern char _ssbl_start, _ssbl_load_start, _ssbl_load_end;
-
-extern char _bss_start,  _bss_end;
-#endif
-
-
 int main(const char *args);
 
 Area heap = RANGE(&_heap_start, RAM_END);
@@ -38,80 +24,8 @@ void halt(int code) {
   while (1);
 }
 
-////将数据段加载到内存
-//void putch_num(size_t num){
-//  //char hex[16] = "0123456789abcdef";
-//  char ans[20];
-//  int cnt=0;
-//  while(num){
-//    if(num%16<10)
-//      ans[cnt++]=num%16+'0';
-//    else
-//      ans[cnt++]=num%16-10+'a';
-//    num/=16;
-//  }
-//  for(int i=0;i<cnt;i++){
-//    putch(ans[cnt-i-1]);
-//  }
-//  putch('\n');
-//}
-#ifdef HAS_FLASH
-#pragma GCC push_options
-#pragma GCC optimize("O0")
-void boot(){
-  volatile uint32_t *prog = (volatile uint32_t *)&p_start;
-  volatile uint32_t *pmem = (volatile uint32_t *)&p_load_start;
-  while((uint32_t)pmem < (uint32_t)&p_load_end){
-    *pmem++ = *prog++;
-  }
-}
-#pragma GCC pop_options
-#endif
-
-#ifdef HAS_DDR_FLASH
-#pragma GCC push_options
-#pragma GCC optimize("O0")
-void fsbl(){
-  volatile uint32_t *prog = (volatile uint32_t *)&_ssbl_start;
-  volatile uint32_t *pmem = (volatile uint32_t *)&_ssbl_load_start;
-  while((uint32_t)pmem < (uint32_t)&_ssbl_load_end){
-    *pmem++ = *prog++;
-  }
-}
-
-void ssbl() {
-
-  volatile uint32_t *prog = (volatile uint32_t *)&p_start;
-  volatile uint32_t *pmem = (volatile uint32_t *)&p_load_start;
-  while((uint32_t)pmem < (uint32_t)&p_load_end){
-    *pmem++ = *prog++;
-  }
-}
-
-void _init_bss(){
-  char* iteration = &_bss_start;
-  
-  while (iteration != &_bss_end)
-  {
-    *iteration = 0;
-    iteration++;
-  }
-  
-}
-
-#pragma GCC pop_options
-#endif
-
 void _trm_init() {
-#ifdef HAS_FLASH
-  boot();
-#endif
 
-#ifdef HSA_DDR_FLASH
-  fsbl();
-  ssbl();
-  _init_bss();
-#endif
   //printf("heap: [%p, %p]\n", heap.start, heap.end);
   ioe_init();
   int ret = main(mainargs);

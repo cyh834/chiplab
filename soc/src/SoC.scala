@@ -33,7 +33,7 @@ class SoCASIC(implicit p: Parameters) extends LazyModule {
   
   val cpu = LazyModule(new CPU(idBits = 4))
   
-  val lsram   = LazyModule(new AXI4SRAM (AddressSet.misaligned(0x60000000 , 0x80000)))  //131072 * 32
+  val lsram   = LazyModule(new AXI4SRAM (AddressSet.misaligned(0x1b000000 , 0x80000)))  //131072 * 32
   val lgpio   = LazyModule(new APBGPIO  (AddressSet.misaligned(0xa0000000L, 0x10)))
   val ltimer  = LazyModule(new APBTimer (AddressSet.misaligned(0xa0010000L, 0x10)))
   val lintc   = LazyModule(new APBINTC  (AddressSet.misaligned(0xa0020000L, 0x10)))

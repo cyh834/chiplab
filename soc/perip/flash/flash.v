@@ -98,7 +98,7 @@ module flash_cmd(
   reg [31:0] mem_data [0:67108863]; //256MB
 
   initial begin
-    $readmemh("/home/cyh/chiplab/software/am-kernels/yolov4/build/yolov4-loongarch32r-soc.mem", mem_data);
+    $readmemh(`MEM_HEX, mem_data);
   end
 
   always@(posedge clock) begin
