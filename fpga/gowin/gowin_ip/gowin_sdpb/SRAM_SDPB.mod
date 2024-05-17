@@ -11,12 +11,10 @@
 -type RAM_SDP
 -file_type vlg
 -bram_b true
--depth_0 65536
--depth_1 65536
+-depth_0 131072
+-depth_1 131072
 -width_0 32
 -width_1 32
 -read_mode bypass
 -byteEnable 1
 -reset_mode sync
--init_file /home/cyh/chiplab/software/am-kernels/tests/soc-tests/build/ddr_test-loongarch32r-soc.mi
--init_match port_A

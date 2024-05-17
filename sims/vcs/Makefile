@@ -24,6 +24,7 @@ sim_vsrcs = \
 
 sim_csrcs ?=
 
+MEM_BIN = "/home/cyh/chiplab/software/am-kernels/yolov4/build/yolov4-loongarch32r-soc.mem"
 #--------------------------------------------------------------------
 # Build Verilog
 #--------------------------------------------------------------------
@@ -63,10 +64,7 @@ VCS_OPTS = -line +lint=all -timescale=1ps/1ps -quiet \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \
 	+define+RANDOMIZE_DELAY=0.1 \
-	+define+sg25 \
-	+define+x16 \
-	+define+den1024Mb \
-	-pva \
+	+define+MEM_BIN=$(MEM_BIN) \
 	+libext+.v \
 	-top tb
 
@@ -90,7 +88,7 @@ seed = $(shell date +%s)
 exec_simv = $(simv) +permissive -q +ntb_random_seed_automatic +permissive-off
 
 
-run: verilog $(simv)
+run: clean verilog $(simv)
 
 verdi:
 	verdi $(sim_vsrcs) -ssf $(simv).fsdb \

@@ -10,10 +10,13 @@ AM_SRCS := platform/soc/trm.c \
 					 platform/soc/ioe/intc.c \
            platform/soc/mpe.c 
 
-CFLAGS    += -fdata-sections -ffunction-sections 
-LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
+CFLAGS    += -fdata-sections -ffunction-sections -DHAS_FLASH
+
+##LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
 	             --defsym=_pmem_start=0x1c000000 --defsym=_entry_offset=0x0
-##LDFLAGS		+= -T $(AM_HOME)/scripts/linker_sd.ld
+##LDFLAGS		+= -T $(AM_HOME)/scripts/linker_ddr.ld
+LDFLAGS		+= -T $(AM_HOME)/scripts/linker_flash.ld 
+
 LDFLAGS   += --gc-sections -e _start -Map $(IMAGE).map
 ##$(eval NAVY := $(shell find -L $(NAVY_HOME)/fsimg/bin -type f))
 
@@ -39,5 +42,5 @@ mi: image
 run:mi 
 	$(MAKE) -C $(SIM_HOME) run IMG=$(IMAGE)
 
-wave:
-	$(MAKE) -C $(SIM_HOME) wave IMG=$(IMAGE)
+verdi:
+	$(MAKE) -C $(SIM_HOME) verdi IMG=$(IMAGE)

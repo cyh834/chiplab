@@ -5,7 +5,10 @@
 
 extern char _heap_start;
 
-#ifdef BOOTLOADER
+#ifdef HAS_FLASH
+extern char p_start, p_load_start, p_load_end;
+#endif
+#ifdef HAS_DDR_FLASH
 extern char p_start, p_load_start, p_load_end;
 
 extern char _ram_start;
@@ -52,8 +55,20 @@ void halt(int code) {
 //  }
 //  putch('\n');
 //}
+#ifdef HAS_FLASH
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+void boot(){
+  volatile uint32_t *prog = (volatile uint32_t *)&p_start;
+  volatile uint32_t *pmem = (volatile uint32_t *)&p_load_start;
+  while((uint32_t)pmem < (uint32_t)&p_load_end){
+    *pmem++ = *prog++;
+  }
+}
+#pragma GCC pop_options
+#endif
 
-#ifdef BOOTLOADER
+#ifdef HAS_DDR_FLASH
 #pragma GCC push_options
 #pragma GCC optimize("O0")
 void fsbl(){
@@ -88,7 +103,11 @@ void _init_bss(){
 #endif
 
 void _trm_init() {
-#ifdef BOOTLOADER
+#ifdef HAS_FLASH
+  boot();
+#endif
+
+#ifdef HSA_DDR_FLASH
   fsbl();
   ssbl();
   _init_bss();
