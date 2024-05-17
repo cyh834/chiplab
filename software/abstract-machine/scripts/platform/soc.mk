@@ -40,7 +40,7 @@ mi: image
 	@gcc $(UTILS_HOME)/coe2mi.c -o $(UTILS_HOME)/build/coe2mi
 	@$(UTILS_HOME)/build/coe2mi -i $(IMAGE).coe -o $(IMAGE).mi -w 32 -d 65536  
 
-run:mi 
+run:image 
 	$(MAKE) -C $(SIM_HOME) run IMG=$(IMAGE)
 
 verdi:
