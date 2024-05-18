@@ -89,16 +89,4 @@ _start:
 
   move $fp, $zero
   la.local $sp, _stack_pointer
-
-boot:
-  la.local $t0, p_start
-  la.local $t1, p_load_start
-  la.local $t2, p_load_end
-
-loop:
-  beq $t1, $t2, _trm_init
-  ld.w $t3,$t0, 0
-  st.w $t3,$t1, 0
-  addi.w $t0,$t0,4
-  addi.w $t1,$t1,4
-  bl loop
+  bl _trm_init

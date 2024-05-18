@@ -1447,44 +1447,22 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   wire       _awIn_0_io_enq_ready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
   wire       _awIn_0_io_deq_valid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
   wire [1:0] _awIn_0_io_deq_bits;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:70:47
-  wire [3:0] _GEN = auto_in_araddr[29:26] ^ 4'hA;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
-  wire [2:0] _requestARIO_T_20 = auto_in_araddr[31:29] ^ 3'h5;	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
   wire       requestARIO_0_0 =
-    {auto_in_araddr[31],
-     auto_in_araddr[29],
-     auto_in_araddr[27:26],
-     auto_in_araddr[17]} == 5'h0
+    {auto_in_araddr[31], auto_in_araddr[28]} == 2'h0
     | {auto_in_araddr[31],
-       auto_in_araddr[29],
-       ~(auto_in_araddr[27:26])} == 4'h0
-    | {auto_in_araddr[31],
-       ~(auto_in_araddr[29]),
-       auto_in_araddr[27]} == 3'h0
-    | {auto_in_araddr[31], _GEN[3], _GEN[1:0]} == 4'h0
-    | {_requestARIO_T_20[2], _requestARIO_T_20[0], auto_in_araddr[27:26]} == 4'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
+       auto_in_araddr[28:27] ^ 2'h2,
+       auto_in_araddr[17]} == 4'h0
+    | {~(auto_in_araddr[31]), auto_in_araddr[28:27]} == 3'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
   wire       requestARIO_0_1 =
-    {auto_in_araddr[31],
-     auto_in_araddr[29],
-     auto_in_araddr[27:26] ^ 2'h2} == 4'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
-  wire [3:0] _GEN_0 = auto_in_awaddr[29:26] ^ 4'hA;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
-  wire [2:0] _requestAWIO_T_20 = auto_in_awaddr[31:29] ^ 3'h5;	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
+    {auto_in_araddr[31], ~(auto_in_araddr[28:27])} == 3'h0;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
   wire       requestAWIO_0_0 =
-    {auto_in_awaddr[31],
-     auto_in_awaddr[29],
-     auto_in_awaddr[27:26],
-     auto_in_awaddr[17]} == 5'h0
+    {auto_in_awaddr[31], auto_in_awaddr[28]} == 2'h0
     | {auto_in_awaddr[31],
-       auto_in_awaddr[29],
-       ~(auto_in_awaddr[27:26])} == 4'h0
-    | {auto_in_awaddr[31],
-       ~(auto_in_awaddr[29]),
-       auto_in_awaddr[27]} == 3'h0
-    | {auto_in_awaddr[31], _GEN_0[3], _GEN_0[1:0]} == 4'h0
-    | {_requestAWIO_T_20[2], _requestAWIO_T_20[0], auto_in_awaddr[27:26]} == 4'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
+       auto_in_awaddr[28:27] ^ 2'h2,
+       auto_in_awaddr[17]} == 4'h0
+    | {~(auto_in_awaddr[31]), auto_in_awaddr[28:27]} == 3'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :67:97, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
   wire       requestAWIO_0_1 =
-    {auto_in_awaddr[31],
-     auto_in_awaddr[29],
-     auto_in_awaddr[27:26] ^ 2'h2} == 4'h0;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
+    {auto_in_awaddr[31], ~(auto_in_awaddr[28:27])} == 3'h0;	// rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{31,41,46,59}
   wire       _arFIFOMap_15_T_1 = _portsAROI_in_0_arready_T_2 & auto_in_arvalid;	// src/main/scala/chisel3/util/Decoupled.scala:51:35, src/main/scala/chisel3/util/Mux.scala:30:73
   wire       _arFIFOMap_0_T_2 = auto_in_arid == 4'h0 & _arFIFOMap_15_T_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:134:{20,25}, src/main/scala/chisel3/util/Decoupled.scala:51:35
   wire       _arFIFOMap_15_T_4 = auto_in_rready & in_0_rvalid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:297:22, src/main/scala/chisel3/util/Decoupled.scala:51:35
@@ -2254,7 +2232,7 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_in_rlast = _in_0_rT_2;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, src/main/scala/chisel3/util/Mux.scala:30:73
   assign auto_out_1_awvalid = in_0_awvalid & requestAWIO_0_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :153:45, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_1_awid = auto_in_awid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
-  assign auto_out_1_awaddr = auto_in_awaddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :171:28
+  assign auto_out_1_awaddr = auto_in_awaddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
   assign auto_out_1_awsize = auto_in_awsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_awburst = auto_in_awburst;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_wvalid = in_0_wvalid & _awIn_0_io_deq_bits[1];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :70:47, :80:73, :160:43, :241:40
@@ -2264,7 +2242,7 @@ module AXI4Xbar_1(	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_bready = auto_in_bready & (idle_3 ? readys_readys_1[1] : state_3_1);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :261:23, :267:73, :280:24, :289:24, :291:31, rocket-chip/src/main/scala/tilelink/Arbiter.scala:26:18
   assign auto_out_1_arvalid = auto_in_arvalid & requestARIO_0_1;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :241:40, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:{41,46,59}
   assign auto_out_1_arid = auto_in_arid;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
-  assign auto_out_1_araddr = auto_in_araddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :171:28
+  assign auto_out_1_araddr = auto_in_araddr[28:0];	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, rocket-chip/src/main/scala/diplomacy/Parameters.scala:137:31
   assign auto_out_1_arsize = auto_in_arsize;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_arburst = auto_in_arburst;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9
   assign auto_out_1_rready = auto_in_rready & (idle_2 ? readys_readys[1] : state_2_1);	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:56:9, :261:23, :267:73, :280:24, :289:24, :291:31, rocket-chip/src/main/scala/tilelink/Arbiter.scala:26:18
@@ -2327,7 +2305,7 @@ module APBFanout(	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   output        auto_out_0_psel,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_out_0_penable,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_out_0_pwrite,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  output [29:0] auto_out_0_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
+  output [28:0] auto_out_0_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   output [31:0] auto_out_0_pwdata,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   output [3:0]  auto_out_0_pstrb,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input         auto_out_0_pready,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
@@ -2377,7 +2355,7 @@ module APBFanout(	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   assign auto_out_0_psel = sel_0 & auto_in_psel;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :44:87, :47:28
   assign auto_out_0_penable = sel_0 & auto_in_penable;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :44:87, :48:28
   assign auto_out_0_pwrite = auto_in_pwrite;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
-  assign auto_out_0_paddr = auto_in_paddr[29:0];	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :46:24
+  assign auto_out_0_paddr = auto_in_paddr[28:0];	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9, :46:24
   assign auto_out_0_pwdata = auto_in_pwdata;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
   assign auto_out_0_pstrb = auto_in_pstrb;	// rocket-chip/src/main/scala/amba/apb/Xbar.scala:24:9
 endmodule
@@ -3231,7 +3209,7 @@ module APBSPI(	// src/device/SPI.scala:125:9
                 auto_in_psel,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_in_penable,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
                 auto_in_pwrite,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
-  input  [29:0] auto_in_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
+  input  [28:0] auto_in_paddr,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input  [31:0] auto_in_pwdata,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   input  [3:0]  auto_in_pstrb,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
   output        auto_in_pready,	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18
@@ -3249,7 +3227,7 @@ module APBSPI(	// src/device/SPI.scala:125:9
     .in_psel     (auto_in_psel),
     .in_penable  (auto_in_penable),
     .in_pwrite   (auto_in_pwrite),
-    .in_paddr    ({2'h0, auto_in_paddr}),	// src/device/SPI.scala:132:16
+    .in_paddr    ({3'h0, auto_in_paddr}),	// src/device/SPI.scala:132:16
     .in_pprot    (3'h1),	// rocket-chip/src/main/scala/diplomacy/LazyModule.scala:374:18, src/device/SPI.scala:129:22
     .in_pwdata   (auto_in_pwdata),
     .in_pstrb    (auto_in_pstrb),
@@ -9488,7 +9466,7 @@ module SoCASIC(	// src/SoC.scala:56:9
   wire        _apbxbar_auto_out_0_psel;	// src/SoC.scala:32:27
   wire        _apbxbar_auto_out_0_penable;	// src/SoC.scala:32:27
   wire        _apbxbar_auto_out_0_pwrite;	// src/SoC.scala:32:27
-  wire [29:0] _apbxbar_auto_out_0_paddr;	// src/SoC.scala:32:27
+  wire [28:0] _apbxbar_auto_out_0_paddr;	// src/SoC.scala:32:27
   wire [31:0] _apbxbar_auto_out_0_pwdata;	// src/SoC.scala:32:27
   wire [3:0]  _apbxbar_auto_out_0_pstrb;	// src/SoC.scala:32:27
   wire        _axi4xbar_1_auto_in_awready;	// rocket-chip/src/main/scala/amba/axi4/Xbar.scala:230:30

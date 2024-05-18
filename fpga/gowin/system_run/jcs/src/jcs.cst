@@ -1,69 +1,12 @@
 //Copyright (C)2014-2024 Gowin Semiconductor Corporation.
 //All rights reserved. 
 //File Title: Physical Constraints file
-//Tool Version: V1.9.9.03 (64-bit)
+//Tool Version: V1.9.9.03
 //Part Number: GW5AST-LV138FPG676AC2/I1
 //Device: GW5AST-138
 //Device Version: B
-//Created Time: Tue 04 30 07:50:35 2024
+//Created Time: Sat 05 18 22:12:51 2024
 
-//reset
-IO_PORT "reset" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-
-//clock
-IO_LOC "clock" P16;
-IO_PORT "clock" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-
-//uart
-IO_LOC "externalPins_uart_tx" U16;
-IO_PORT "externalPins_uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_LOC "externalPins_uart_rx" V16;
-IO_PORT "externalPins_uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-
-//gpio
-IO_LOC "externalPins_gpio_out[5]" N23;
-IO_LOC "externalPins_gpio_out[4]" N21;
-IO_LOC "externalPins_gpio_out[3]" M25;
-IO_LOC "externalPins_gpio_out[2]" L20;
-IO_LOC "externalPins_gpio_out[1]" R26;
-IO_LOC "externalPins_gpio_out[0]" J14;
-
-IO_LOC "externalPins_gpio_in[3]" G16;
-IO_LOC "externalPins_gpio_in[2]" G15;
-IO_LOC "externalPins_gpio_in[1]" F15;
-IO_LOC "externalPins_gpio_in[0]" K16;
-
-IO_PORT "externalPins_gpio_out[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_out[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_out[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_out[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_out[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_out[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-
-IO_PORT "externalPins_gpio_in[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_in[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_in[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-IO_PORT "externalPins_gpio_in[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-
-//spi
-IO_PORT "spi_mosi" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "spi_ss" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "spi_sck" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-IO_PORT "spi_miso" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
-
-//tmds_pll
-//IO_LOC "tmds_clk_p_0" Y22,Y23;
-//
-//IO_LOC "tmds_d_p_0[2]" AA22,AA23;
-//IO_LOC "tmds_d_p_0[1]" V24,W24;
-//IO_LOC "tmds_d_p_0[0]" AB24,AC24;
-//
-//IO_PORT "tmds_clk_p_0" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_PORT "tmds_d_p_0[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_PORT "tmds_d_p_0[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_PORT "tmds_d_p_0[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-
-//ddr3
 IO_LOC "ddr3_O_ddr_ba[2]" K3;
 IO_PORT "ddr3_O_ddr_ba[2]" IO_TYPE=SSTL15 PULL_MODE=NONE DRIVE=12 BANK_VCCIO=1.5;
 IO_LOC "ddr3_O_ddr_ba[1]" L5;
@@ -194,51 +137,38 @@ IO_LOC "ddr3_dqs[1]" H7,G7;
 IO_PORT "ddr3_dqs[1]" IO_TYPE=SSTL15D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=1.5;
 IO_LOC "ddr3_dqs[0]" J4,H4;
 IO_PORT "ddr3_dqs[0]" IO_TYPE=SSTL15D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=1.5;
-
-////cmos
-//IO_LOC "cmos_rst_n" F17;
-//IO_PORT "cmos_rst_n" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "cmos_scl" K25;
-//IO_PORT "cmos_scl" PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "cmos_pwdn" D16;
-//IO_PORT "cmos_pwdn" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "cmos_xclk" C17;
-//IO_PORT "cmos_xclk" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//
-//IO_LOC "cmos_sda" K26;
-//IO_PORT "cmos_sda" PULL_MODE=UP DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[7]" B17;
-//IO_PORT "cmos_db[7]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[6]" C18;
-//IO_PORT "cmos_db[6]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[5]" D18;
-//IO_PORT "cmos_db[5]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[4]" E20;
-//IO_PORT "cmos_db[4]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[3]" E21;
-//IO_PORT "cmos_db[3]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[2]" B22;
-//IO_PORT "cmos_db[2]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[1]" A22;
-//IO_PORT "cmos_db[1]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_db[0]" D21;
-//IO_PORT "cmos_db[0]" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_pclk" D20;
-//IO_PORT "cmos_pclk" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_href" E16;
-//IO_PORT "cmos_href" PULL_MODE=NONE BANK_VCCIO=3.3;
-//IO_LOC "cmos_vsync" G17;
-//IO_PORT "cmos_vsync" PULL_MODE=NONE BANK_VCCIO=3.3;
-//
-////iic
-//IO_LOC "iic_mux[2]" P26;
-//IO_PORT "iic_mux[2]" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "iic_mux[1]" P19;
-//IO_PORT "iic_mux[1]" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//IO_LOC "iic_mux[0]" N19;
-//IO_PORT "iic_mux[0]" PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
-//
-//
-//INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/u_dll" DDRDLLM_BL;
-//INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_pll_inst0/PLL_inst" PLL_L[0];
-//INS_LOC "camera_hdmi/u_ov5640_ddr_lcd/ddr_2fifo_top_inst/ddr_ctrl_inst/ddr_m0/gw3_top/u_ddr_phy_top/fclkdiv" LEFTSIDE[4];
+IO_LOC "externalPins_uart_tx" U16;
+IO_PORT "externalPins_uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[5]" N23;
+IO_PORT "externalPins_gpio_out[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[4]" N21;
+IO_PORT "externalPins_gpio_out[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[3]" M25;
+IO_PORT "externalPins_gpio_out[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[2]" L20;
+IO_PORT "externalPins_gpio_out[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[1]" R26;
+IO_PORT "externalPins_gpio_out[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_out[0]" J14;
+IO_PORT "externalPins_gpio_out[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "spi_mosi" R14;
+IO_PORT "spi_mosi" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "spi_ss[0]" P18;
+IO_PORT "spi_ss[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "spi_sck" H13;
+IO_PORT "spi_sck" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "externalPins_uart_rx" V16;
+IO_PORT "externalPins_uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_in[3]" G16;
+IO_PORT "externalPins_gpio_in[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_in[2]" G15;
+IO_PORT "externalPins_gpio_in[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_in[1]" F15;
+IO_PORT "externalPins_gpio_in[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "externalPins_gpio_in[0]" K16;
+IO_PORT "externalPins_gpio_in[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "spi_miso" R15;
+IO_PORT "spi_miso" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC "clock" P16;
+IO_PORT "clock" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_PORT "reset" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;

@@ -81,12 +81,11 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 /home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v<br>
 /home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v<br>
 /home/cyh/chiplab/soc/build/SoCFull.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read_top.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_ctrl_top.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_init.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_read.v<br>
-/home/cyh/chiplab/soc/perip/spi/sd_write.v<br>
+/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v<br>
+/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v<br>
+/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v<br>
+/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v<br>
+/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v<br>
 /home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v<br>
 /home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v<br>
 /home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v<br>
@@ -120,7 +119,7 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Thu May 16 23:32:27 2024
+<td>Sat May 18 22:21:45 2024
 </td>
 </tr>
 <tr>
@@ -136,11 +135,11 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">Synthesis Process</td>
-<td>Running parser:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s, Peak memory usage = 1787.367MB<br/>Running netlist conversion:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s, Peak memory usage = 0MB<br/>Running device independent optimization:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 0: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 1: CPU time = 0h 0m 0.738s, Elapsed time = 0h 0m 0.732s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 2: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s, Peak memory usage = 1787.367MB<br/>Running inference:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 0: CPU time = 0h 0m 28s, Elapsed time = 0h 0m 28s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 1: CPU time = 0h 0m 0.011s, Elapsed time = 0h 0m 0.01s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 2: CPU time = 0h 0m 0.177s, Elapsed time = 0h 0m 0.175s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 3: CPU time = 0h 0m 0.062s, Elapsed time = 0h 0m 0.06s, Peak memory usage = 1787.367MB<br/>Running technical mapping:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 0: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 1: CPU time = 0h 0m 0.505s, Elapsed time = 0h 0m 0.501s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 2: CPU time = 0h 0m 0.796s, Elapsed time = 0h 0m 0.79s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 3: CPU time = 0h 0m 51s, Elapsed time = 0h 0m 51s, Peak memory usage = 1787.367MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 4: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s, Peak memory usage = 1787.367MB<br/>Generate output files:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 1787.367MB<br/></td>
+<td>Running parser:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s, Peak memory usage = 933.836MB<br/>Running netlist conversion:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s, Peak memory usage = 0MB<br/>Running device independent optimization:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 0: CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 1: CPU time = 0h 0m 0.767s, Elapsed time = 0h 0m 0.76s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Optimizing Phase 2: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s, Peak memory usage = 933.836MB<br/>Running inference:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 0: CPU time = 0h 0m 29s, Elapsed time = 0h 0m 29s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 1: CPU time = 0h 0m 0.02s, Elapsed time = 0h 0m 0.018s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 2: CPU time = 0h 0m 0.197s, Elapsed time = 0h 0m 0.195s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Inferring Phase 3: CPU time = 0h 0m 0.064s, Elapsed time = 0h 0m 0.063s, Peak memory usage = 933.836MB<br/>Running technical mapping:<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 0: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 1: CPU time = 0h 0m 0.527s, Elapsed time = 0h 0m 0.524s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 2: CPU time = 0h 0m 0.848s, Elapsed time = 0h 0m 0.841s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 3: CPU time = 0h 0m 53s, Elapsed time = 0h 0m 53s, Peak memory usage = 933.836MB<br/>&nbsp;&nbsp;&nbsp;&nbsp;Tech-Mapping Phase 4: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s, Peak memory usage = 933.836MB<br/>Generate output files:<br/>&nbsp;&nbsp;&nbsp;&nbsp;CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 933.836MB<br/></td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 1m 34s, Elapsed time = 0h 1m 34s, Peak memory usage = 1787.367MB</td>
+<td>CPU time = 0h 1m 39s, Elapsed time = 0h 1m 39s, Peak memory usage = 933.836MB</td>
 </tr>
 </table>
 <h1><a name="resource">Resource</a></h1>
@@ -152,11 +151,11 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label"><b>I/O Port </b></td>
-<td>89</td>
+<td>96</td>
 </tr>
 <tr>
 <td class="label"><b>I/O Buf </b></td>
-<td>83</td>
+<td>90</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspIBUF</td>
@@ -164,7 +163,7 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspOBUF</td>
-<td>35</td>
+<td>42</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspTBUF</td>
@@ -184,7 +183,7 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label"><b>Register </b></td>
-<td>18350</td>
+<td>18335</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspDFFSE</td>
@@ -192,59 +191,59 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspDFFRE</td>
-<td>12307</td>
+<td>12273</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspDFFPE</td>
-<td>106</td>
+<td>117</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspDFFCE</td>
-<td>5841</td>
+<td>5849</td>
 </tr>
 <tr>
 <td class="label"><b>LUT </b></td>
-<td>21334</td>
+<td>21655</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspLUT2</td>
-<td>1746</td>
+<td>1825</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspLUT3</td>
-<td>10195</td>
+<td>9983</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspLUT4</td>
-<td>9265</td>
+<td>9591</td>
 </tr>
 <tr>
-<td class="label">&nbsp&nbsp&nbsp&nbspLUT6</td>
-<td>128</td>
+<td class="label">&nbsp&nbsp&nbsp&nbspLUT7</td>
+<td>256</td>
 </tr>
 <tr>
 <td class="label"><b>MUX </b></td>
-<td>2016</td>
+<td>4064</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspMUX2</td>
-<td>2016</td>
+<td>4064</td>
 </tr>
 <tr>
 <td class="label"><b>ALU </b></td>
-<td>6036</td>
+<td>6009</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspALU</td>
-<td>6036</td>
+<td>6009</td>
 </tr>
 <tr>
 <td class="label"><b>INV </b></td>
-<td>77</td>
+<td>73</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspINV</td>
-<td>77</td>
+<td>73</td>
 </tr>
 <tr>
 <td class="label"><b>IOLOGIC </b></td>
@@ -268,7 +267,7 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label"><b>BSRAM </b></td>
-<td>175</td>
+<td>303</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspSP</td>
@@ -276,7 +275,7 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspSDPB</td>
-<td>139</td>
+<td>267</td>
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp&nbsp&nbspSDPX9B</td>
@@ -312,12 +311,12 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>29847(23811 LUT, 6036 ALU) / 138240</td>
-<td>22%</td>
+<td>33593(27584 LUT, 6009 ALU) / 138240</td>
+<td>25%</td>
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>18350 / 139140</td>
+<td>18335 / 139140</td>
 <td>14%</td>
 </tr>
 <tr>
@@ -327,13 +326,13 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">&nbsp&nbsp--Register as FF</td>
-<td>18350 / 139140</td>
+<td>18335 / 139140</td>
 <td>14%</td>
 </tr>
 <tr>
 <td class="label">BSRAM</td>
-<td>175 / 340</td>
-<td>52%</td>
+<td>303 / 340</td>
+<td>90%</td>
 </tr>
 </table>
 <h1><a name="timing">Timing</a></h1>
@@ -409,16 +408,16 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 <td>1</td>
 <td>clock</td>
 <td>50.000(MHz)</td>
-<td>203.832(MHz)</td>
-<td>7</td>
+<td>242.601(MHz)</td>
+<td>6</td>
 <td>TOP</td>
 </tr>
 <tr>
 <td>2</td>
 <td>pll_pll/PLL_inst/CLKOUT0.default_gen_clk</td>
 <td>25.000(MHz)</td>
-<td>40.326(MHz)</td>
-<td>18</td>
+<td>46.378(MHz)</td>
+<td>32</td>
 <td>TOP</td>
 </tr>
 <tr>
@@ -1132,31 +1131,31 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 <table class="summary_table">
 <tr>
 <td class="label">Slack</td>
-<td>1.753</td>
+<td>1.625</td>
 </tr>
 <tr>
 <td class="label">Data Arrival Time</td>
-<td>1.336</td>
+<td>8.958</td>
 </tr>
 <tr>
 <td class="label">Data Required Time</td>
-<td>3.089</td>
+<td>10.584</td>
 </tr>
 <tr>
 <td class="label">From</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs</td>
+<td>asic/lsdram/axi4asink/nodeOut_awsink/valid_reg_s0</td>
 </tr>
 <tr>
 <td class="label">To</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/iserdes_gen[7].u_ides8_mem</td>
+<td>asic/lsdram/axi4asink/nodeIn_rsource/mem_7_data_15_s0</td>
 </tr>
 <tr>
 <td class="label">Launch Clk</td>
-<td>pll_pll/PLL_inst/CLKOUT2.default_gen_clk[R]</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT.default_gen_clk[R]</td>
 </tr>
 <tr>
 <td class="label">Latch Clk</td>
-<td>pll_pll/PLL_inst/CLKOUT2.default_gen_clk[R]</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT.default_gen_clk[R]</td>
 </tr>
 </table>
 <b>Data Arrival Path:</b>
@@ -1175,39 +1174,215 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 <td> </td>
 <td> </td>
 <td> </td>
-<td>pll_pll/PLL_inst/CLKOUT2.default_gen_clk</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT.default_gen_clk</td>
 </tr>
 <tr>
-<td>0.259</td>
-<td>0.259</td>
+<td>0.305</td>
+<td>0.305</td>
 <td>tCL</td>
 <td>RR</td>
-<td>103</td>
-<td>pll_pll/PLL_inst/CLKOUT2</td>
+<td>6282</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT</td>
 </tr>
 <tr>
-<td>0.589</td>
-<td>0.330</td>
-<td>tNET</td>
-<td>RR</td>
-<td>5</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs/FCLK</td>
-</tr>
-<tr>
-<td>1.006</td>
-<td>0.417</td>
-<td>tC2Q</td>
-<td>RR</td>
-<td>8</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/u_dqs/RPOINT[2]</td>
-</tr>
-<tr>
-<td>1.336</td>
+<td>0.635</td>
 <td>0.330</td>
 <td>tNET</td>
 <td>RR</td>
 <td>1</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/iserdes_gen[7].u_ides8_mem/RADDR[2]</td>
+<td>asic/lsdram/axi4asink/nodeOut_awsink/valid_reg_s0/CLK</td>
+</tr>
+<tr>
+<td>0.941</td>
+<td>0.306</td>
+<td>tC2Q</td>
+<td>RR</td>
+<td>2</td>
+<td>asic/lsdram/axi4asink/nodeOut_awsink/valid_reg_s0/Q</td>
+</tr>
+<tr>
+<td>1.271</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/accept_write_s1/I0</td>
+</tr>
+<tr>
+<td>1.734</td>
+<td>0.463</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/accept_write_s1/F</td>
+</tr>
+<tr>
+<td>2.063</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/accept_write_s0/I2</td>
+</tr>
+<tr>
+<td>2.469</td>
+<td>0.406</td>
+<td>tINS</td>
+<td>RR</td>
+<td>145</td>
+<td>asic/lsdram/msdram/accept_write_s0/F</td>
+</tr>
+<tr>
+<td>2.799</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/addr_0_s2/I2</td>
+</tr>
+<tr>
+<td>3.205</td>
+<td>0.406</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/addr_0_s2/F</td>
+</tr>
+<tr>
+<td>3.535</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/addr_0_s0/I1</td>
+</tr>
+<tr>
+<td>3.655</td>
+<td>0.120</td>
+<td>tINS</td>
+<td>RR</td>
+<td>311</td>
+<td>asic/lsdram/msdram/addr_0_s0/O</td>
+</tr>
+<tr>
+<td>3.985</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_31_s17/I2</td>
+</tr>
+<tr>
+<td>4.391</td>
+<td>0.406</td>
+<td>tINS</td>
+<td>RR</td>
+<td>2</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_31_s17/F</td>
+</tr>
+<tr>
+<td>4.721</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s15/I0</td>
+</tr>
+<tr>
+<td>5.184</td>
+<td>0.463</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s15/F</td>
+</tr>
+<tr>
+<td>5.514</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s12/I3</td>
+</tr>
+<tr>
+<td>5.745</td>
+<td>0.231</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s12/F</td>
+</tr>
+<tr>
+<td>6.075</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s7/I0</td>
+</tr>
+<tr>
+<td>6.538</td>
+<td>0.463</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s7/F</td>
+</tr>
+<tr>
+<td>6.868</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s3/I2</td>
+</tr>
+<tr>
+<td>7.274</td>
+<td>0.406</td>
+<td>tINS</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s3/F</td>
+</tr>
+<tr>
+<td>7.604</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s/I3</td>
+</tr>
+<tr>
+<td>7.835</td>
+<td>0.231</td>
+<td>tINS</td>
+<td>RR</td>
+<td>2</td>
+<td>asic/lsdram/msdram/_io_in_rdata_T_2_15_s/F</td>
+</tr>
+<tr>
+<td>8.165</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/msdram/_msdram_io_in_rdata_15_s0/I0</td>
+</tr>
+<tr>
+<td>8.628</td>
+<td>0.463</td>
+<td>tINS</td>
+<td>RR</td>
+<td>8</td>
+<td>asic/lsdram/msdram/_msdram_io_in_rdata_15_s0/F</td>
+</tr>
+<tr>
+<td>8.958</td>
+<td>0.330</td>
+<td>tNET</td>
+<td>RR</td>
+<td>1</td>
+<td>asic/lsdram/axi4asink/nodeIn_rsource/mem_7_data_15_s0/D</td>
 </tr>
 </table>
 <b>Data Required Path:</b>
@@ -1221,36 +1396,36 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 <th>NODE</th>
 </tr>
 <tr>
-<td>2.500</td>
+<td>10.000</td>
 <td>0.000</td>
 <td> </td>
 <td> </td>
 <td> </td>
-<td>pll_pll/PLL_inst/CLKOUT2.default_gen_clk</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT.default_gen_clk</td>
 </tr>
 <tr>
-<td>2.759</td>
-<td>0.259</td>
+<td>10.304</td>
+<td>0.305</td>
 <td>tCL</td>
 <td>RR</td>
-<td>103</td>
-<td>pll_pll/PLL_inst/CLKOUT2</td>
+<td>6282</td>
+<td>dmi/gw3_top/u_ddr_phy_top/fclkdiv/CLKOUT</td>
 </tr>
 <tr>
-<td>3.089</td>
+<td>10.635</td>
 <td>0.330</td>
 <td>tNET</td>
 <td>RR</td>
 <td>1</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/iserdes_gen[7].u_ides8_mem/FCLK</td>
+<td>asic/lsdram/axi4asink/nodeIn_rsource/mem_7_data_15_s0/CLK</td>
 </tr>
 <tr>
-<td>3.089</td>
-<td>0.000</td>
+<td>10.584</td>
+<td>-0.051</td>
 <td>tSu</td>
 <td> </td>
 <td>1</td>
-<td>dmi/gw3_top/u_ddr_phy_top/u_ddr_phy_wds/data_lane_gen[3].u_ddr_phy_data_lane/u_ddr_phy_data_io/iserdes_gen[7].u_ides8_mem</td>
+<td>asic/lsdram/axi4asink/nodeIn_rsource/mem_7_data_15_s0</td>
 </tr>
 </table>
 <b>Path Statistics:</b>
@@ -1261,16 +1436,16 @@ table.detail_table td.label { min-width: 100px; width: 8%;}
 </tr>
 <tr>
 <td class="label">Setup Relationship:</td>
-<td>2.500</td>
+<td>10.000</td>
 </tr>
 <tr>
 <td class="label">Logic Level:</td>
-<td>1</td>
+<td>11</td>
 </tr>
 <tr>
 <td class="label">Arrival Clock Path Delay:</td><td> cell: 0.000, 0.000%; route: 0.330, 100.000%</td></tr>
 <tr>
-<td class="label">Arrival Data Path Delay:</td><td> cell: 0.000, 0.000%; route: 0.330, 44.164%; tC2Q: 0.417, 55.836%</td></tr>
+<td class="label">Arrival Data Path Delay:</td><td> cell: 4.058, 48.751%; route: 3.960, 47.573%; tC2Q: 0.306, 3.676%</td></tr>
 <tr>
 <td class="label">Required Clock Path Delay:</td><td> cell: 0.000, 0.000%; route: 0.330, 100.000%</td></tr>
 </table>

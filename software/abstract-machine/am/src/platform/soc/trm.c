@@ -1,6 +1,6 @@
 #include <am.h>
-#include <string.h>
-#include <stdio.h>
+#include <klib.h>
+#include <klib-macros.h>
 #include <soc.h>
 
 extern char _heap_start;

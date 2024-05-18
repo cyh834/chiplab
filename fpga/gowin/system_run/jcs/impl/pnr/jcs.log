@@ -11,17 +11,3 @@ Running placement......
 Running routing......
 [60%] Routing Phase 0 completed
 [70%] Routing Phase 1 completed
-[80%] Routing Phase 2 completed
-WARN  (PR1014) : Generic routing resource will be used to clock signal 'clock_d' by the specified constraint. And then it may lead to the excessive delay or skew
-[90%] Routing Phase 3 completed
-Running timing analysis......
-[95%] Timing analysis completed
-Placement and routing completed
-Bitstream generation in progress......
-Bitstream generation completed
-Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.pin.html" completed
-Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.rpt.html" completed
-Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.rpt.txt" completed
-Generate file "/home/cyh/chiplab/fpga/gowin/system_run/jcs/impl/pnr/jcs.tr.html" completed
-Thu May 16 23:38:41 2024
-
