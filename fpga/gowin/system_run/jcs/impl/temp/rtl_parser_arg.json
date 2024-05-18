@@ -106,6 +106,26 @@
    "Type" : "verilog"
   },
   {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v",
    "Type" : "verilog"
   },
@@ -139,26 +159,6 @@
   },
   {
    "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v",
    "Type" : "verilog"
   }
  ],

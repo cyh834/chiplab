@@ -39,7 +39,11 @@ void init_mm(){
 void *malloc(size_t size) {
   void *ret = pf;
   pf += size;
-  assert(pf <= heap.end);
+
+  if((uint32_t)pf > (uint32_t)heap.end){
+    printf("0x%x 0x%x 0x%x\n", size, (uint32_t)pf, (uint32_t)heap.end);
+    assert(0);
+  }
   return ret;
 
   //#if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))

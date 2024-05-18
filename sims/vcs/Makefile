@@ -51,7 +51,7 @@ deltmp:
 
 VCS = vcs -full64 -LDFLAGS -Wl,--no-as-needed
 
-VCS_OPTS = -line +lint=all -timescale=1ps/1ps -quiet \
+VCS_OPTS = -line +lint=all -timescale=1ns/1ns -quiet \
 	+rad +v2k +vcs+lic+wait \
 	+vc+list -CC "-I$(VCS_HOME)/include" \
 	-sverilog +v2k \
@@ -59,7 +59,7 @@ VCS_OPTS = -line +lint=all -timescale=1ps/1ps -quiet \
 	+incdir+$(soc)/perip/uart16550/rtl \
 	+incdir+$(IP)/open-la500 \
 	+incdir+$(soc)/perip/sdram \
-	+define+CLOCK_PERIOD=20000 $(sim_vsrcs) $(sim_csrcs) \
+	+define+CLOCK_PERIOD=20 $(sim_vsrcs) $(sim_csrcs) \
 	+define+RANDOMIZE_MEM_INIT \
 	+define+RANDOMIZE_GARBAGE_ASSIGN \
 	+define+RANDOMIZE_INVALID_ASSIGN \

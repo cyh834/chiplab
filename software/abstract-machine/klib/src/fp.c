@@ -125,10 +125,10 @@ float expf(float x)	{
 	return __ieee754_expf(x);
 }
 
-float __addsf3(float a, float b) { const float r = a + b; return r; }
-float __subsf3(float a, float b) { const float r = a - b; return r; }
-float __mulsf3(float a, float b) { const float r = a * b; return r; }
-float __divsf3(float a, float b) { const float r = a / b; return r; }
+//float __addsf3(float a, float b) { const float r = a + b; return r; }
+//float __subsf3(float a, float b) { const float r = a - b; return r; }
+//float __mulsf3(float a, float b) { const float r = a * b; return r; }
+//float __divsf3(float a, float b) { const float r = a / b; return r; }
 
 
 

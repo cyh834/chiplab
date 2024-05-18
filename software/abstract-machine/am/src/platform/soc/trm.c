@@ -1,7 +1,7 @@
 #include <am.h>
-#include <string.h>
-#include <stdio.h>
 #include <soc.h>
+#include <klib-macros.h>
+#include <klib.h>
 
 extern char _heap_start;
 
