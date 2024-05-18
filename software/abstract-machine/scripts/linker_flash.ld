@@ -68,5 +68,7 @@ SECTIONS {
   _end = .;
 
   _heap_start = ALIGN(0x1000);
+  _heap_end = ORIGIN(RAM) + LENGTH(RAM);
+  _ram_end = ORIGIN(RAM) + LENGTH(RAM);
 
 }

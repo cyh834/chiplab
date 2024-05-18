@@ -31,12 +31,11 @@
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/build/SoCFull.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read_top.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_top.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_init.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_read.v" type="file.verilog" enable="1"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_write.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v" type="file.verilog" enable="1"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v" type="file.verilog" enable="1"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v" type="file.verilog" enable="1"/>

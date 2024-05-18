@@ -30,12 +30,6 @@
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/gowin_sdpb/SRAM_SDPB.v" type="verilog"/>
         <File path="/home/cyh/chiplab/fpga/gowin/gowin_ip/xilinx2gowin.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/build/SoCFull.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read_top.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_ctrl_top.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_init.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_read.v" type="verilog"/>
-        <File path="/home/cyh/chiplab/soc/perip/spi/sd_write.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_defines.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_receiver.v" type="verilog"/>
@@ -45,6 +39,11 @@
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_tfifo.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_top_apb.v" type="verilog"/>
         <File path="/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v" type="verilog"/>
+        <File path="/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v" type="verilog"/>
     </FileList>
     <OptionList>
         <Option type="disable_insert_pad" value="0"/>

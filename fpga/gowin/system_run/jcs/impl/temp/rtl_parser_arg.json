@@ -106,30 +106,6 @@
    "Type" : "verilog"
   },
   {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_ctrl_read_top.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_ctrl_top.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_init.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_read.v",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/cyh/chiplab/soc/perip/spi/sd_write.v",
-   "Type" : "verilog"
-  },
-  {
    "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/raminfr.v",
    "Type" : "verilog"
   },
@@ -163,6 +139,26 @@
   },
   {
    "Path" : "/home/cyh/chiplab/soc/perip/uart16550/rtl/uart_transmitter.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_clgen.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_defines.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_shift.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/cyh/chiplab/soc/perip/spi/rtl/spi_top_apb.v",
    "Type" : "verilog"
   }
  ],
