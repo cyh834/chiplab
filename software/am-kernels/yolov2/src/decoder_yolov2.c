@@ -15,8 +15,11 @@ limitations under the License.
 extern "C" {
 #endif
 
-#include <yolov4.h>
 #include "decoder_yolov2.h"
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 
 static libmaix_err_t region_layer_init(region_layer_t *rl)
@@ -45,18 +48,21 @@ static libmaix_err_t region_layer_init(region_layer_t *rl)
         goto malloc_error;
     }*/
     rl->boxes = (libmaix_nn_decoder_yolo2_box_t*)malloc(rl->boxes_number * sizeof(libmaix_nn_decoder_yolo2_box_t));
+    //printf("------------------------------------------------------boxes=%d\n",malloc_usable_size(rl->boxes));
     if (rl->boxes == NULL)
     {
         flag = LIBMAIX_ERR_NO_MEM;
         goto malloc_error;
     }
     rl->probs_buf = (float*)malloc(rl->boxes_number * (rl->config->classes_num + 1) * sizeof(float));
+    //printf("-------------------------------------------------probs_buf=%d\n",malloc_usable_size(rl->probs_buf));
     if (rl->probs_buf == NULL)
     {
         flag = LIBMAIX_ERR_NO_MEM;
         goto malloc_error;
     }
     rl->probs = (float**)malloc(rl->boxes_number * sizeof(float *));
+    //printf("----------------------------------------------------probs=%d\n",malloc_usable_size(rl->probs));
     if (rl->probs == NULL)
     {
         flag = LIBMAIX_ERR_NO_MEM;
@@ -111,7 +117,7 @@ static inline float sigmod(float input)
     return 1.0 / (1.0 + expf(-input));
 }
 
-/*static void activate_array(region_layer_t *rl, int index, int n)
+static void activate_array(region_layer_t *rl, int index, int n)
 {
     float *output = &rl->output[index];
     //uint8_t *input = &rl->input[index];
@@ -127,7 +133,7 @@ static int entry_index(region_layer_t *rl, int location, int entry)
     int loc = location % wh;
 
     return n * wh * (rl->coords + rl->config->classes_num + 1) + entry * wh + loc;
-}*/
+}
 
 static void softmax(float *data, int n, int stride)
 {
@@ -294,7 +300,7 @@ static void get_region_boxes(region_layer_t *rl, float *predictions, float **pro
             }
         }
     }
-    //int index = 874;
+    int index = 874;
     correct_region_boxes(rl, boxes);
 }
 
@@ -412,6 +418,7 @@ libmaix_err_t libmaix_nn_decoder_yolo2_init(struct libmaix_nn_decoder *obj, void
 {
     libmaix_nn_decoder_yolo2_deinit(obj);
     region_layer_t* rl = (region_layer_t*)malloc(sizeof(region_layer_t));
+    //printf("----------------------------------------------------------------------------------rl=%d\n",malloc_usable_size(rl));
     if(!rl)
     {
         return LIBMAIX_ERR_NO_MEM;
@@ -488,6 +495,7 @@ void libmaix_nn_decoder_yolo2_draw_result(struct libmaix_nn_decoder* obj, libmai
 libmaix_nn_decoder_t* libmaix_nn_decoder_yolo2_create()
 {
     libmaix_nn_decoder_t* obj = (libmaix_nn_decoder_t*)malloc(sizeof(libmaix_nn_decoder_t));
+    //printf("----------------------------------------------------------------------------------------------obj=%d\n",malloc_usable_size(obj));
     if(!obj)
     {
         return NULL;

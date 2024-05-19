@@ -51,7 +51,8 @@ limitations under the License.
 /******************************* DBG TIME CONFIG  ************************************/
 #include <sys/time.h>
 #include <time.h>
-#define  TM_GET_US()       (0x10000) //((uint32_t)((uint64_t)clock()*1000000/CLOCKS_PER_SEC))
+#include <yolov2.h>
+#define  TM_GET_US()       0//((uint32_t)((uint64_t)clock()*1000000/CLOCKS_PER_SEC))
 
 #define TM_DBGT_INIT()     uint32_t _start,_finish;float _time;_start=TM_GET_US();
 #define TM_DBGT_START()    _start=TM_GET_US();

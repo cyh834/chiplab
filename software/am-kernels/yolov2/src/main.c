@@ -10,13 +10,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include <yolov4.h>
+#include "stdio.h"
 #include "tinymaix.h"
 #include "decoder_yolov2.h"
 
 #include "model_info.h"   // model header file generted by maixhub
 #include "model_final.h"  // model header file generted by maixhub
-
 /////////////////// config ////////////////////////
 static int class_num = PARAM_CLASS_NUM;                              // class number
 static const char* labels[] = PARAM_LABELS;                          // class names
@@ -34,6 +33,7 @@ static int recognize_count = 0;
     #error "MaixHub only generate int8 or fp32 model"
 #endif
 
+
 static tm_err_t layer_cb(tm_mdl_t* mdl, tml_head_t* lh)
 {   //dump middle result
     int h = lh->out_dims[1];
@@ -49,9 +49,9 @@ static tm_err_t layer_cb(tm_mdl_t* mdl, tml_head_t* lh)
             TM_PRINTF("[");
             for(int c=0; c<ch; c++){
             #if TM_MDL_TYPE == TM_MDL_FP32
-                //TM_PRINTF("%.3f,", output[(y*w+x)*ch+c]);
+                TM_PRINTF("%.3f,", output[(y*w+x)*ch+c]);
             #else
-                //TM_PRINTF("%.3f,", TML_DEQUANT(lh,output[(y*w+x)*ch+c]));
+                TM_PRINTF("%.3f,", TML_DEQUANT(lh,output[(y*w+x)*ch+c]));
             #endif
             }
             TM_PRINTF("],");
@@ -62,11 +62,49 @@ static tm_err_t layer_cb(tm_mdl_t* mdl, tml_head_t* lh)
     #endif
     return TM_OK;
 }
-//unsigned char pics[224*224*3];
-void draw(unsigned char *pic, int imgw, int imgh, int n, int x, int y, int w, int h){
-	int index;
+void resize_image(unsigned char *input, uint32_t width, uint32_t height, unsigned char* output, uint32_t new_width, uint32_t new_height, uint32_t n) {
+    for (int y = 0; y < new_height; y++) {
+        for (int x = 0; x < new_width; x++) {
+            
+            float src_x = ((float)x / new_width) * width;
+            float src_y = ((float)y / new_height) * height;
+
+            
+            int x1 = (int)src_x;
+            int y1 = (int)src_y;
+            int x2 = x1 + 1;
+            int y2 = y1 + 1;
+
+            
+            x1 = (x1 >= width - 1) ? width - 1 : x1;
+            y1 = (y1 >= height - 1) ? height - 1 : y1;
+            x2 = (x2 >= width) ? width - 1 : x2;
+            y2 = (y2 >= height) ? height - 1 : y2;
+
+           
+            float dx = src_x - x1;
+            float dy = src_y - y1;
+
+            float weight1 = (1 - dx) * (1 - dy);
+            float weight2 = dx * (1 - dy);
+            float weight3 = (1 - dx) * dy;
+            float weight4 = dx * dy;
+
+            
+            for (int c = 0; c < n; c++) {
+                output[(y * new_width + x) * n + c] =
+                    input[(y1 * width + x1) * n + c] * weight1 +
+                    input[(y1 * width + x2) * n + c] * weight2 +
+                    input[(y2 * width + x1) * n + c] * weight3 +
+                    input[(y2 * width + x2) * n + c] * weight4;
+            }
+        }
+    }
+}
+static void draw(unsigned char *pic, uint32_t imgw, uint32_t imgh, uint32_t n, uint32_t x, uint32_t y, uint32_t w, uint32_t h){
+	uint32_t index;
 	index=(x+y*imgw)*n;
-	int xm=(x+y*imgw+w)*n-1;
+	uint32_t xm=(x+y*imgw+w)*n-1;
 	int i,j,k,c;
 	for(i=0;i<h;i++){
 		if(i==0){
@@ -81,12 +119,10 @@ void draw(unsigned char *pic, int imgw, int imgh, int n, int x, int y, int w, in
 			for(c=0;c<n;c++){
 				pic[index+i*imgw*n+c]=255;
 				pic[xm+i*imgw*n-c]=255;
-				}
+			}
 		}
 	}
 }
-
-
 static void on_draw_box(uint32_t id, uint32_t x, uint32_t y, uint32_t w, uint32_t h, uint32_t class_id, float prob, const char* label, void* arg)
 {
     static uint32_t last_id = 0xffffffff;
@@ -95,16 +131,15 @@ static void on_draw_box(uint32_t id, uint32_t x, uint32_t y, uint32_t w, uint32_
         TM_PRINTF("----image:%d----\n", id);
     }
     TM_PRINTF("## img:%d, box: x:%d, y:%d, w:%d, h:%d, class:%d, prob:%d %%, label:%s\n\n", id, x, y, w, h, class_id, (uint32_t)(prob*100), label);
+    /*float bh=(float)480/(float)224;
+    float bw=(float)800/(float)224;
+    float hp,wp,xp,yp;
+    hp=(float)h*bh;
+    wp=(float)w*bw;
+    xp=(float)x*bw;
+    yp=(float)y*bh;
+    draw(pics,800,480,3,(uint32_t)xp,(uint32_t)yp,(uint32_t)wp,(uint32_t)hp);*/
     last_id = id;
-    /*draw(pic,224,224,3,x,y,w,h);
-    int n=3;
-    for(int i=0;i<224*224;i++){
-    	for(int k=0;k<n;k++){
-    		printf("%3d,",pic[3*i+k]);
-    	}
-    	printf(" ");
-    	if(i%224==223){printf("\n");}
-    }*/
 }
 
 static void parse_output(libmaix_nn_decoder_t* decoder, tm_mat_t* outs, int class_num)
@@ -119,6 +154,7 @@ static void parse_output(libmaix_nn_decoder_t* decoder, tm_mat_t* outs, int clas
         return;
     }
     TM_PRINTF("decode result boxes_num: %d\n", result.boxes_num);
+    //for(int i=0;i<60;i++) printf("prob: %f\n", result.probs[i][i]);
     libmaix_nn_decoder_yolo2_draw_result(decoder, &result, recognize_count++, labels, on_draw_box, NULL);
     return;
 }
@@ -152,55 +188,13 @@ void maixhub_image_preprocess_quantize(tm_mdl_t* mdl, uint8_t *img_data, int w, 
 }
 
 
-//void resize_image(unsigned char* input, int width, int height, unsigned char* output, int new_width, int new_height, int n) {
-//    for (int y = 0; y < new_height; y++) {
-//        for (int x = 0; x < new_width; x++) {
-//            
-//            float src_x = ((float)x / new_width) * width;
-//            float src_y = ((float)y / new_height) * height;
-//
-//            
-//            int x1 = (int)src_x;
-//            int y1 = (int)src_y;
-//            int x2 = x1 + 1;
-//            int y2 = y1 + 1;
-//
-//            
-//            x1 = (x1 >= width - 1) ? width - 1 : x1;
-//            y1 = (y1 >= height - 1) ? height - 1 : y1;
-//            x2 = (x2 >= width) ? width - 1 : x2;
-//            y2 = (y2 >= height) ? height - 1 : y2;
-//
-//           
-//            float dx = src_x - x1;
-//            float dy = src_y - y1;
-//
-//            float weight1 = (1 - dx) * (1 - dy);
-//            float weight2 = dx * (1 - dy);
-//            float weight3 = (1 - dx) * dy;
-//            float weight4 = dx * dy;
-//
-//            
-//            for (int c = 0; c < n; c++) {
-//                output[(y * new_width + x) * n + c] =
-//                    input[(y1 * width + x1) * n + c] * weight1 +
-//                    input[(y1 * width + x2) * n + c] * weight2 +
-//                    input[(y2 * width + x1) * n + c] * weight3 +
-//                    input[(y2 * width + x2) * n + c] * weight4;
-//            }
-//        }
-//    }
-//}
-//n通道数
-
-
 int main(int argc, char** argv)
 {
-    TM_PRINTF("start\n");
-    //resize_image(pic,224,224,pics,224,224,3);
+    ioe_init();
+    init_mm();
+	//resize_image(pics,800,480,pic,224,224,3);
     //TM_DBGT_INIT();
     TM_PRINTF("MaixHub detection yolov2\n");
-
 
     tm_mdl_t mdl;
 
@@ -238,16 +232,33 @@ int main(int argc, char** argv)
 
     //tm_stat((tm_mdlbin_t*)mdl_data);
 
+    //printf("1buf: %u\n", mdl.buf);
     res = tm_load(&mdl, mdl_data, NULL, layer_cb, &in);
+    //printf("2buf: %u\n", mdl.buf);
     if(res != TM_OK) {
         TM_PRINTF("tm model load err %d\n", res);
         return -1;
     }
-
+    //printf("1dims: %d\n", in.dims);
+    //printf("1h: %d\n", in.h);
+    //printf("1w: %d\n", in.w);
+    //printf("1c: %d\n", in.c);
+    //printf("1data: %f\n", *in.data);
+    //for (int i = 0; i < 50; i++) {
+    //printf("1data[%d]: %d\n", i, in.data[i]);
+    //}
     // preprocess and quantize
     maixhub_image_preprocess_quantize(&mdl, pic, input_w, input_h, mean, std, in.data);
 
     //TM_DBGT_START();
+    //printf("2dims: %d\n", in.dims);
+    //printf("2h: %d\n", in.h);
+    //printf("2w: %d\n", in.w);
+    //printf("2c: %d\n", in.c);
+    //printf("2data: %f\n", *in.data);
+    //for (int i = 0; i < 50; i++) {
+    //printf("2data[%d]: %d\n", i, in.data[i]);
+    //}
     res = tm_run(&mdl, &in, outs);
     //TM_DBGT("tm_run");
 

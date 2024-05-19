@@ -10,7 +10,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 #include "tinymaix.h"
-#include <yolov4.h>
+
 //It is experimental test for fp8 model, buggy yet, only work for simple mnist model
 #if (TM_MDL_TYPE == TM_MDL_FP8_143) || (TM_MDL_TYPE == TM_MDL_FP8_152) 
 #if TM_ARCH != TM_ARCH_CPU

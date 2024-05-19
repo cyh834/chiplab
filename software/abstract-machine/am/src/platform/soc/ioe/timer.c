@@ -9,7 +9,7 @@
 #define TIMER_CMP  (TIMER_ADDR+0x08)
 #define TIMER_STEP (TIMER_ADDR+0x0C)
 
-void __am_timer_config(AM_TIMER_CONFIG_T *cfg) {
+void __am_timer_config(AM_TIMER_CONFIG2_T *cfg) {
     outl(TIMER_CNT, cfg->cnt);
     outl(TIMER_CMP, cfg->cmp);
     outl(TIMER_STEP, cfg->step);

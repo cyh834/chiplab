@@ -11,7 +11,7 @@ limitations under the License.
 ==============================================================================*/
 
 #include "tinymaix.h"
-#include <yolov4.h>
+
 #if TM_ENABLE_STAT
 static const char* mdl_type_str[6] = {
     "int8",   
@@ -122,7 +122,7 @@ tm_err_t tm_stat(tm_mdlbin_t* b)
         }
         layer_body += (h->size);
     }
-    //printf("\r\nTotal param ~%.1f KB, OPS ~%.2f MOPS, buffer %.1f KB\r\n\r\n", \
+    printf("\r\nTotal param ~%.1f KB, OPS ~%.2f MOPS, buffer %.1f KB\r\n\r\n", \
         sum_param/1024.0, sum_ops/1000000.0, (b->buf_size + b->sub_size)/1024.0);
     return TM_OK;
 } 

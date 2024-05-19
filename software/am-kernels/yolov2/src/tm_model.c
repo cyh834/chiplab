@@ -10,7 +10,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 #include "tinymaix.h"
-#include <yolov4.h>
+
 //load model
 //mdl: model handle; bin: model bin buf; buf: main buf for middle output; cb: layer callback; 
 //in: return input mat, include buf addr; //you can ignore it if use static buf
@@ -22,8 +22,8 @@ tm_err_t TM_WEAK tm_load  (tm_mdl_t* mdl, const uint8_t* bin, uint8_t*buf, tm_cb
     mdl->b          = mdl_bin;
     mdl->cb         = (void*)cb;
     if(buf == NULL) {
-        printf("mdl->b->buf_size: 0x%x\n", mdl->b->buf_size);
         mdl->buf        = (uint8_t*)tm_malloc(mdl->b->buf_size);
+        //printf("---------------------------------------------------------------------------mdl-buf=%d\n",malloc_usable_size(mdl->buf));
         if(mdl->buf == NULL) return TM_ERR_OOM;
         mdl->main_alloc = 1;
 	} else {
@@ -32,6 +32,7 @@ tm_err_t TM_WEAK tm_load  (tm_mdl_t* mdl, const uint8_t* bin, uint8_t*buf, tm_cb
     }
     if(mdl->b->sub_size > 0) {
         mdl->subbuf = (uint8_t*)tm_malloc(mdl->b->sub_size);
+        //printf("-----------------------------------------------------------------------------mdl-subbuf=%d\n",malloc_usable_size(mdl->subbuf));
         if(mdl->subbuf == NULL) return TM_ERR_OOM;
     } else mdl->subbuf = NULL;
     mdl->layer_i    = 0;

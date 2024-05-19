@@ -26,8 +26,6 @@ void halt(int code) {
 
 void _trm_init() {
 
-  ioe_init();
-  init_mm();
   int ret = main(mainargs);
   halt(ret);
 }
